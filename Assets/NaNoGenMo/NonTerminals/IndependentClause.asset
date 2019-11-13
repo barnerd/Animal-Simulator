@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce9af3687e4d24bcdaffdf383d688a7a, type: 3}
+  m_Name: IndependentClause
+  m_EditorClassIdentifier: 
+  symbolName: indepenedent clause
+  productions:
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 87766995ac1df47a9b3307383386ecd1, type: 2}
+  - {fileID: 11400000, guid: 30f89c72a47e2443ea394da4e3d6359e, type: 2}
+  - {fileID: 11400000, guid: 235c79df08d244d678fc7aabb319efe4, type: 2}
+  - {fileID: 11400000, guid: a7d293f56420c4278b2ac9248590dfa5, type: 2}
+  - {fileID: 11400000, guid: e60846bb6a2b3488cab09f62757f491c, type: 2}
+  - {fileID: 11400000, guid: 30f89c72a47e2443ea394da4e3d6359e, type: 2}
+  - {fileID: 11400000, guid: d4a122a3b254243a5b18646d6c52d60c, type: 2}
+  values:
+  - he
+  - ' '
+  - render
+  - naked
+  - ' '
+  - beliefs
+  rules:
+  - {fileID: 11400000, guid: 8283ae7e64a9d40a39baca09fa512a99, type: 2}
+  - {fileID: 11400000, guid: 3268c290a510847ad888f5862091ed86, type: 2}

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce9af3687e4d24bcdaffdf383d688a7a, type: 3}
+  m_Name: ObjectPhrase
+  m_EditorClassIdentifier: 
+  symbolName: object phrase
+  productions:
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: e60846bb6a2b3488cab09f62757f491c, type: 2}
+  - {fileID: 11400000, guid: 30f89c72a47e2443ea394da4e3d6359e, type: 2}
+  - {fileID: 11400000, guid: d4a122a3b254243a5b18646d6c52d60c, type: 2}
+  values:
+  - naked
+  - ' '
+  - beliefs
+  rules:
+  - {fileID: 11400000, guid: 3fd0e918fccc243d296f6da216c40c89, type: 2}
+  - {fileID: 11400000, guid: 0f0aa836f9a9440029ac666bf0496447, type: 2}

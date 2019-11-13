@@ -16,6 +16,8 @@ public class inputController : MonoBehaviour
     public float rotationLerpTime = 0.01f;
     public float angleToRotate;
 
+    public float objectSpeed;
+
     float positionLerpPct;
     float rotationLerpPct;
 
@@ -77,7 +79,7 @@ public class inputController : MonoBehaviour
     void MoveTargetPosition()
     {
         // Translation
-        var translation = GetInputTranslationDirection() * Time.deltaTime;
+        var translation = GetInputTranslationDirection() * Time.deltaTime * objectSpeed;
         var rotation = GetInputRotation() * Time.deltaTime;
 
         // Speed up movement when shift key held

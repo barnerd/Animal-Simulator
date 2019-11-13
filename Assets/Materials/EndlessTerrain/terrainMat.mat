@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: terrainMat
+  m_Shader: {fileID: -6465566751694194690, guid: 40038b4ff96ac4eefa251c756fb0bd78,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2DArray_6FCE73B5:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryColorTextureLerp_2729F2FC_Texture2D36EE9F27_1591561084:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryColorTextureLerp_2729F2FC_Texture2D8DA8A087_3766431770:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryColorTextureLerp_3DC1B5C7_Texture2D36EE9F27_1591561084:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryColorTextureLerp_3DC1B5C7_Texture2D8DA8A087_3766431770:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryColorTextureLerp_84D01D56_Texture2D36EE9F27_1591561084:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryColorTextureLerp_84D01D56_Texture2D8DA8A087_3766431770:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryColorTextureLerp_85567069_Texture2D36EE9F27_1591561084:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryColorTextureLerp_85567069_Texture2D8DA8A087_3766431770:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryColorTextureLerp_DBD0F7CE_Texture2D36EE9F27_1591561084:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryColorTextureLerp_DBD0F7CE_Texture2D8DA8A087_3766431770:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryTexture1:
+        m_Texture: {fileID: 2800000, guid: 17405fba9d20b47408239b3e82d60232, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryTexture2:
+        m_Texture: {fileID: 2800000, guid: a87cbf62329d56d4681d92302095915c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryTexture3:
+        m_Texture: {fileID: 2800000, guid: 94e5dd2784ae3a44a930dba86cba9f6e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryTexture4:
+        m_Texture: {fileID: 2800000, guid: 3f893818068c13c498261af150bea6f3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryTextureNormal1:
+        m_Texture: {fileID: 2800000, guid: db6b5112f8b3bcf478707e82ef048e88, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryTextureNormals1:
+        m_Texture: {fileID: 2800000, guid: 63312008529ed1d4bab4d57c204bae7a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryTextureNormals2:
+        m_Texture: {fileID: 2800000, guid: 9511ab33cd5f6724f8c31c380a4814af, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryTextureNormals3:
+        m_Texture: {fileID: 2800000, guid: 77f758ad16f6580469ca8f42205f7b78, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BoundaryTextureNormals4:
+        m_Texture: {fileID: 2800000, guid: e39dfb80d9815f14da82c65960519b23, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_2D150A28_Texture_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_EDA26D80_Texture_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _regionColorLerp_59E6688A_Texture2D8816FA1E_2838932554:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _regionColorLerp_59E6688A_Texture2DF6053C21_711615541:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_7FCFAEFB: 0
+    - Vector1_C903C1FE: 0
+    - _Boundary1: 0.24
+    - _Boundary2: 0.26
+    - _Boundary3: 0.34
+    - _Boundary4: 0.74
+    - _BoundaryBlend1: 1.43
+    - _BoundaryColorStrength1: 0.58
+    - _BoundaryTextureScale1: 240
+    - _BoundaryTextureScale2: 240
+    - _BoundaryTextureScale3: 240
+    - _BoundaryTextureScale4: 240
+    - _MaxHeight: 2500
+    m_Colors:
+    - Color_50DB9A8C: {r: 0.33018863, g: 0.08817675, b: 0, a: 1}
+    - Color_6EFC561B: {r: 0, g: 0.013547871, b: 0.43396226, a: 1}
+    - Color_F140F23A: {r: 0.4712975, g: 0.7787345, b: 0.8396226, a: 1}
+    - _BoundaryColor1: {r: 0.18382876, g: 0.71831435, b: 0.764151, a: 1}
+    - _BoundaryColor2: {r: 0.8867924, g: 0.8849232, b: 0.36391956, a: 1}
+    - _BoundaryColor3: {r: 0, g: 0.4528302, b: 0.12112643, a: 1}
+    - _BoundaryColor4: {r: 0.3207547, g: 0.1482504, b: 0, a: 1}
