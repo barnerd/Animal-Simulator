@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EndlessTerrain : MonoBehaviour
 {
-    const float viewerMoveThresholdToUpdate = 25f;
+    const float viewerMoveThresholdToUpdate = 50f;
     const float sqrViewerMoveThresholdToUpdate = viewerMoveThresholdToUpdate * viewerMoveThresholdToUpdate;
 
     public float mapSizeMultiplier;
@@ -28,7 +28,7 @@ public class EndlessTerrain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mapMaterial.SetFloat("_MaxHeight", mapSizeMultiplier * heightMapSettings.heightMultiplier);
+        SetMaterialParameters();
 
         float maxViewDistance = detailLevels[detailLevels.Length - 1].visibleDistanceThreshold;
         chunkSize = mapChunkSize - 1;
@@ -40,14 +40,24 @@ public class EndlessTerrain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(((GetComponentsInChildren<Transform>().Length - 2)* 5.76) + " sq km");
-        viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / mapSizeMultiplier;
+        // TODO: move the player is scaled, causing the wrong chucks to be displayed
+        viewerPosition = (new Vector2(viewer.position.x, viewer.position.z));// / mapSizeMultiplier;
 
         if ((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdToUpdate)
         {
             viewerPositionOld = viewerPosition;
             UpdateVisibleChunks();
         }
+    }
+
+    void SetMaterialParameters()
+    {
+        mapMaterial.SetFloat("_MaxHeight", mapSizeMultiplier * heightMapSettings.heightMultiplier);
+        mapMaterial.SetFloat("_HeightLines", (heightMapSettings.hasElevationLines) ? 1 : 0);
+        mapMaterial.SetFloat("_ElevationPerMajorLine", heightMapSettings.elevationPerMajorLine);
+        mapMaterial.SetFloat("_WidthOfMajorLine", heightMapSettings.widthOfMajorLine);
+        mapMaterial.SetFloat("_ElevationPerMinorLine", heightMapSettings.elevationPerMinorLine);
+        mapMaterial.SetFloat("_WidthOfMinorLine", heightMapSettings.widthOfMinorLine);
     }
 
     void UpdateVisibleChunks()
@@ -60,9 +70,10 @@ public class EndlessTerrain : MonoBehaviour
             visibleTerrainChunks[i].UpdateTerrainChunk();
         }
 
-        int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / chunkSize);
-        int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / chunkSize);
+        int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / (chunkSize * mapSizeMultiplier));
+        int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / (chunkSize * mapSizeMultiplier));
 
+        Debug.Log("current: " + new Vector2(currentChunkCoordX, currentChunkCoordY) + " viewable: " + new Vector2(currentChunkCoordX- chunksVisibleInViewDistance, currentChunkCoordY- chunksVisibleInViewDistance) + " to " + new Vector2(currentChunkCoordX + chunksVisibleInViewDistance, currentChunkCoordY + chunksVisibleInViewDistance));
         for (int yOffset = -chunksVisibleInViewDistance; yOffset <= chunksVisibleInViewDistance; yOffset++)
         {
             for (int xOffset = -chunksVisibleInViewDistance; xOffset <= chunksVisibleInViewDistance; xOffset++)

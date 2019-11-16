@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2a6c2fa7b55f4e81954ce96a9e6c5c8, type: 3}
-  m_Name: Default Height Map Settings
+  m_Name: Test Height Map Settings 1
   m_EditorClassIdentifier: 
-  noiseSettings: {fileID: 11400000, guid: dc1e3c1f90ee94a00bec1ec8176305fe, type: 2}
-  erosionSettings: {fileID: 11400000, guid: add20443d2f1245f99803e160da89f0c, type: 2}
+  noiseSettings: {fileID: 11400000, guid: b9debe3ca879549b68ef79a072a2f181, type: 2}
+  erosionSettings: {fileID: 11400000, guid: 56fdebac0cc7449f9b42ca8d8ae1e5b2, type: 2}
   heightMultiplier: 400
   hasElevationLines: 0
   elevationPerMajorLine: 200

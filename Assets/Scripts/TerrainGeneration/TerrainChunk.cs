@@ -7,6 +7,7 @@ public class TerrainChunk
     public event System.Action<TerrainChunk, bool> onVisibilityChanged;
     public Vector2 coord;
     int size;
+    float scale;
 
     HeightMapSettings settings;
 
@@ -17,6 +18,7 @@ public class TerrainChunk
     MeshRenderer meshRenderer;
     MeshFilter meshFilter;
     MeshCollider meshCollider;
+    Water water;
 
     LODInfo[] detailLevels;
     float maxViewDistance;
@@ -26,13 +28,15 @@ public class TerrainChunk
     bool mapDataReceived;
 
     int previousLODIndex = -1;
+    int currentLODIndex;
 
     Transform viewer;
 
-    public TerrainChunk(Vector2 _coord, int _size, float scale, HeightMapSettings _settings, LODInfo[] _detailLevels, Transform _parent, Transform _viewer, Material _material)
+    public TerrainChunk(Vector2 _coord, int _size, float _scale, HeightMapSettings _settings, LODInfo[] _detailLevels, Transform _parent, Transform _viewer, Material _material)
     {
         coord = _coord;
         size = _size;
+        scale = _scale;
 
         position = coord * size;
         bounds = new Bounds(position, Vector2.one * size);
@@ -42,9 +46,16 @@ public class TerrainChunk
 
         meshObject = new GameObject("Terrain Chunk");
         meshRenderer = meshObject.AddComponent<MeshRenderer>();
+        /*Material[] mats = new Material[2];
+        mats[0] = _material;
+        //mats[1] = new Material(null);
+        meshRenderer.materials = mats;*/
         meshRenderer.material = _material;
+
         meshFilter = meshObject.AddComponent<MeshFilter>();
         meshCollider = meshObject.AddComponent<MeshCollider>();
+        water = meshObject.AddComponent<Water>();
+        water.endlessTerrain = _parent.GetComponent<EndlessTerrain>();
 
         meshObject.transform.position = positionV3 * scale;
         meshObject.transform.parent = _parent;
@@ -63,18 +74,19 @@ public class TerrainChunk
         }
 
         maxViewDistance = detailLevels[detailLevels.Length - 1].visibleDistanceThreshold;
-
     }
 
     public void Load()
     {
-        ThreadedDataRequester.RequestData(() => MapGenerator.GenerateMapData(size, position, settings), OnDataReceived);
+        ThreadedDataRequester.RequestData(() => MapGenerator.GenerateMapData(size + 2 + 1, position, settings), OnDataReceived);
     }
 
     void OnDataReceived(object _mapData)
     {
         mapData = (MapData)_mapData;
         mapDataReceived = true;
+
+        water.setMapData(mapData);
 
         UpdateTerrainChunk();
     }
@@ -93,7 +105,7 @@ public class TerrainChunk
     {
         if (mapDataReceived)
         {
-            float viewerDistanceFromNearestEdge = Mathf.Sqrt(bounds.SqrDistance(viewerPosition));
+            float viewerDistanceFromNearestEdge = Mathf.Sqrt(bounds.SqrDistance(viewerPosition / scale));
             bool wasVisible = IsVisible();
             SetVisible(viewerDistanceFromNearestEdge <= maxViewDistance);
 
@@ -111,14 +123,16 @@ public class TerrainChunk
                         break;
                     }
                 }
+                currentLODIndex = lodIndex;
 
-                if (lodIndex != previousLODIndex)
+                if (currentLODIndex != previousLODIndex)
                 {
-                    LODMesh lodMesh = lodMeshes[lodIndex];
+                    LODMesh lodMesh = lodMeshes[currentLODIndex];
                     if (lodMesh.hasMesh)
                     {
-                        previousLODIndex = lodIndex;
+                        previousLODIndex = currentLODIndex;
                         meshFilter.mesh = lodMesh.mesh;
+                        meshFilter.mesh.colors = water.GenerateTexture(detailLevels[currentLODIndex].lod);
                     }
                     else if (!lodMesh.hasRequestedMesh)
                     {
@@ -126,21 +140,22 @@ public class TerrainChunk
                     }
                 }
 
+                // TODO: I believe this can be moved into the previous IF statement
                 if (lodIndex == 0)
                 {
-                    if (lodMeshes[0].hasMesh)
+                    if (lodMeshes[1].hasMesh)
                     {
-                        meshCollider.sharedMesh = lodMeshes[0].mesh;
+                        meshCollider.sharedMesh = lodMeshes[1].mesh;
                     }
                     else
                     {
-                        lodMeshes[0].RequestMesh(mapData);
+                        lodMeshes[1].RequestMesh(mapData);
                     }
                 }
 
                 if (wasVisible != IsVisible())
                 {
-                    if(onVisibilityChanged != null)
+                    if (onVisibilityChanged != null)
                     {
                         onVisibilityChanged(this, IsVisible());
                     }

@@ -7,7 +7,6 @@ public static class Noise
     {
         float[,] noiseMap = new float[_size, _size];
         float maxPossibleHeight = 0;
-        float minPossibleHeight = 0;
         float amplitude = 1;
         float frequency = 1;
 
@@ -15,12 +14,9 @@ public static class Noise
         Vector2[] octaveOffsets = new Vector2[settings.octaves];
         for (int o = 0; o < settings.octaves; o++)
         {
-            float offsetX = prng.Next(-100000, 100000) + offset.x;
-            float offsetY = prng.Next(-100000, 100000) - offset.y;
-            octaveOffsets[o] = new Vector2(offsetX, offsetY);
+            octaveOffsets[o] = new Vector2(prng.Next(-100000, 100000) + offset.x, prng.Next(-100000, 100000) - offset.y);
 
             maxPossibleHeight += amplitude;
-            minPossibleHeight -= amplitude;
             amplitude *= settings.persistance;
         }
 
@@ -55,7 +51,8 @@ public static class Noise
                 }
 
                 // normalize noiseMap across all noiseMaps
-                noiseMap[x, y] = (noiseHeight - minPossibleHeight) / (2f * maxPossibleHeight);
+                // and set range to [0,1]
+                noiseMap[x, y] = (noiseHeight + maxPossibleHeight) / (2f * maxPossibleHeight);
             }
         }
 

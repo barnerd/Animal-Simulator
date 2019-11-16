@@ -108,6 +108,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _WaterData:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _regionColorLerp_59E6688A_Texture2D8816FA1E_2838932554:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -119,17 +123,24 @@ Material:
     m_Floats:
     - Vector1_7FCFAEFB: 0
     - Vector1_C903C1FE: 0
-    - _Boundary1: 0.24
+    - _Boundary1: 0.25
     - _Boundary2: 0.26
-    - _Boundary3: 0.34
-    - _Boundary4: 0.74
+    - _Boundary3: 0.3
+    - _Boundary4: 0.7
     - _BoundaryBlend1: 1.43
-    - _BoundaryColorStrength1: 0.58
+    - _BoundaryColorStrength1: 1
     - _BoundaryTextureScale1: 240
     - _BoundaryTextureScale2: 240
     - _BoundaryTextureScale3: 240
     - _BoundaryTextureScale4: 240
-    - _MaxHeight: 2500
+    - _ElevationPerHeightLine: 100
+    - _ElevationPerMajorLine: 200
+    - _ElevationPerMinorLine: 40
+    - _HeightLines: 0
+    - _MaxHeight: 4000
+    - _ShowWater: 1
+    - _WidthOfMajorLine: 10
+    - _WidthOfMinorLine: 5
     m_Colors:
     - Color_50DB9A8C: {r: 0.33018863, g: 0.08817675, b: 0, a: 1}
     - Color_6EFC561B: {r: 0, g: 0.013547871, b: 0.43396226, a: 1}

@@ -8,8 +8,16 @@ public static class MapGenerator
 {
     public static MapData GenerateMapData(int size, Vector2 center, HeightMapSettings _settings)
     {
-        float[,] values = Noise.GeneratePerlinNoiseMap(size + 2, center, _settings.noiseSettings);
+        // generate noise
+        float[,] values = Noise.GeneratePerlinNoiseMap(size, center, _settings.noiseSettings);
 
+        // hydraulic erosion
+        if (_settings.erosionSettings.erode)
+        {
+            Erosion.Erode(values, size, _settings.erosionSettings);
+        }
+
+        // set height of map
         for (int y = 0; y < size; y++)
         {
             for (int x = 0; x < size; x++)
@@ -18,16 +26,22 @@ public static class MapGenerator
             }
         }
 
-        return new MapData(values);
+        return new MapData(values, _settings.heightMultiplier);
     }
 }
 
 public struct MapData
 {
-    public readonly float[,] heightMap;
+    // values from [0,1], doubles the memory needed
+    // public readonly float[,] normalizedMap;
 
-    public MapData(float[,] _heightMap)
+    // values from [0,heightMultiplier]
+    public readonly float[,] heightMap;
+    public readonly float heightMultiplier;
+
+    public MapData(float[,] _heightMap, float _scale)
     {
         heightMap = _heightMap;
+        heightMultiplier = _scale;
     }
 }

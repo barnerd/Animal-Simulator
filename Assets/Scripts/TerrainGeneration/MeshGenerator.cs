@@ -7,7 +7,7 @@ public static class MeshGenerator
 {
     public static MeshData GenerateTerrainMesh(float[,] heightMap, int levelOfDetail)
     {
-        int meshSimplicationIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2;
+        int meshSimplicationIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2; // 1, 2, 4, 6, 8
 
         int borderedSize = heightMap.GetLength(0);
         int meshSize = borderedSize - 2 * meshSimplicationIncrement;
@@ -65,12 +65,8 @@ public static class MeshGenerator
                     meshData.AddTriangle(a, d, c);
                     meshData.AddTriangle(d, a, b);
                 }
-
-                vertexIndex++;
             }
         }
-
-        meshData.BakeNormals();
 
         return meshData;
     }

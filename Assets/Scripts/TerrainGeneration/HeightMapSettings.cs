@@ -6,6 +6,14 @@ using UnityEngine;
 public class HeightMapSettings : ScriptableObject
 {
     public NoiseMapSettings noiseSettings;
+    public ErosionSettings erosionSettings;
 
     public float heightMultiplier;
+
+    [Header("Topographic Details")]
+    public bool hasElevationLines;
+    public float elevationPerMajorLine;
+    public float widthOfMajorLine;
+    public float elevationPerMinorLine;
+    public float widthOfMinorLine;
 }
