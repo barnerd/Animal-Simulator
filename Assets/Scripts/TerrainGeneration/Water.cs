@@ -20,9 +20,13 @@ public class Water : MonoBehaviour
     float updateInterval = 5f;
     float nextTimeForUpdate;
 
+    MeshFilter meshFilter;
+
     // Start is called before the first frame update
     void Start()
     {
+        meshFilter = GetComponent<MeshFilter>();
+
         nextTimeForUpdate = Time.time + updateInterval;
     }
 
@@ -64,6 +68,8 @@ public class Water : MonoBehaviour
 
     public Color[] GenerateTexture(int lod)
     {
+        Debug.Log("Converting water to colors");
+
         int size = EndlessTerrain.mapChunkSize;
         Color[] colorMap = new Color[size * size];
         int incrementStep = (lod == 0) ? 1 : lod * 2;
@@ -81,6 +87,7 @@ public class Water : MonoBehaviour
 
     public void ProcessWater()
     {
+        Debug.Log("Processing water");
         int size = EndlessTerrain.mapChunkSize;
         // create empty array
         // this won't be empty of it's raining (or raining will have it's own function)
@@ -93,6 +100,8 @@ public class Water : MonoBehaviour
             for (int x = 0; x < size; x++)
             {
                 waterVol = waterDatas[x, y].volume;
+
+                // assume lowest point is at current point
                 float lowestHeight = mapData.heightMap[x, y];
                 int lowestX = x;
                 int lowestY = y;
@@ -112,9 +121,10 @@ public class Water : MonoBehaviour
                         }
                     }
                 }
+
+                // move half the water from here to lowest point
                 newWater[lowestX, lowestY] += waterVol / 2f;
-                // lower volume at this cell
-                waterVol *= .1f;
+                waterVol *= .5f;
 
                 newWater[x, y] += waterVol;
             }
@@ -126,9 +136,11 @@ public class Water : MonoBehaviour
             for (int x = 0; x < size; x++)
             {
                 // evaporate some of the water
-                waterDatas[x, y].volume = newWater[x, y] * (1 - endlessTerrain.heightMapSettings.erosionSettings.evaporateSpeed);
+                waterDatas[x, y].volume = Mathf.Clamp01(newWater[x, y] * (1 - endlessTerrain.heightMapSettings.erosionSettings.evaporateSpeed));
             }
         }
+
+        meshFilter.mesh.colors = GenerateTexture(0);
     }
 }
 
