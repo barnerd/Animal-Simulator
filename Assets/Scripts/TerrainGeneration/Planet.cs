@@ -90,7 +90,7 @@ public static class Planet
         for (int i = 0; i < numPlates; i++)
         {
             plates[i].center /= plates[i].size;
-            Debug.Log(plates[i].center);
+            //Debug.Log(plates[i].center);
         }
 
         //Debug.Log((int)sw.ElapsedMilliseconds);
@@ -150,7 +150,7 @@ public static class Planet
 
                     // move plate
                     float theta = Mathf.Atan2(newPosition.y, newPosition.x) + currentPlate.direction.x * currentPlate.speed;
-                    float phi = Mathf.Atan2(Mathf.Sqrt(newPosition.x * newPosition.x);
+                    float phi = Mathf.Atan2(Mathf.Sqrt(newPosition.x * newPosition.x), newPosition.y);
                     float newX = Mathf.Cos(theta) * Mathf.Sin(phi);
                     newPosition += currentPlate.direction * currentPlate.speed;
                     currentPlate.center += currentPlate.direction * currentPlate.speed;

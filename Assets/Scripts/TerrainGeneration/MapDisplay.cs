@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class MapDisplay : MonoBehaviour
 {
-    public enum DrawMode { NoiseMap, ColorNoise, Plates, Mesh };
+    public enum DrawMode { NoiseMap, ColorNoise, Plates, NoiseMesh, VoronoiMesh };
     public enum PlateDrawMode { Plates, OceanVsCont };
 
     [Header("Display Settings")]
     public DrawMode drawMode;
     public PlateDrawMode plateDrawMode;
+    public VoronoiMeshMode voronoiMeshMode;
     public bool autoUpdate;
     public bool heightLines;
     public bool erosion;
@@ -19,6 +20,9 @@ public class MapDisplay : MonoBehaviour
     public int chunkSize;
     public int planetSize;
     public int numPlates;
+    public int numCenters;
+    [Range(0,5)]
+    public int relaxation;
     public Color[] plateColors;
 
     public Renderer textureRenderer;
@@ -32,6 +36,8 @@ public class MapDisplay : MonoBehaviour
 
     float updateInterval = 1f;
     float nextTimeForUpdate;
+
+    public VoronoiGraph worldGraph;
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +64,8 @@ public class MapDisplay : MonoBehaviour
 
     public void DrawMapInEditor()
     {
+        worldGraph.CreateGraph(planetSize, numCenters, relaxation);
+
         endlessTerrain.heightMapSettings.erosionSettings.erode = erosion;
         endlessTerrain.heightMapSettings.hasElevationLines = heightLines;
 
@@ -96,9 +104,15 @@ public class MapDisplay : MonoBehaviour
                 textureRenderer2.gameObject.SetActive(true);
                 meshRenderer.gameObject.SetActive(false);
                 break;
-            case DrawMode.Mesh:
+            case DrawMode.NoiseMesh:
                 Color[] colors = ColorsFromHeightMap(mapData.heightMap, endlessTerrain.heightMapSettings.heightMultiplier, drawMode, heightLines);
                 DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.heightMap, levelOfDetail), colors);
+                textureRenderer.gameObject.SetActive(false);
+                textureRenderer2.gameObject.SetActive(false);
+                meshRenderer.gameObject.SetActive(true);
+                break;
+            case DrawMode.VoronoiMesh:
+                DrawMesh(worldGraph.CreateMesh(voronoiMeshMode));
                 textureRenderer.gameObject.SetActive(false);
                 textureRenderer2.gameObject.SetActive(false);
                 meshRenderer.gameObject.SetActive(true);
@@ -127,6 +141,18 @@ public class MapDisplay : MonoBehaviour
         meshFilter.sharedMesh = meshData.CreateMesh();
         meshFilter.transform.localScale = Vector3.one * endlessTerrain.mapSizeMultiplier;
         meshFilter.sharedMesh.colors = colorMap;
+        meshRenderer.sharedMaterial.SetFloat("_MaxHeight", endlessTerrain.mapSizeMultiplier * endlessTerrain.heightMapSettings.heightMultiplier);
+        meshRenderer.sharedMaterial.SetFloat("_HeightLines", (endlessTerrain.heightMapSettings.hasElevationLines) ? 1 : 0);
+        meshRenderer.sharedMaterial.SetFloat("_ElevationPerMajorLine", endlessTerrain.heightMapSettings.elevationPerMajorLine);
+        meshRenderer.sharedMaterial.SetFloat("_WidthOfMajorLine", endlessTerrain.heightMapSettings.widthOfMajorLine);
+        meshRenderer.sharedMaterial.SetFloat("_ElevationPerMinorLine", endlessTerrain.heightMapSettings.elevationPerMinorLine);
+        meshRenderer.sharedMaterial.SetFloat("_WidthOfMinorLine", endlessTerrain.heightMapSettings.widthOfMinorLine);
+    }
+
+    public void DrawMesh(Mesh _mesh)
+    {
+        meshFilter.sharedMesh = _mesh;
+        meshFilter.transform.localScale = Vector3.one * endlessTerrain.mapSizeMultiplier;
         meshRenderer.sharedMaterial.SetFloat("_MaxHeight", endlessTerrain.mapSizeMultiplier * endlessTerrain.heightMapSettings.heightMultiplier);
         meshRenderer.sharedMaterial.SetFloat("_HeightLines", (endlessTerrain.heightMapSettings.hasElevationLines) ? 1 : 0);
         meshRenderer.sharedMaterial.SetFloat("_ElevationPerMajorLine", endlessTerrain.heightMapSettings.elevationPerMajorLine);
@@ -166,7 +192,7 @@ public class MapDisplay : MonoBehaviour
 
     public Color[] ColorsFromHeightMap(float[,] heightMap, float heightScale, DrawMode _mode, bool heightLines)
     {
-        int size = heightMap.GetLength(0) - ((_mode == DrawMode.Mesh) ? 2 : 0);
+        int size = heightMap.GetLength(0) - ((_mode == DrawMode.NoiseMesh) ? 2 : 0);
 
         Color[] colorMap = new Color[size * size];
         int index = 0;
@@ -179,7 +205,7 @@ public class MapDisplay : MonoBehaviour
                 float heightPercent = heightMap[x, y] / heightScale;
                 Color bottomColor = Color.black;
                 Color topColor = Color.white;
-                if (_mode == DrawMode.ColorNoise || _mode == DrawMode.Mesh)
+                if (_mode == DrawMode.ColorNoise || _mode == DrawMode.NoiseMesh)
                 {
                     if (heightPercent < .2)
                     {
