@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class boxRotate : MonoBehaviour
 {
+    public Vector3 angle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,8 @@ public class boxRotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.RotateAround(Vector3.zero, Vector3.forward, 45 * Time.deltaTime);
+        transform.Rotate(angle, 45 * Time.deltaTime);
+
+        //transform.RotateAround(Vector3.zero, angle, 45 * Time.deltaTime);
     }
 }
