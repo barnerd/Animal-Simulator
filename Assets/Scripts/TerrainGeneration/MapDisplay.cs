@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Delaunay;
 
 public class MapDisplay : MonoBehaviour
 {
     public enum DrawMode { NoiseMap, ColorNoise, Plates, NoiseMesh, VoronoiMesh };
     public enum PlateDrawMode { Plates, OceanVsCont };
+    public enum VoronoiMeshMode { Delaunay, Voronoi, Both, DelaunayTrianglation, VoronoiTrianglation, Sphere };
 
     [Header("Display Settings")]
     public DrawMode drawMode;
@@ -21,8 +23,9 @@ public class MapDisplay : MonoBehaviour
     public int planetSize;
     public int numPlates;
     public int numCenters;
-    [Range(0,5)]
+    [Range(0, 5)]
     public int relaxation;
+    public bool randomPoints;
     public Color[] plateColors;
 
     public Renderer textureRenderer;
@@ -57,23 +60,40 @@ public class MapDisplay : MonoBehaviour
         {
             Debug.Log("Moving Plates");
             nextTimeForUpdate += updateInterval;
-            Planet.MovePlates(planetData);
+            //Planet.MovePlates(planetData);
             DrawMap();
         }
     }
 
     public void DrawMapInEditor()
     {
-        worldGraph.CreateGraph(planetSize, numCenters, relaxation);
+        List<VSphericalPoint> points = new List<VSphericalPoint>();
+        for (int i = 0; i < numCenters; i++)
+        {
+            points.Add(new VSphericalPoint(Random.Range(-179.99f, 180f), Random.Range(-89.99f, 89.99f)));
+        }
+        if (!randomPoints)
+        {
+            points.Clear();
+            /*points.Add(new VSphericalPoint(0, 90));
+            points.Add(new VSphericalPoint(5, 0));
+            points.Add(new VSphericalPoint(0, -60));*/
+            points.Add(new VSphericalPoint(30, 15));
+            points.Add(new VSphericalPoint(0, 0));
+            points.Add(new VSphericalPoint(-45, 15));
+        }
+        worldGraph = new VoronoiGraph(points);
+
+        //Debug.Log(worldGraph.FindClosestSites(new Vector2(Random.Range(0, planetSize), Random.Range(0, planetSize)), 32f).Count);
 
         endlessTerrain.heightMapSettings.erosionSettings.erode = erosion;
         endlessTerrain.heightMapSettings.hasElevationLines = heightLines;
 
-        mapData = MapGenerator.GenerateMapData(chunkSize + 2, Vector2.zero, endlessTerrain.heightMapSettings);
-        planetData = Planet.GenerateTectonicPlates(planetSize, numPlates);
+        //mapData = MapGenerator.GenerateMapData(chunkSize + 2, Vector2.zero, endlessTerrain.heightMapSettings);
+        //planetData = Planet.GenerateTectonicPlates(planetSize, numPlates);
         //Planet.MovePlates(planetData);
 
-        for (int i = 0; i < numPlates; i++)
+        //for (int i = 0; i < numPlates; i++)
         {
             //Debug.Log(planetData.plates[i].direction);
             //Debug.Log(planetData.plates[i].speed);
@@ -112,7 +132,7 @@ public class MapDisplay : MonoBehaviour
                 meshRenderer.gameObject.SetActive(true);
                 break;
             case DrawMode.VoronoiMesh:
-                DrawMesh(worldGraph.CreateMesh(voronoiMeshMode));
+                //DrawMesh(worldGraph.CreateMesh(voronoiMeshMode));
                 textureRenderer.gameObject.SetActive(false);
                 textureRenderer2.gameObject.SetActive(false);
                 meshRenderer.gameObject.SetActive(true);
@@ -299,5 +319,140 @@ public class MapDisplay : MonoBehaviour
             }
         }
         return colorMap;
+    }
+
+    void OnDrawGizmos()
+    {
+        if (drawMode == DrawMode.VoronoiMesh && worldGraph != null)
+        {
+            var sites = worldGraph.Sites();
+            var edges = worldGraph.Edges();
+
+            if (sites != null)
+            {
+                if (voronoiMeshMode == VoronoiMeshMode.Delaunay || voronoiMeshMode == VoronoiMeshMode.Both || voronoiMeshMode == VoronoiMeshMode.Voronoi)
+                {
+                    foreach (var site in sites.Values)
+                    {
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawSphere(new Vector3(site.x, 0, site.y) * endlessTerrain.mapSizeMultiplier, 2f * endlessTerrain.mapSizeMultiplier);
+
+                        if (voronoiMeshMode != VoronoiMeshMode.Voronoi)
+                        {
+                            Gizmos.color = Color.black;
+                            foreach (var neighbor in site.neighbors)
+                            {
+                                Gizmos.DrawLine(new Vector3(site.x, 0, site.y) * endlessTerrain.mapSizeMultiplier, new Vector3(neighbor.x, 0, neighbor.y) * endlessTerrain.mapSizeMultiplier);
+                            }
+                        }
+                    }
+                }
+
+                foreach (var edge in edges)
+                {
+                    var start = new Vector3(edge.Start.x, 0, edge.Start.y) * endlessTerrain.mapSizeMultiplier;
+                    var end = new Vector3(edge.End.x, 0, edge.End.y) * endlessTerrain.mapSizeMultiplier;
+
+                    if (voronoiMeshMode == VoronoiMeshMode.Voronoi || voronoiMeshMode == VoronoiMeshMode.Both)
+                    {
+                        Gizmos.color = Color.white;
+                        Gizmos.DrawLine(start, end);
+                        Gizmos.color = Color.blue;
+                        Gizmos.DrawSphere(start, 1.5f * endlessTerrain.mapSizeMultiplier);
+                        Gizmos.DrawSphere(end, 1.5f * endlessTerrain.mapSizeMultiplier);
+                    }
+                    if (voronoiMeshMode == VoronoiMeshMode.VoronoiTrianglation)
+                    {
+                        var leftCenter = new Vector3(edge.leftSite.x, 0, edge.leftSite.y) * endlessTerrain.mapSizeMultiplier;
+                        var rightCenter = new Vector3(edge.rightSite.x, 0, edge.rightSite.y) * endlessTerrain.mapSizeMultiplier;
+
+                        Gizmos.color = Color.white;
+                        Gizmos.DrawLine(leftCenter, start);
+                        Gizmos.DrawLine(start, end);
+                        Gizmos.DrawLine(end, leftCenter);
+
+                        Gizmos.DrawLine(rightCenter, start);
+                        Gizmos.DrawLine(start, end);
+                        Gizmos.DrawLine(end, rightCenter);
+                    }
+                }
+
+                if (voronoiMeshMode == VoronoiMeshMode.Sphere)
+                {
+                    Vector3 start, end;
+                    float radius = 100f;
+
+                    // center of sphere
+                    Gizmos.color = Color.yellow;
+                    Gizmos.DrawSphere(Vector3.zero, 3f * endlessTerrain.mapSizeMultiplier);
+
+                    // draw current intersection
+                    /*Gizmos.color = Color.green;
+                    var intersection = new Vector3(0.7481f, 0.6563f, -0.0985f) * endlessTerrain.mapSizeMultiplier * radius;
+                    var intersectionO = -intersection;
+                    Gizmos.DrawSphere(intersection, 3f * endlessTerrain.mapSizeMultiplier);
+                    Gizmos.DrawSphere(intersectionO, 3f * endlessTerrain.mapSizeMultiplier);
+                    Gizmos.DrawLine(intersection, intersectionO);
+
+                    // draw points
+                    Gizmos.color = Color.red;
+                    var point1 = new VSphericalPoint(30, 15);
+                    var point2 = new VSphericalPoint(0, 0);
+                    var point3 = new VSphericalPoint(-45, 15);
+                    Gizmos.DrawSphere(point1.euclidean * endlessTerrain.mapSizeMultiplier * radius, 3f * endlessTerrain.mapSizeMultiplier);
+                    Gizmos.DrawLine(point1.euclidean * endlessTerrain.mapSizeMultiplier * radius, point2.euclidean * endlessTerrain.mapSizeMultiplier * radius);
+
+                    Gizmos.DrawSphere(point2.euclidean * endlessTerrain.mapSizeMultiplier * radius, 3f * endlessTerrain.mapSizeMultiplier);
+                    Gizmos.DrawLine(point2.euclidean * endlessTerrain.mapSizeMultiplier * radius, point3.euclidean * endlessTerrain.mapSizeMultiplier * radius);
+
+                    Gizmos.DrawSphere(point3.euclidean * endlessTerrain.mapSizeMultiplier * radius, 3f * endlessTerrain.mapSizeMultiplier);
+                    Gizmos.DrawLine(point3.euclidean * endlessTerrain.mapSizeMultiplier * radius, point1.euclidean * endlessTerrain.mapSizeMultiplier * radius);
+
+                    // draw midpoints
+                    Gizmos.color = Color.blue;
+                    var midpoint12 = new Vector3(0.9583f, 0.135f, 0.252f) * endlessTerrain.mapSizeMultiplier * radius;
+                    var midpoint23 = new Vector3(0.9173f, 0.1411f, -0.3723f) * endlessTerrain.mapSizeMultiplier * radius;
+                    var midpoint31 = new Vector3(0.9393f, 0.32f, -0.1237f) * endlessTerrain.mapSizeMultiplier * radius;
+                    Gizmos.DrawSphere(midpoint12, 3f * endlessTerrain.mapSizeMultiplier);
+                    Gizmos.DrawSphere(midpoint23, 3f * endlessTerrain.mapSizeMultiplier);
+                    Gizmos.DrawSphere(midpoint31, 3f * endlessTerrain.mapSizeMultiplier);
+
+                    Gizmos.DrawLine(midpoint12, point1.euclidean * endlessTerrain.mapSizeMultiplier * radius);
+                    Gizmos.DrawLine(midpoint12, point2.euclidean * endlessTerrain.mapSizeMultiplier * radius);
+
+                    Gizmos.DrawLine(midpoint23, point2.euclidean * endlessTerrain.mapSizeMultiplier * radius);
+                    Gizmos.DrawLine(midpoint23, point3.euclidean * endlessTerrain.mapSizeMultiplier * radius);
+
+                    Gizmos.DrawLine(midpoint31, point3.euclidean * endlessTerrain.mapSizeMultiplier * radius);
+                    Gizmos.DrawLine(midpoint31, point1.euclidean * endlessTerrain.mapSizeMultiplier * radius);*/
+
+                    foreach (var site in sites.Values)
+                    {
+                        Gizmos.color = Color.red;
+                        start = (new VSphericalPoint(site.center)).euclidean * endlessTerrain.mapSizeMultiplier * radius;
+                        Gizmos.DrawSphere(start, 1f * endlessTerrain.mapSizeMultiplier);
+
+                        Gizmos.color = Color.black;
+                        foreach (var neighbor in site.neighbors)
+                        {
+                            end = (new VSphericalPoint(neighbor.center)).euclidean * endlessTerrain.mapSizeMultiplier * radius;
+                            Gizmos.DrawLine(start, end);
+                        }
+                    }
+                    
+                    foreach (var edge in edges)
+                    {
+                        start = (new VSphericalPoint(edge.Start)).euclidean * endlessTerrain.mapSizeMultiplier * radius;
+                        end = (new VSphericalPoint(edge.End)).euclidean * endlessTerrain.mapSizeMultiplier * radius;
+
+                        Gizmos.color = Color.white;
+                        Gizmos.DrawLine(start, end);
+                        Gizmos.color = Color.blue;
+                        Gizmos.DrawSphere(start, 0.5f * endlessTerrain.mapSizeMultiplier);
+                        Gizmos.DrawSphere(end, 0.5f * endlessTerrain.mapSizeMultiplier);
+                    }
+                }
+            }
+        }
     }
 }
