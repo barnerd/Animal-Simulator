@@ -27,9 +27,11 @@ namespace Delaunay
         public VoronoiGraph(List<VSphericalPoint> points)
         {
             // from https://courses.cs.washington.edu/courses/cse326/00wi/projects/voronoi.html
+            // [1] Initialize edges and sites to be empty.
             sites = new Dictionary<VPoint, VSite>();
             edges = new List<VHalfEdge>();
 
+            // [2] Add three or four "points at infinity" to sites, to bound the diagram.
             // No bounds
 
             List<VSphericalPoint> intersections = new List<VSphericalPoint>();
