@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24137a34dd82b4127a26e471de642233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 8
+  resolution: 2
   size: 256
   heightScale: 64
   noiseSettings: {fileID: 11400000, guid: b9debe3ca879549b68ef79a072a2f181, type: 2}
