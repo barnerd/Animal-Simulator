@@ -11,7 +11,7 @@ public class VoronoiGraph
     private LinkedList<VEdge> edges;
 
     private List<FortuneSite>[,] centersInGridLookup;
-    private int gridLookupSize = 32;
+    private int gridLookupSize;// = 32;
 
     // Mesh variables
     Dictionary<Vector2, int> vertexIndices = new Dictionary<Vector2, int>();

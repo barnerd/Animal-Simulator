@@ -7,8 +7,8 @@ using VoronoiLib.Structures;
 public class VSphericalPoint
 {
     public Vector3 euclidean;
-    public new float x { get => euclidean.x; }
-    public new float y { get => euclidean.y; }
+    public float x { get => euclidean.x; }
+    public float y { get => euclidean.y; }
     public float z { get => euclidean.z; }
 
     public Vector3 spherical;
@@ -34,7 +34,7 @@ public class VSphericalPoint
         Normalize();
     }
 
-    public new float magnitude
+    public float magnitude
     {
         get
         {
@@ -42,13 +42,13 @@ public class VSphericalPoint
         }
     }
 
-    public new void Normalize()
+    public void Normalize()
     {
         euclidean /= magnitude;
         spherical = EuclideanToSpherical(euclidean);
     }
 
-    public new string ToString(string format = "")
+    public string ToString(string format = "")
     {
         return string.Format("Spherical: (" + r.ToString(format) + ", " + phi.ToString(format) + ", " + theta.ToString(format) + ")" + " Euclidean: (" + x.ToString(format) + ", " + y.ToString(format) + ", " + z.ToString(format) + ")");
     }
