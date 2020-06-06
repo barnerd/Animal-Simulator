@@ -13,9 +13,6 @@ public class CameraController : MonoBehaviour
     public float maxZoom = 10f;
     private float currentZoom = 9f;
 
-    public float yawSpeed = 100f;
-    private float currentYaw = 0f;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -28,16 +25,18 @@ public class CameraController : MonoBehaviour
         // get current zoom from scrollwheel
         currentZoom -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
         currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
-
-        //currentYaw -= Input.GetAxis("Horizontal") * yawSpeed * Time.deltaTime;
     }
 
     void LateUpdate()
     {
         // set position based on target, offset and zoom
         transform.position = target.position - offset * currentZoom;
+
+        // face the same way as the target is
+        transform.RotateAround(target.position, Vector3.up, target.eulerAngles.y);
+
+        //look at the target
         transform.LookAt(target.position);
 
-        transform.RotateAround(target.position, Vector3.up, currentYaw);
     }
 }

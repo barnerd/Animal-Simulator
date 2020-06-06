@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Camera cam;
-    //public CreatureMotor motor;
-    public CharacterController motor;
+    public CreatureMotor motor;
 
     // TODO: Move speed to stats
     public float speed = 6f;
@@ -22,10 +21,7 @@ public class PlayerController : MonoBehaviour
             cam.transform.parent = this.transform;
         }
 
-        if(motor == null)
-        {
-            motor = this.GetComponent<CharacterController>();
-        }
+        if (motor == null) motor = this.GetComponent<CreatureMotor>();
     }
 
     // Update is called once per frame
@@ -35,16 +31,32 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+        //Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+        Vector3 direction = transform.right * horizontal + transform.forward * vertical;
+        direction.Normalize();
 
         // if input, then move in direction
         if (direction.magnitude >= .1f)
         {
-            float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-            float targetAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+            if(vertical < 0)
+            {
+                // move backwards
+            }
+            else
+            {
+                // TODO: Move this to CreatureMotor
+                float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+                float targetAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle, ref turnSmoothVelocity, turnSmoothTime);
+                transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+            }
 
             motor.Move(direction * speed * Time.deltaTime);
+        }
+
+        // jump
+        if (Input.GetButtonDown("Jump"))
+        {
+            motor.Jump();
         }
 
         // use left mouse button to interact

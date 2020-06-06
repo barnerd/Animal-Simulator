@@ -52,9 +52,9 @@ public class CreatureCreation : MonoBehaviour
 
         /*Rigidbody creatureRB = creature.AddComponent<Rigidbody>();
         creatureRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        creatureRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        creatureRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;*/
 
-        creature.AddComponent<CreatureMotor>();*/
+        creature.AddComponent<CreatureMotor>();
         creature.AddComponent<CharacterController>();
     }
 }
