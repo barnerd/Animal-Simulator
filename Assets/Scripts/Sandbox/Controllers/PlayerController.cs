@@ -22,6 +22,10 @@ public class PlayerController : InputController
         Vector3 direction = obj.transform.right * horizontal + obj.transform.forward * vertical;
         direction.Normalize();
 
+        if(direction.magnitude > 0.01f)
+        {
+            obj.GetComponent<Creature>().RemoveFocus();
+        }
         obj.GetComponent<CreatureMotor>().Move(direction);
 
         // jump
@@ -39,7 +43,26 @@ public class PlayerController : InputController
             if (Physics.Raycast(ray, out hit))
             {
                 // check if we hit interactable
+                Interactable interactable = hit.collider.GetComponentInParent<Interactable>();
+
                 // if yes, do something
+                if (interactable != null)
+                {
+                    obj.GetComponent<Creature>().SetFocus(interactable);
+
+                    if (Vector3.Distance(obj.transform.position, interactable.transform.position) < interactable.radius * .99f)
+                    {
+                        Debug.Log("in range of interactable");
+                    }
+                    else
+                    {
+                        Debug.Log("out of range of interactable");
+                    }
+                }
+                else
+                {
+                    obj.GetComponent<Creature>().RemoveFocus();
+                }
             }
         }
     }

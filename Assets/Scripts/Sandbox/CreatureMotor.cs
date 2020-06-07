@@ -65,6 +65,14 @@ public class CreatureMotor : MonoBehaviour
         this.targetPosition = _point;
     }
 
+    public void FaceTarget(Transform _target)
+    {
+        Vector3 lookDirection = (_target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(lookDirection.x, 0f, lookDirection.z));
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2f * Time.deltaTime);
+    }
+
     public void Jump()
     {
         if (controller.isGrounded)
