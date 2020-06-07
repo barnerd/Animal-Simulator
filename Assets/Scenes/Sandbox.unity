@@ -457,7 +457,6 @@ MonoBehaviour:
   zoomSpeed: 4
   minZoom: 6
   maxZoom: 10
-  yawSmoothTime: 10
 --- !u!1 &1401569172
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +488,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numCreatures: 16
   ground: {fileID: 804558662}
+  playerController: {fileID: 11400000, guid: dd6b1523321d8494b9d225482b8c41ae, type: 2}
+  aiController: {fileID: 11400000, guid: 9f1dcea1303b84965958e263098515f3, type: 2}
 --- !u!4 &1401569174
 Transform:
   m_ObjectHideFlags: 0

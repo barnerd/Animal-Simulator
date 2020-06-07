@@ -6,17 +6,30 @@ public class CreatureMotor : MonoBehaviour
 {
     public CharacterController controller;
 
-    //public Rigidbody rb;
     public float gravity = -9.81f;
     public float jumpHeight = .5f;
 
     Vector3 velocity;
+    public Vector3 direction;
+    public Vector3 targetPosition;
+
+    public float turnSmoothTime = 0.6f;
+    private float turnSmoothVelocity;
 
     // Start is called before the first frame update
     void Start()
     {
-        //rb = GetComponent<Rigidbody>();
-        if (controller == null) controller = this.GetComponent<CharacterController>();
+        if (controller == null)
+        {
+            if (gameObject.GetComponent<CharacterController>() == null)
+            {
+                controller = gameObject.AddComponent<CharacterController>();
+            }
+            else
+            {
+                controller = gameObject.GetComponent<CharacterController>();
+            }
+        }
     }
 
     // Update is called once per frame
@@ -27,7 +40,8 @@ public class CreatureMotor : MonoBehaviour
             velocity.y = gravity;
         }
         velocity.y += .5f * gravity * Time.deltaTime * Time.deltaTime;
-        controller.Move(velocity);
+
+        controller.Move(velocity + direction * this.gameObject.GetComponent<Creature>().speed * Time.deltaTime);
     }
 
     void FixedUpdate()
@@ -36,7 +50,19 @@ public class CreatureMotor : MonoBehaviour
 
     public void Move(Vector3 _direction)
     {
-        controller.Move(_direction);
+        // if input, then move in direction
+        if (_direction.magnitude >= .1f)
+        {
+            float angle = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg;
+            float targetAngle = Mathf.SmoothDampAngle(this.transform.eulerAngles.y, angle, ref turnSmoothVelocity, turnSmoothTime);
+            this.transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+        }
+        this.direction = _direction;
+    }
+
+    public void MoveToPoint(Vector3 _point)
+    {
+        this.targetPosition = _point;
     }
 
     public void Jump()

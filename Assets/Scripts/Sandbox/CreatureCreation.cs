@@ -7,6 +7,9 @@ public class CreatureCreation : MonoBehaviour
     public int numCreatures;
     public Ground ground;
 
+    public PlayerController playerController;
+    public AIController aiController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,12 +17,6 @@ public class CreatureCreation : MonoBehaviour
         {
             CreateCreature(i);
         }
-
-        var char1 = GetComponentInChildren<CharacterController>().gameObject;
-        var char1PC = char1.AddComponent<PlayerController>();
-
-        char1PC.cam = Camera.main;
-        char1PC.cam.GetComponent<CameraController>().target = char1.transform;
     }
 
     // Update is called once per frame
@@ -54,7 +51,24 @@ public class CreatureCreation : MonoBehaviour
         creatureRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
         creatureRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;*/
 
+        creature.AddComponent<Creature>();
+        creature.GetComponent<Creature>().currentController = playerController;
+
         creature.AddComponent<CreatureMotor>();
-        creature.AddComponent<CharacterController>();
+
+        if(num == 0)
+        {
+            var creatureC = creature.GetComponent<Creature>();
+            creatureC.currentController = playerController;
+
+            var creatureController = (PlayerController)creatureC.currentController;
+
+            creatureController.cam = Camera.main;
+            creatureController.cam.GetComponent<CameraController>().target = creature.transform;
+        }
+        else
+        {
+            creature.GetComponent<Creature>().currentController = aiController;
+        }
     }
 }

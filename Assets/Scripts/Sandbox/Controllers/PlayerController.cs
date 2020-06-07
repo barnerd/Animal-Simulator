@@ -1,0 +1,46 @@
+﻿using UnityEngine;
+
+[CreateAssetMenu(fileName = "InputController", menuName = "Input Controller/Player Controller")]
+public class PlayerController : InputController
+{
+    public Camera cam;
+
+    public override void Initialize(GameObject obj)
+    {
+        if (cam != null)
+        {
+            cam.transform.parent = obj.transform;
+        }
+    }
+
+    public override void ProcessInput(GameObject obj)
+    {
+        // get input
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        Vector3 direction = obj.transform.right * horizontal + obj.transform.forward * vertical;
+        direction.Normalize();
+
+        obj.GetComponent<CreatureMotor>().Move(direction);
+
+        // jump
+        if (Input.GetButtonDown("Jump"))
+        {
+            obj.GetComponent<CreatureMotor>().Jump();
+        }
+
+        // use left mouse button to interact
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                // check if we hit interactable
+                // if yes, do something
+            }
+        }
+    }
+}
