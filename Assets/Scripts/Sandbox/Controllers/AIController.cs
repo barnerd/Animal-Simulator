@@ -18,13 +18,24 @@ public class AIController : InputController
             nextTimeForUpdate += updateInterval;
         }
 
-        // change random direction
-        float horizontal = Random.Range(-1f, 1f);
-        float vertical = Random.Range(-1f, 1f);
+        Vector3 direction;
 
-        Vector3 direction = obj.transform.right * horizontal + obj.transform.forward * vertical;
-        direction.Normalize();
-
-        obj.GetComponent<CreatureMotor>().Move(direction);
+        if(obj.GetComponent<Creature>().focus != null)
+        {
+            if(Vector3.Distance(obj.GetComponent<Creature>().focus.transform.position, obj.transform.position) < obj.GetComponent<Creature>().focus.radius)
+            {
+                //obj.GetComponent<Creature>().focus = null;
+                obj.GetComponent<CreatureMotor>().Move(Vector3.zero);
+            }
+            else
+            {
+                direction = (obj.GetComponent<Creature>().focus.transform.position - obj.transform.position).normalized;
+                obj.GetComponent<CreatureMotor>().Move(direction);
+            }
+        }
+        else
+        {
+            // pick a new focus
+        }
     }
 }
