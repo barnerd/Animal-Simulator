@@ -23,6 +23,9 @@ public class Creature : MonoBehaviour
         if (focus != null)
         {
             GetComponent<CreatureMotor>().FaceTarget(focus.transform);
+
+            if (Vector3.Distance(focus.transform.position, transform.position) < focus.radius)
+                Interact(focus);
         }
     }
 
@@ -40,5 +43,10 @@ public class Creature : MonoBehaviour
     public void RemoveFocus()
     {
         focus = null;
+    }
+
+    public bool Interact(Interactable _focus)
+    {
+        return _focus.Interact(this.gameObject);
     }
 }

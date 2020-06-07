@@ -53,6 +53,8 @@ public class CreatureMotor : MonoBehaviour
         // if input, then move in direction
         if (_direction.magnitude >= .1f)
         {
+            // rotate the character as well
+            // TODO: left/right is moving AND rotating the character, causing the character to go in a circle
             float angle = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg;
             float targetAngle = Mathf.SmoothDampAngle(this.transform.eulerAngles.y, angle, ref turnSmoothVelocity, turnSmoothTime);
             this.transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);

@@ -7,6 +7,8 @@ public class ItemCreation : MonoBehaviour
     public int numItems;
     public Ground ground;
 
+    public Material mat;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +35,7 @@ public class ItemCreation : MonoBehaviour
         box.name = "GFX";
         box.transform.parent = item.transform;
         box.transform.localScale = new Vector3(.2f, .2f, .2f);
+        box.GetComponent<MeshRenderer>().sharedMaterial = mat;
 
         // set random position
         float x = Random.Range(0f, ground.size);
@@ -42,6 +45,6 @@ public class ItemCreation : MonoBehaviour
         Rigidbody itemRB = item.AddComponent<Rigidbody>();
         itemRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
-        item.AddComponent<Interactable>();
+        item.AddComponent<ItemPickup>();
     }
 }

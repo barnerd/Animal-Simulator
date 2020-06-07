@@ -22,6 +22,7 @@ public class CreatureCreation : MonoBehaviour
             if(i == 0)
             {
                 player = c;
+                player.GetComponent<Interactable>().radius = 10f;
             }
             else if(player != null)
             {

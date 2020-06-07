@@ -488,6 +488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numItems: 64
   ground: {fileID: 804558662}
+  mat: {fileID: 2100000, guid: 7d0cdaf2d4ae141a49fab982e0535939, type: 2}
 --- !u!4 &1283637811
 Transform:
   m_ObjectHideFlags: 0
