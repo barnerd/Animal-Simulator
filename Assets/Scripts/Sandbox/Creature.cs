@@ -20,6 +20,8 @@ public class Creature : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentController.ProcessInput(this.gameObject);
+
         if (focus != null)
         {
             GetComponent<CreatureMotor>().FaceTarget(focus.transform);
@@ -32,7 +34,6 @@ public class Creature : MonoBehaviour
     // FixedUpdate is used with physics
     void FixedUpdate()
     {
-        currentController.ProcessInput(this.gameObject);
     }
 
     public void SetFocus(Interactable _focus)

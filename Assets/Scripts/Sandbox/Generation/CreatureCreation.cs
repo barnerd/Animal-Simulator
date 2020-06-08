@@ -69,6 +69,7 @@ public class CreatureCreation : MonoBehaviour
         creature.AddComponent<Interactable>();
 
         creature.AddComponent<CreatureMotor>();
+        creature.AddComponent<Inventory>();
 
         if(num == 0)
         {

@@ -9,6 +9,8 @@ public class ItemCreation : MonoBehaviour
 
     public Material mat;
 
+    public Item[] items;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +47,7 @@ public class ItemCreation : MonoBehaviour
         Rigidbody itemRB = item.AddComponent<Rigidbody>();
         itemRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
-        item.AddComponent<ItemPickup>();
+        ItemPickup itemPU = item.AddComponent<ItemPickup>();
+        itemPU.item = items[Random.Range(0, items.Length)];
     }
 }

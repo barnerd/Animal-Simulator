@@ -489,6 +489,10 @@ MonoBehaviour:
   numItems: 64
   ground: {fileID: 804558662}
   mat: {fileID: 2100000, guid: 7d0cdaf2d4ae141a49fab982e0535939, type: 2}
+  items:
+  - {fileID: 11400000, guid: d150783ed6936463b8ea0fd7ad1e8ce8, type: 2}
+  - {fileID: 11400000, guid: fa0e5351ff4284efab31300df66d1f20, type: 2}
+  - {fileID: 11400000, guid: a05f0e9a636914bc5a46a1f9f60f71e4, type: 2}
 --- !u!4 &1283637811
 Transform:
   m_ObjectHideFlags: 0

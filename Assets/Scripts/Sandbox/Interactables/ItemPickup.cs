@@ -2,6 +2,8 @@
 
 public class ItemPickup : Interactable
 {
+    public Item item;
+
     public override bool Interact(GameObject actor)
     {
         bool outcome = base.Interact(actor);
@@ -15,11 +17,20 @@ public class ItemPickup : Interactable
 
     private bool Pickup(GameObject actor)
     {
-        Debug.Log("attempting to pickup item");
-        transform.parent = actor.transform;
-        actor.GetComponent<Creature>().RemoveFocus();
-        this.gameObject.SetActive(false);
+        Debug.Log("attempting to pickup " + item.name);
 
-        return true;
+        if (actor.TryGetComponent(typeof(Inventory), out Component inventory))
+        {
+            bool success = ((Inventory)inventory).Add(item);
+            if (success)
+            {
+                actor.GetComponent<Creature>().RemoveFocus();
+                Destroy(gameObject);
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }
