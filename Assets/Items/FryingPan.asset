@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9291a4f913f7a4a408ab1b7cdd42c380, type: 3}
   m_Name: FryingPan
   m_EditorClassIdentifier: 
-  name: Frying Pan
+  name: frying pan

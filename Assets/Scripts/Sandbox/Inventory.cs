@@ -6,8 +6,12 @@ public class Inventory : MonoBehaviour
 {
     public List<Item> items = new List<Item>();
 
+    // TODO: add bulk
+    // TODO: add weight
+
     public bool Add(Item _i)
     {
+        // check bulk and weight before adding
         items.Add(_i);
 
         return true;
