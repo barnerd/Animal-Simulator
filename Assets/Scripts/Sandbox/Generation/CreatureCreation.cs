@@ -13,21 +13,9 @@ public class CreatureCreation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Creature player = null;
-
         for (int i = 0; i < numCreatures; i++)
         {
-            Creature c = CreateCreature(i);
-
-            if(i == 0)
-            {
-                player = c;
-                player.GetComponent<Interactable>().radius = 10f;
-            }
-            else if(player != null)
-            {
-                c.focus = player.GetComponent<Interactable>();
-            }
+            CreateCreature(i);
         }
     }
 
@@ -37,7 +25,7 @@ public class CreatureCreation : MonoBehaviour
         
     }
 
-    private Creature CreateCreature(int num)
+    private GameObject CreateCreature(int num)
     {
         string name = "Creature " + (num + 1);
         GameObject creature = new GameObject(name);
@@ -86,6 +74,6 @@ public class CreatureCreation : MonoBehaviour
             creature.GetComponent<Creature>().currentController = aiController;
         }
 
-        return creature.GetComponent<Creature>();
+        return creature;
     }
 }

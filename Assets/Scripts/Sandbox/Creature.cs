@@ -9,7 +9,7 @@ public class Creature : MonoBehaviour
     // TODO: Move speed to stats
     public float speed = 6f;
 
-    public Interactable focus;
+    //public Interactable focus;
 
     // Start is called before the first frame update
     void Start()
@@ -21,29 +21,11 @@ public class Creature : MonoBehaviour
     void Update()
     {
         currentController.ProcessInput(this.gameObject);
-
-        if (focus != null)
-        {
-            GetComponent<CreatureMotor>().FaceTarget(focus.transform);
-
-            if (Vector3.Distance(focus.transform.position, transform.position) < focus.radius)
-                Interact(focus);
-        }
     }
 
     // FixedUpdate is used with physics
     void FixedUpdate()
     {
-    }
-
-    public void SetFocus(Interactable _focus)
-    {
-        focus = _focus;
-    }
-
-    public void RemoveFocus()
-    {
-        focus = null;
     }
 
     public bool Interact(Interactable _focus)

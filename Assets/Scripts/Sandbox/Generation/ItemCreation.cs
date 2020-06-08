@@ -26,7 +26,7 @@ public class ItemCreation : MonoBehaviour
 
     }
 
-    private void CreateItem(int num)
+    private GameObject CreateItem(int num)
     {
         string name = "Item " + (num + 1);
         GameObject item = new GameObject(name);
@@ -49,5 +49,7 @@ public class ItemCreation : MonoBehaviour
 
         ItemPickup itemPU = item.AddComponent<ItemPickup>();
         itemPU.item = items[Random.Range(0, items.Length)];
+
+        return item;
     }
 }

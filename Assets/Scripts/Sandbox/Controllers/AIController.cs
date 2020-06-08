@@ -17,25 +17,5 @@ public class AIController : InputController
         {
             nextTimeForUpdate += updateInterval;
         }
-
-        Vector3 direction;
-
-        if(obj.GetComponent<Creature>().focus != null)
-        {
-            if(Vector3.Distance(obj.GetComponent<Creature>().focus.transform.position, obj.transform.position) < obj.GetComponent<Creature>().focus.radius)
-            {
-                //obj.GetComponent<Creature>().focus = null;
-                obj.GetComponent<CreatureMotor>().Move(Vector3.zero);
-            }
-            else
-            {
-                direction = (obj.GetComponent<Creature>().focus.transform.position - obj.transform.position).normalized;
-                obj.GetComponent<CreatureMotor>().Move(direction);
-            }
-        }
-        else
-        {
-            // pick a new focus
-        }
     }
 }
