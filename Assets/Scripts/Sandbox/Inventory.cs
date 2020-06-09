@@ -31,6 +31,21 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
+    public bool Drop(Item _i)
+    {
+        bool success = Remove(_i);
+
+        if (success)
+        {
+            GameObject item = ItemPickup.CreateItemPickup(_i);
+
+            // position item to the right
+            item.transform.position = transform.position + transform.right * .7f;
+        }
+
+        return success;
+    }
+
     public bool Remove(Item _i)
     {
         if (items.Contains(_i))

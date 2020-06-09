@@ -52,8 +52,8 @@ public class InventorySlotUI : MonoBehaviour
         inventoryUI.InteractItem(item);
     }
 
-    public void RemoveItem()
+    public void DropItem()
     {
-        inventoryUI.RemoveItem(item);
+        inventoryUI.DropItem(item);
     }
 }

@@ -48,11 +48,11 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void RemoveItem(Item _item)
+    public void DropItem(Item _item)
     {
         if (inventory != null)
         {
-            inventory.Remove(_item);
+            inventory.Drop(_item);
         }
     }
 }
