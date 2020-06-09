@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9291a4f913f7a4a408ab1b7cdd42c380, type: 3}
-  m_Name: Pickaxe
+  m_Name: CandyCane
   m_EditorClassIdentifier: 
-  name: pickaxe
-  mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  material: {fileID: 2100000, guid: 7d0cdaf2d4ae141a49fab982e0535939, type: 2}
-  inventoryScale: 25
-  inventoryPosition: {x: 0, y: 0, z: 0}
-  inventoryRotation: {x: 0, y: 0, z: 0, w: 0}
+  name: candy cane
+  mesh: {fileID: 1263985395754564642, guid: 6e565b48d14f34478b6c93677cb9bbfc, type: 3}
+  material: {fileID: 2100000, guid: fa4713d13091246b4bc7eafd86c1fcae, type: 2}
+  inventoryScale: 100
+  inventoryPosition: {x: -5, y: -15.1, z: -6.6}
+  inventoryRotation: {x: -0.116706304, y: -0.6974093, z: -0.6974093, w: 0.116706304}

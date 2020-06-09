@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9291a4f913f7a4a408ab1b7cdd42c380, type: 3}
-  m_Name: Hatchet
+  m_Script: {fileID: 11500000, guid: 15ddbe5e27f804b81b49a671592b4af0, type: 3}
+  m_Name: onInventoryChanged
   m_EditorClassIdentifier: 
-  name: hatchet
+  Description: Called when an item in an inventory is changed, but picking up, dropping,
+    using.
+  debugSOParameter: {fileID: 0}
+  debugMBParameter: {fileID: 0}

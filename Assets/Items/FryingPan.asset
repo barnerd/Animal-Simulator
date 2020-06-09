@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: FryingPan
   m_EditorClassIdentifier: 
   name: frying pan
+  mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  material: {fileID: 2100000, guid: 7d0cdaf2d4ae141a49fab982e0535939, type: 2}
+  inventoryScale: 25
+  inventoryPosition: {x: 0, y: 0, z: 0}
+  inventoryRotation: {x: 0, y: 0, z: 0, w: 0}

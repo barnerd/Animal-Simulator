@@ -32,23 +32,24 @@ public class ItemCreation : MonoBehaviour
         GameObject item = new GameObject(name);
         item.transform.parent = this.transform;
 
-        // add body
-        GameObject box = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        box.name = "GFX";
-        box.transform.parent = item.transform;
-        box.transform.localScale = new Vector3(.2f, .2f, .2f);
-        box.GetComponent<MeshRenderer>().sharedMaterial = mat;
+        ItemPickup itemPU = item.AddComponent<ItemPickup>();
+        itemPU.item = items[Random.Range(0, items.Length)];
+
+        // add mesh
+        MeshFilter itemMF = item.AddComponent<MeshFilter>();
+        itemMF.sharedMesh = itemPU.item.mesh;
+        MeshRenderer itemMR = item.AddComponent<MeshRenderer>();
+        itemMR.sharedMaterial = itemPU.item.material;
+
+        Rigidbody itemRB = item.AddComponent<Rigidbody>();
+        itemRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        MeshCollider itemMC = item.AddComponent<MeshCollider>();
+        itemMC.convex = true;
 
         // set random position
         float x = Random.Range(0f, ground.size);
         float z = Random.Range(0f, ground.size);
-        item.transform.position = new Vector3(x, ground.GetHeightAtXZ(x, z) + .2f, z);
-
-        Rigidbody itemRB = item.AddComponent<Rigidbody>();
-        itemRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
-
-        ItemPickup itemPU = item.AddComponent<ItemPickup>();
-        itemPU.item = items[Random.Range(0, items.Length)];
+        item.transform.position = new Vector3(x, ground.GetHeightAtXZ(x, z) + 2f, z);
 
         return item;
     }

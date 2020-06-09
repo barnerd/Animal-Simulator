@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 [CreateAssetMenu(fileName = "InputController", menuName = "Input Controller/Player Controller")]
 public class PlayerController : InputController
@@ -31,7 +32,7 @@ public class PlayerController : InputController
         }
 
         // use left mouse button to interact
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
