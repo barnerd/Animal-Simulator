@@ -2,33 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class InventoryManager : MonoBehaviour
 {
     public List<Item> items = new List<Item>();
 
     // TODO: add bulk
     // TODO: add weight
 
-    public GameEvent onInventoryChanged;
+    public GameEvent onInventoryChange;
 
     public bool Add(Item _i)
     {
         // check bulk and weight before adding
         items.Add(_i);
-        if (onInventoryChanged != null)
-            onInventoryChanged.Raise(this);
+        if (onInventoryChange != null)
+            onInventoryChange.Raise(this);
 
         return true;
     }
 
-    public bool Interact(Item _i)
+    public void Interact(Item _i)
     {
         if (items.Contains(_i))
         {
-            return _i.Interact();
+            _i.Interact(GetComponent<Creature>());
         }
-
-        return false;
     }
 
     public bool Drop(Item _i)
@@ -51,8 +49,8 @@ public class Inventory : MonoBehaviour
         if (items.Contains(_i))
         {
             items.Remove(_i);
-            if (onInventoryChanged != null)
-                onInventoryChanged.Raise(this);
+            if (onInventoryChange != null)
+                onInventoryChange.Raise(this);
             return true;
         }
 

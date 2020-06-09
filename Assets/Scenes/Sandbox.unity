@@ -2001,9 +2001,10 @@ MonoBehaviour:
   ground: {fileID: 804558662}
   mat: {fileID: 2100000, guid: 7d0cdaf2d4ae141a49fab982e0535939, type: 2}
   items:
-  - {fileID: 11400000, guid: d150783ed6936463b8ea0fd7ad1e8ce8, type: 2}
+  - {fileID: 11400000, guid: 587e67a409fe240109ca52083c9dad21, type: 2}
   - {fileID: 11400000, guid: fa0e5351ff4284efab31300df66d1f20, type: 2}
   - {fileID: 11400000, guid: a05f0e9a636914bc5a46a1f9f60f71e4, type: 2}
+  - {fileID: 11400000, guid: 5bda9b553118349e5b44472c34cf4417, type: 2}
 --- !u!4 &1283637811
 Transform:
   m_ObjectHideFlags: 0
@@ -2321,7 +2322,10 @@ MonoBehaviour:
   ground: {fileID: 804558662}
   playerController: {fileID: 11400000, guid: dd6b1523321d8494b9d225482b8c41ae, type: 2}
   aiController: {fileID: 11400000, guid: 9f1dcea1303b84965958e263098515f3, type: 2}
-  onInventoryChanged: {fileID: 11400000, guid: b8a1f6be5d0624c769829d97caf56cc2, type: 2}
+  onInventoryChange: {fileID: 11400000, guid: b8a1f6be5d0624c769829d97caf56cc2, type: 2}
+  equipmentSlots:
+  - {fileID: 11400000, guid: bba8629ed2657420da87b942d307b115, type: 2}
+  - {fileID: 11400000, guid: 8bbfcb7cc9af8435cbef766e1768ba02, type: 2}
 --- !u!4 &1401569174
 Transform:
   m_ObjectHideFlags: 0

@@ -7,14 +7,14 @@ public class Item : ScriptableObject
     public Mesh mesh;
     public Material material;
 
+    [Header("Inventory")]
     public float inventoryScale;
     public Vector3 inventoryPosition;
     public Quaternion inventoryRotation;
 
-    public virtual bool Interact()
+    public virtual void Interact(MonoBehaviour _actor)
     {
-        Debug.Log("Cannot use item: " + this.name);
-        return false;
+        Debug.Log(((Creature)_actor).name + " cannot use item: " + this.name);
     }
 }
 

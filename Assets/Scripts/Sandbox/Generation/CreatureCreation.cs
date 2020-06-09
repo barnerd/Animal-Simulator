@@ -10,7 +10,10 @@ public class CreatureCreation : MonoBehaviour
     public PlayerController playerController;
     public AIController aiController;
 
-    public GameEvent onInventoryChanged;
+    public GameEvent onInventoryChange;
+    public GameEvent onEquipmentChange;
+
+    public EquipmentSlot[] equipmentSlots;
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +62,10 @@ public class CreatureCreation : MonoBehaviour
         creature.AddComponent<Interactable>();
 
         creature.AddComponent<CreatureMotor>();
-        var inv = creature.AddComponent<Inventory>();
+        InventoryManager inv = creature.AddComponent<InventoryManager>();
+        EquipmentManager equipMan = creature.AddComponent<EquipmentManager>();
+        equipMan.slots = equipmentSlots;
+        equipMan.onEquipmentChange = onEquipmentChange;
 
         if(num == 0)
         {
@@ -67,7 +73,7 @@ public class CreatureCreation : MonoBehaviour
             creatureC.currentController = playerController;
 
             var creatureController = (PlayerController)creatureC.currentController;
-            inv.onInventoryChanged = onInventoryChanged;
+            inv.onInventoryChange = onInventoryChange;
 
             creatureController.cam = Camera.main;
             creatureController.cam.GetComponent<CameraController>().target = creature.transform;

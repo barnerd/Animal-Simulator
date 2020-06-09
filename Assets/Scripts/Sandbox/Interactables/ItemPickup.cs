@@ -15,9 +15,9 @@ public class ItemPickup : Interactable
 
     private bool Pickup(GameObject actor)
     {
-        if (actor.TryGetComponent(typeof(Inventory), out Component inventory))
+        if (actor.TryGetComponent(typeof(InventoryManager), out Component inventory))
         {
-            bool success = ((Inventory)inventory).Add(item);
+            bool success = ((InventoryManager)inventory).Add(item);
             if (success)
             {
                 Destroy(gameObject);

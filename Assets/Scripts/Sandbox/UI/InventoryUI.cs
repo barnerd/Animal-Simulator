@@ -6,7 +6,7 @@ public class InventoryUI : MonoBehaviour
     public GameObject inventorySlotsParentUI;
     InventorySlotUI[] slots;
 
-    Inventory inventory;
+    InventoryManager inventory;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +25,8 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateUI(MonoBehaviour _inventory)
     {
-        inventory = (Inventory)_inventory;
-        Debug.Log("Updating UI from inventory: " + inventory);
+        inventory = (InventoryManager)_inventory;
+
         for (int i = 0; i < slots.Length; i++)
         {
             if(i < inventory.items.Count)
