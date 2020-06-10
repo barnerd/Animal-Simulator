@@ -6,13 +6,12 @@ public class Creature : MonoBehaviour
 {
     public InputController currentController;
 
-    // TODO: Move speed to stats
-    //public float speed = 6f;
-
     public Attribute[] attributes;
     public ArmorAttribute[] armors;
     public DamageAttribute[] damages;
     public MeteredAttribute[] meters;
+
+    public float nextTimeForAIUpdate;
 
     //public Interactable focus;
 
@@ -27,7 +26,7 @@ public class Creature : MonoBehaviour
     {
         currentController.ProcessInput(this.gameObject);
 
-        // for testings
+        // for testing
         if (Input.GetKeyUp(KeyCode.T))
         {
             TakeDamage(damages[2].damageType, damages[2].GetDamage());

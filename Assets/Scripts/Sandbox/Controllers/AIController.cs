@@ -4,18 +4,19 @@
 public class AIController : InputController
 {
     public float updateInterval = 5f;
-    float nextTimeForUpdate;
 
     public override void Initialize(GameObject obj)
     {
-        nextTimeForUpdate = Time.time;
+        obj.GetComponent<Creature>().nextTimeForAIUpdate = Time.time;
     }
 
     public override void ProcessInput(GameObject obj)
     {
-        if (Time.time > nextTimeForUpdate)
+        if (Time.time > obj.GetComponent<Creature>().nextTimeForAIUpdate)
         {
-            nextTimeForUpdate += updateInterval;
+            obj.GetComponent<Creature>().nextTimeForAIUpdate += updateInterval;
+
+            obj.GetComponent<CreatureMotor>().MoveDirection(new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)));
         }
     }
 }

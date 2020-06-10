@@ -23,7 +23,7 @@ public class PlayerController : InputController
         Vector3 direction = obj.transform.right * horizontal + obj.transform.forward * vertical;
         direction.Normalize();
 
-        obj.GetComponent<CreatureMotor>().Move(direction);
+        obj.GetComponent<CreatureMotor>().MoveDirection(direction);
 
         // jump
         if (Input.GetButtonDown("Jump"))

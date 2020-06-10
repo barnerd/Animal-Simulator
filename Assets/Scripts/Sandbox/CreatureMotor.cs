@@ -14,9 +14,16 @@ public class CreatureMotor : MonoBehaviour
     public Vector3 targetPosition;
 
     public float turnSmoothTime = 0.6f;
-    private float turnSmoothVelocity;
+    float turnSmoothVelocity;
 
     public AttributeType speed;
+
+    Creature creature;
+
+    // targets
+    Transform lookAtTarget;
+    Transform faceTarget;
+    Transform followTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +39,8 @@ public class CreatureMotor : MonoBehaviour
                 controller = gameObject.GetComponent<CharacterController>();
             }
         }
+
+        creature = gameObject.GetComponent<Creature>();
     }
 
     // Update is called once per frame
@@ -43,7 +52,7 @@ public class CreatureMotor : MonoBehaviour
         }
         velocity.y += .5f * gravity * Time.deltaTime * Time.deltaTime;
 
-        float? creatureSpeed = this.gameObject.GetComponent<Creature>().GetAttributeCurrentValue(speed);
+        float? creatureSpeed = creature.GetAttributeCurrentValue(speed);
 
         controller.Move(velocity + direction * (creatureSpeed ?? 0) * Time.deltaTime);
     }
@@ -52,7 +61,8 @@ public class CreatureMotor : MonoBehaviour
     {
     }
 
-    public void Move(Vector3 _direction)
+    #region Move functions
+    public void MoveDirection(Vector3 _direction)
     {
         // if input, then move in direction
         if (_direction.magnitude >= .1f)
@@ -67,17 +77,61 @@ public class CreatureMotor : MonoBehaviour
         this.direction = _direction;
     }
 
-    public void MoveToPoint(Vector3 _point)
+    public void MoveToPosition(Vector3 _position)
     {
-        this.targetPosition = _point;
+        MoveDirection(_position - transform.position);
+    }
+    #endregion
+
+    #region Look functions
+    public void LookAtTransform(Transform _target)
+    {
+        lookAtTarget = _target;
+        LookAtPosition(_target.position);
     }
 
-    public void FaceTarget(Transform _target)
+    public void LookAtPosition(Vector3 _position)
     {
-        Vector3 lookDirection = (_target.position - transform.position).normalized;
+        LookAtDirection(_position - transform.position);
+    }
+
+    public void LookAtDirection(Vector3 _direction)
+    {
+        // TODO: implement look at
+    }
+
+    public void LookForward()
+    {
+        LookAtDirection(transform.forward);
+    }
+    #endregion
+
+    #region Face functions
+    public void FaceTransform(Transform _target)
+    {
+        faceTarget = _target;
+        FacePosition(_target.position);
+    }
+
+    public void FacePosition(Vector3 _position)
+    {
+        FaceDirection(_position - transform.position);
+    }
+
+    public void FaceDirection(Vector3 _direction)
+    {
+        Vector3 lookDirection = _direction.normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(lookDirection.x, 0f, lookDirection.z));
 
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2f * Time.deltaTime);
+    }
+    #endregion
+
+    public void Follow(Transform _target, float _radius)
+    {
+        followTarget = _target;
+        FaceTransform(_target);
+        MoveToPosition(_target.position);
     }
 
     public void Jump()
@@ -86,5 +140,20 @@ public class CreatureMotor : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity) * Time.deltaTime;
         }
+    }
+
+    public void Crouch()
+    {
+        //TODO: implement crouching
+    }
+
+    public void Strafe()
+    {
+        //TODO: implement strafe
+    }
+
+    public void Swim()
+    {
+        //TODO: implement swimming
     }
 }
