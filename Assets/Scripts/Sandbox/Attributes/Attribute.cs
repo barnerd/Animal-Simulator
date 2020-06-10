@@ -1,16 +1,38 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
 public class Attribute
 {
     public AttributeType type;
     public float BaseValue { get; }
-    public float currentValue;
+    public float currentValue { get; protected set; }
+
+    protected List<AttributeModifier> modifiers = new List<AttributeModifier>();
 
     public Attribute(float _base)
     {
         BaseValue = _base;
         currentValue = BaseValue;
+    }
+
+    public void AddModifier(AttributeModifier _modifier)
+    {
+        if (_modifier != null && _modifier.attributeType == type)
+        {
+            modifiers.Add(_modifier);
+            currentValue += _modifier.modifier;
+        }
+    }
+
+    public void RemoveModifier(AttributeModifier _modifier)
+    {
+        if (_modifier != null)
+        {
+            modifiers.Remove(_modifier);
+            currentValue -= _modifier.modifier;
+        }
     }
 }
 

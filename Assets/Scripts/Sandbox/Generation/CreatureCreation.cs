@@ -13,6 +13,7 @@ public class CreatureCreation : MonoBehaviour
     public GameEvent onInventoryChange;
     public GameEvent onEquipmentChange;
 
+    public AttributeType speed;
     public AttributeType[] attributeTypes;
     public DamageType[] damageTypes;
     public AttributeType armor;
@@ -91,7 +92,8 @@ public class CreatureCreation : MonoBehaviour
 
         creature.AddComponent<Interactable>();
 
-        creature.AddComponent<CreatureMotor>();
+        CreatureMotor creatureMotor = creature.AddComponent<CreatureMotor>();
+        creatureMotor.speed = speed;
         InventoryManager inv = creature.AddComponent<InventoryManager>();
         EquipmentManager equipMan = creature.AddComponent<EquipmentManager>();
         equipMan.slots = equipmentSlots;

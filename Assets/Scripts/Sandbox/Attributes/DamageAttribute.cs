@@ -13,6 +13,14 @@ public class DamageAttribute : Attribute
         sides = _sides;
     }
 
+    public void AddDamageModifier(DamageModifier _modifier)
+    {
+        if (_modifier.damageType == this.damageType)
+        {
+            AddModifier(_modifier);
+        }
+    }
+
     public float GetDamage()
     {
         currentValue = BaseValue;
@@ -20,6 +28,19 @@ public class DamageAttribute : Attribute
         {
             currentValue += Random.Range(1f, sides);
         }
+
+        // add modifiers
+        foreach (var modifer in modifiers)
+        {
+            //TODO: check that casting is possible
+            DamageModifier dm = (DamageModifier)modifer;
+            currentValue += dm.modifier;
+            for (int i = 0; i < dm.dice; i++)
+            {
+                currentValue += Random.Range(1f, dm.sides);
+            }
+        }
+
         return currentValue;
     }
 }

@@ -16,6 +16,8 @@ public class CreatureMotor : MonoBehaviour
     public float turnSmoothTime = 0.6f;
     private float turnSmoothVelocity;
 
+    public AttributeType speed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +43,9 @@ public class CreatureMotor : MonoBehaviour
         }
         velocity.y += .5f * gravity * Time.deltaTime * Time.deltaTime;
 
-        controller.Move(velocity + direction * this.gameObject.GetComponent<Creature>().speed * Time.deltaTime);
+        float? creatureSpeed = this.gameObject.GetComponent<Creature>().GetAttributeCurrentValue(speed);
+
+        controller.Move(velocity + direction * (creatureSpeed ?? 0) * Time.deltaTime);
     }
 
     void FixedUpdate()
@@ -55,6 +59,7 @@ public class CreatureMotor : MonoBehaviour
         {
             // rotate the character as well
             // TODO: left/right is moving AND rotating the character, causing the character to go in a circle
+            // looks like the character speed might be affecting the radius of the circle, i.e. if speed = 0, then character just spins (which is correct)
             float angle = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg;
             float targetAngle = Mathf.SmoothDampAngle(this.transform.eulerAngles.y, angle, ref turnSmoothVelocity, turnSmoothTime);
             this.transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
