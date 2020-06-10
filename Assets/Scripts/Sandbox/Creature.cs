@@ -30,7 +30,7 @@ public class Creature : MonoBehaviour
         // for testings
         if (Input.GetKeyUp(KeyCode.T))
         {
-            TakeDamage(damages[0].damageType, 5);
+            TakeDamage(damages[2].damageType, damages[2].GetDamage());
         }
     }
 

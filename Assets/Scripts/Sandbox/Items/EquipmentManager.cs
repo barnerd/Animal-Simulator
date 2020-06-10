@@ -47,8 +47,8 @@ public class EquipmentManager : MonoBehaviour
         if (success)
         {
             equipment[index ?? -1] = _item;
-            //TODO?: Change this call to include which items are changing, or which slots are changing
             onEquipmentChange.Raise(this);
+            ModifyAttributes(_item, true);
         }
 
         return success;
@@ -66,7 +66,7 @@ public class EquipmentManager : MonoBehaviour
         if (item == null)
             return true;
 
-        // TODO:check if _item can be unequiped, i.e. not cursed
+        // TODO:check if _item can be unequiped, i.e. not cursed, or default like claws
         bool unequipable = true;
 
         success &= unequipable;
@@ -78,8 +78,8 @@ public class EquipmentManager : MonoBehaviour
             if (success)
             {
                 equipment[index ?? -1] = null;
-                //TODO?: Change this call to include which items are changing, or which slots are changing
                 onEquipmentChange.Raise(this);
+                ModifyAttributes(item, false);
             }
         }
 
@@ -112,5 +112,65 @@ public class EquipmentManager : MonoBehaviour
             index = null;
 
         return index;
+    }
+
+    // TODO: Figure out where this should go. Having it in the equipment manager seems weird, but it's weird all the data is.
+    // I wonder if a dictionary, versus a list or array would make this better
+    private void ModifyAttributes(Equipment _item, bool add = true)
+    {
+        Creature c = GetComponent<Creature>();
+        for (int i = 0; i < _item.attributeModifiers.Length; i++)
+        {
+            for (int j = 0; j < c.attributes.Length; j++)
+            {
+                if(c.attributes[j].type == _item.attributeModifiers[i].attributeType)
+                {
+                    if (add)
+                    {
+                        c.attributes[j].AddModifier(_item.attributeModifiers[i]);
+                    }
+                    else
+                    {
+                        c.attributes[j].RemoveModifier(_item.attributeModifiers[i]);
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < _item.armorModifiers.Length; i++)
+        {
+            for (int j = 0; j < c.armors.Length; j++)
+            {
+                if (c.armors[j].damageType == _item.armorModifiers[i].damageType)
+                {
+                    if (add)
+                    {
+                        c.armors[j].AddModifier(_item.armorModifiers[i]);
+                    }
+                    else
+                    {
+                        c.armors[j].RemoveModifier(_item.armorModifiers[i]);
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < _item.damageModifiers.Length; i++)
+        {
+            for (int j = 0; j < c.damages.Length; j++)
+            {
+                if (c.damages[j].damageType == _item.damageModifiers[i].damageType)
+                {
+                    if (add)
+                    {
+                        c.damages[j].AddModifier(_item.damageModifiers[i]);
+                    }
+                    else
+                    {
+                        c.damages[j].RemoveModifier(_item.damageModifiers[i]);
+                    }
+                }
+            }
+        }
     }
 }

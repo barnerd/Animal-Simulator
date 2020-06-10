@@ -97,18 +97,20 @@ public class CreatureCreation : MonoBehaviour
         InventoryManager inv = creature.AddComponent<InventoryManager>();
         EquipmentManager equipMan = creature.AddComponent<EquipmentManager>();
         equipMan.slots = equipmentSlots;
-        equipMan.onEquipmentChange = onEquipmentChange;
 
         if (num == 0)
         {
             var creatureC = creature.GetComponent<Creature>();
             creatureC.currentController = playerController;
 
+            // set controller to be based on input
             var creatureController = (PlayerController)creatureC.currentController;
-            inv.onInventoryChange = onInventoryChange;
-
             creatureController.cam = Camera.main;
             creatureController.cam.GetComponent<CameraController>().target = creature.transform;
+
+            // add events only to the player
+            inv.onInventoryChange = onInventoryChange;
+            equipMan.onEquipmentChange = onEquipmentChange;
         }
         else
         {

@@ -25,5 +25,5 @@ MonoBehaviour:
   - attributeType: {fileID: 11400000, guid: ec4260d80d66d49609aa703ac53602a1, type: 2}
     modifier: 1
     damageType: {fileID: 11400000, guid: 701760f62c7784c99936aacc887c65ac, type: 2}
-    diceModifier: 1
-    sidesModifier: 1
+    dice: 0
+    sides: 0
