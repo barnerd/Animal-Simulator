@@ -2,6 +2,6 @@
 public class DamageModifier : AttributeModifier
 {
     public DamageType damageType;
-    public float minModifier;
-    public float maxModifier;
+    public int diceModifier;
+    public float sidesModifier;
 }

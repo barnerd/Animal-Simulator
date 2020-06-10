@@ -23,7 +23,7 @@ MonoBehaviour:
   armorModifiers: []
   damageModifiers:
   - attributeType: {fileID: 11400000, guid: ec4260d80d66d49609aa703ac53602a1, type: 2}
-    modifier: 0
+    modifier: 1
     damageType: {fileID: 11400000, guid: 701760f62c7784c99936aacc887c65ac, type: 2}
-    minModifier: 1
-    maxModifier: 1
+    diceModifier: 1
+    sidesModifier: 1
