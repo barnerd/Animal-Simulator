@@ -2003,7 +2003,7 @@ MonoBehaviour:
   items:
   - {fileID: 11400000, guid: 587e67a409fe240109ca52083c9dad21, type: 2}
   - {fileID: 11400000, guid: fa0e5351ff4284efab31300df66d1f20, type: 2}
-  - {fileID: 11400000, guid: a05f0e9a636914bc5a46a1f9f60f71e4, type: 2}
+  - {fileID: 11400000, guid: 8f84e0246f79d4f318ac60340c0d63c8, type: 2}
   - {fileID: 11400000, guid: 5bda9b553118349e5b44472c34cf4417, type: 2}
 --- !u!4 &1283637811
 Transform:
@@ -2323,6 +2323,17 @@ MonoBehaviour:
   playerController: {fileID: 11400000, guid: dd6b1523321d8494b9d225482b8c41ae, type: 2}
   aiController: {fileID: 11400000, guid: 9f1dcea1303b84965958e263098515f3, type: 2}
   onInventoryChange: {fileID: 11400000, guid: b8a1f6be5d0624c769829d97caf56cc2, type: 2}
+  onEquipmentChange: {fileID: 11400000, guid: 5ccc29c38eb4c43d2aa3bd62c033a714, type: 2}
+  attributeTypes:
+  - {fileID: 11400000, guid: 5a7e602f0ffe344c28d47583af9274b2, type: 2}
+  - {fileID: 11400000, guid: 2866676b39674402a963d22a5426f6ed, type: 2}
+  damageTypes:
+  - {fileID: 11400000, guid: 820549fb8b0ed406b89df935de03946d, type: 2}
+  - {fileID: 11400000, guid: cb7dcccd5dcb5454787eaf197a506cb4, type: 2}
+  - {fileID: 11400000, guid: 701760f62c7784c99936aacc887c65ac, type: 2}
+  - {fileID: 11400000, guid: 80d72b1d1a5614d90ba40963edcc809b, type: 2}
+  armor: {fileID: 11400000, guid: 285f8233a6e704b23b1ed18ed7cba3d4, type: 2}
+  damage: {fileID: 11400000, guid: ec4260d80d66d49609aa703ac53602a1, type: 2}
   equipmentSlots:
   - {fileID: 11400000, guid: bba8629ed2657420da87b942d307b115, type: 2}
   - {fileID: 11400000, guid: 8bbfcb7cc9af8435cbef766e1768ba02, type: 2}

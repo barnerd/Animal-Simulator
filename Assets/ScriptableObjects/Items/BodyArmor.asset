@@ -9,12 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9291a4f913f7a4a408ab1b7cdd42c380, type: 3}
-  m_Name: Pickaxe
+  m_Script: {fileID: 11500000, guid: 4d4a2dfccdcdf4aa8b4417d504f7c840, type: 3}
+  m_Name: BodyArmor
   m_EditorClassIdentifier: 
-  name: pickaxe
+  name: body armor
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   material: {fileID: 2100000, guid: 7d0cdaf2d4ae141a49fab982e0535939, type: 2}
   inventoryScale: 25
   inventoryPosition: {x: 0, y: 0, z: 0}
   inventoryRotation: {x: 0, y: 0, z: 0, w: 0}
+  slot: {fileID: 11400000, guid: bba8629ed2657420da87b942d307b115, type: 2}
+  attributeModifiers: []
+  armorModifiers:
+  - attributeType: {fileID: 11400000, guid: 285f8233a6e704b23b1ed18ed7cba3d4, type: 2}
+    modifier: 10
+    damageType: {fileID: 11400000, guid: 701760f62c7784c99936aacc887c65ac, type: 2}
+  damageModifiers: []

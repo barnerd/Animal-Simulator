@@ -19,3 +19,16 @@ MonoBehaviour:
   inventoryPosition: {x: 0, y: 0, z: 0}
   inventoryRotation: {x: 0, y: 0, z: 0, w: 0}
   slot: {fileID: 11400000, guid: 8bbfcb7cc9af8435cbef766e1768ba02, type: 2}
+  attributeModifiers: []
+  armorModifiers: []
+  damageModifiers:
+  - attributeType: {fileID: 11400000, guid: ec4260d80d66d49609aa703ac53602a1, type: 2}
+    modifier: 2
+    damageType: {fileID: 11400000, guid: 701760f62c7784c99936aacc887c65ac, type: 2}
+    minModifier: 0
+    maxModifier: 2
+  - attributeType: {fileID: 11400000, guid: ec4260d80d66d49609aa703ac53602a1, type: 2}
+    modifier: 0
+    damageType: {fileID: 11400000, guid: 80d72b1d1a5614d90ba40963edcc809b, type: 2}
+    minModifier: 1
+    maxModifier: 3

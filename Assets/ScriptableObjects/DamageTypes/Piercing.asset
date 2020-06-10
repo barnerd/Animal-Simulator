@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c2c0d92042b549bf9a422ed3d8c1740, type: 3}
-  m_Name: Strength
+  m_Script: {fileID: 11500000, guid: afae56043a5ce4175893fed39dd16433, type: 3}
+  m_Name: Piercing
   m_EditorClassIdentifier: 
-  name: strength
+  name: piercing

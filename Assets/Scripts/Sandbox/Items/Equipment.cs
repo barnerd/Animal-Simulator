@@ -5,8 +5,10 @@ public class Equipment : Item
 {
     [Header("Equipment")]
     public EquipmentSlot slot;
-    // TODO: Create Editor for AttributeModifier
-    public AttributeModifier[] statModifiers;
+
+    public AttributeModifier[] attributeModifiers;
+    public ArmorModifier[] armorModifiers;
+    public DamageModifier[] damageModifiers;
 
     public override void Interact(MonoBehaviour _actor)
     {

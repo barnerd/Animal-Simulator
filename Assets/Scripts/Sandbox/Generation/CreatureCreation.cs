@@ -13,6 +13,10 @@ public class CreatureCreation : MonoBehaviour
     public GameEvent onInventoryChange;
     public GameEvent onEquipmentChange;
 
+    public AttributeType[] attributeTypes;
+    public DamageType[] damageTypes;
+    public AttributeType armor;
+    public AttributeType damage;
     public EquipmentSlot[] equipmentSlots;
 
     // Start is called before the first frame update
@@ -27,7 +31,7 @@ public class CreatureCreation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private GameObject CreateCreature(int num)
@@ -56,8 +60,26 @@ public class CreatureCreation : MonoBehaviour
         creatureRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
         creatureRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;*/
 
-        creature.AddComponent<Creature>();
-        creature.GetComponent<Creature>().currentController = playerController;
+        Creature c = creature.AddComponent<Creature>();
+        c.attributes = new Attribute[attributeTypes.Length];
+        for (int i = 0; i < attributeTypes.Length; i++)
+        {
+            c.attributes[i] = new Attribute(num + i + 5);
+            c.attributes[i].type = attributeTypes[i];
+        }
+
+        c.armors = new ArmorAttribute[damageTypes.Length];
+        c.damages = new DamageAttribute[damageTypes.Length];
+        for (int i = 0; i < damageTypes.Length; i++)
+        {
+            c.armors[i] = new ArmorAttribute(0);
+            c.armors[i].damageType = damageTypes[i];
+            c.armors[i].type = armor;
+
+            c.damages[i] = new DamageAttribute(0);
+            c.damages[i].damageType = damageTypes[i];
+            c.damages[i].type = damage;
+        }
 
         creature.AddComponent<Interactable>();
 
@@ -67,7 +89,7 @@ public class CreatureCreation : MonoBehaviour
         equipMan.slots = equipmentSlots;
         equipMan.onEquipmentChange = onEquipmentChange;
 
-        if(num == 0)
+        if (num == 0)
         {
             var creatureC = creature.GetComponent<Creature>();
             creatureC.currentController = playerController;

@@ -1,5 +1,6 @@
-﻿public class AttributeModifier
+﻿[System.Serializable]
+public class AttributeModifier
 {
-    public Attribute attribute;
+    public AttributeType attributeType;
     public float modifier;
 }

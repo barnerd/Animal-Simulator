@@ -7,9 +7,10 @@ public class Item : ScriptableObject
     public Mesh mesh;
     public Material material;
 
-    [Header("Inventory")]
+    [Header("Inventory Display")]
     public float inventoryScale;
     public Vector3 inventoryPosition;
+    //TODO: Get Quaternion to display correctly in editor
     public Quaternion inventoryRotation;
 
     public virtual void Interact(MonoBehaviour _actor)

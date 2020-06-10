@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd62c6fa30c5f4566af1bdd703ae5313, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c2c0d92042b549bf9a422ed3d8c1740, type: 3}
   m_Name: Armor
   m_EditorClassIdentifier: 
-  name: Armor
-  value: 0
+  name: armor

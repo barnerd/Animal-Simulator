@@ -14,8 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: hammer
   mesh: {fileID: 4300000, guid: 68a66fb5a71f8204a8dcb613c97d1fa8, type: 3}
-  material: {fileID: 2100000, guid: 7d0cdaf2d4ae141a49fab982e0535939, type: 2}
+  material: {fileID: 2100000, guid: 4efcffd7ae23f1e41943fd914b18da10, type: 2}
   inventoryScale: 25
   inventoryPosition: {x: 0, y: 0, z: 0}
   inventoryRotation: {x: 0, y: 0, z: 0, w: 0}
   slot: {fileID: 11400000, guid: 8bbfcb7cc9af8435cbef766e1768ba02, type: 2}
+  attributeModifiers: []
+  armorModifiers: []
+  damageModifiers:
+  - attributeType: {fileID: 11400000, guid: ec4260d80d66d49609aa703ac53602a1, type: 2}
+    modifier: 0
+    damageType: {fileID: 11400000, guid: 701760f62c7784c99936aacc887c65ac, type: 2}
+    minModifier: 1
+    maxModifier: 1

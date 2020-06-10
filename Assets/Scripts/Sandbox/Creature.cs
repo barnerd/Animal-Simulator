@@ -9,6 +9,10 @@ public class Creature : MonoBehaviour
     // TODO: Move speed to stats
     public float speed = 6f;
 
+    public Attribute[] attributes;
+    public ArmorAttribute[] armors;
+    public DamageAttribute[] damages;
+
     //public Interactable focus;
 
     // Start is called before the first frame update
