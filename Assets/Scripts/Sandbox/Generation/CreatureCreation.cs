@@ -17,6 +17,7 @@ public class CreatureCreation : MonoBehaviour
     public DamageType[] damageTypes;
     public AttributeType armor;
     public AttributeType damage;
+    public AttributeType[] meteredAttributeTypes;
     public EquipmentSlot[] equipmentSlots;
 
     // Start is called before the first frame update
@@ -79,6 +80,13 @@ public class CreatureCreation : MonoBehaviour
             c.damages[i] = new DamageAttribute(0);
             c.damages[i].damageType = damageTypes[i];
             c.damages[i].type = damage;
+        }
+
+        c.meters = new MeteredAttribute[meteredAttributeTypes.Length];
+        for (int i = 0; i < meteredAttributeTypes.Length; i++)
+        {
+            c.meters[i] = new MeteredAttribute(100);
+            c.meters[i].type = meteredAttributeTypes[i];
         }
 
         creature.AddComponent<Interactable>();

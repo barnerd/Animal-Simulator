@@ -26,8 +26,9 @@ public class Attribute
  * damage - base, min, max, can be represented as dice 2d5 = [2,10] 3d7+2 = [5,23], has damage type. 
  * damage type: slash, piece, blunt, fire
  *  
- * health - max, current, current%, effect at 0, i.e. has event(s) to call - TODO
+ * health - max, current, current%, effect at 0, i.e. has event(s) to call - TODO - metered
  * hunger - extended attribute
+ * stamina
  * tireness
  * 
  * fishing - skill - TODO

@@ -12,6 +12,7 @@ public class Creature : MonoBehaviour
     public Attribute[] attributes;
     public ArmorAttribute[] armors;
     public DamageAttribute[] damages;
+    public MeteredAttribute[] meters;
 
     //public Interactable focus;
 
