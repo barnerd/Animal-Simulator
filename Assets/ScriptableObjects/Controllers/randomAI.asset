@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20aacba29454243dfa8a89af8c9cc12b, type: 3}
   m_Name: randomAI
   m_EditorClassIdentifier: 
-  updateInterval: 1
+  updateInterval: 2

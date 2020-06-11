@@ -92,6 +92,14 @@ public class CreatureCreation : MonoBehaviour
 
         creature.AddComponent<Interactable>();
 
+        GameObject sight = new GameObject("sight zone");
+        sight.transform.parent = creature.transform;
+        sight.transform.localPosition = Vector3.zero;
+        SphereCollider sightC = sight.AddComponent<SphereCollider>();
+        sightC.radius = 10f;
+        sightC.isTrigger = true;
+        sight.AddComponent<Sight>().creature = c;
+
         CreatureMotor creatureMotor = creature.AddComponent<CreatureMotor>();
         creatureMotor.speed = speed;
         InventoryManager inv = creature.AddComponent<InventoryManager>();

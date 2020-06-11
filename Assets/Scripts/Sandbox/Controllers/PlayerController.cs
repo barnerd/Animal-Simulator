@@ -23,7 +23,14 @@ public class PlayerController : InputController
         Vector3 direction = obj.transform.forward * vertical;
         Vector3 lookDirection = obj.transform.right * horizontal;
 
+        if(direction.magnitude > .1f || lookDirection.magnitude > .1f)
+        {
+            obj.GetComponent<CreatureMotor>().ClearTargets();
+        }
+
         obj.GetComponent<CreatureMotor>().MoveDirection(direction);
+
+        // if strafe, then move sideways instead of look sideways
         obj.GetComponent<CreatureMotor>().FaceDirection(lookDirection);
 
         // jump
@@ -46,15 +53,18 @@ public class PlayerController : InputController
                 // if yes, do something
                 if (interactable != null)
                 {
-                    if (Vector3.Distance(obj.transform.position, interactable.transform.position) < interactable.radius * .99f)
+                    if (Vector3.Distance(obj.transform.position, interactable.transform.position) < interactable.radius)
                     {
                         obj.GetComponent<Creature>().Interact(interactable);
                     }
                     else
                     {
                         Debug.Log("out of range of interactable");
+                        obj.GetComponent<CreatureMotor>().MoveToTransform(interactable.transform, interactable.radius);
                     }
                 }
+
+                Debug.Log(hit.transform.position);
             }
         }
     }

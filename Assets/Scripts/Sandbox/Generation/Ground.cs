@@ -30,6 +30,9 @@ public class Ground : MonoBehaviour
 
         GetComponent<MeshFilter>().sharedMesh = mesh;
         GetComponent<MeshCollider>().sharedMesh = mesh;
+
+
+        CreateWalls();
     }
 
     // Update is called once per frame
@@ -46,6 +49,38 @@ public class Ground : MonoBehaviour
         int z = Mathf.RoundToInt(_z);
 
         return heights[x, z] * heightScale;
+    }
+
+    private void CreateWalls()
+    {
+        float edgeDelta = 0.01f;
+
+        // setup 4 walls
+        CreateWall("north", 0f * Vector3.up, (size - edgeDelta) * Vector3.forward);
+        CreateWall("south", 180f * Vector3.up, edgeDelta * Vector3.forward + size * Vector3.right);
+        CreateWall("west", 270f * Vector3.up, edgeDelta * Vector3.right);
+        CreateWall("east", 90f * Vector3.up, (size - edgeDelta) * Vector3.right + size * Vector3.forward);
+    }
+
+    private void CreateWall(string _name, Vector3 _rotation, Vector3 _position)
+    {
+        Vector3[] vertices = new Vector3[] { new Vector3(-0.5f, -1f), new Vector3(-0.5f, 1f), new Vector3(1.5f, 1f), new Vector3(1.5f, -1f) };
+        Vector2[] uvs = new Vector2[] { new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 1), new Vector2(1, 0) };
+        int[] triangles = new int[] { 0, 1, 2, 0, 2, 3 };
+
+        Mesh wallMesh = new Mesh();
+        wallMesh.name = _name;
+        wallMesh.vertices = vertices;
+        wallMesh.uv = uvs;
+        wallMesh.triangles = triangles;
+        wallMesh.RecalculateNormals();
+        GameObject wall = new GameObject(_name + " wall");
+        wall.AddComponent<MeshFilter>().mesh = wallMesh;
+        wall.AddComponent<MeshCollider>();
+        wall.transform.localScale = Vector3.one * size;
+        wall.transform.position = _position;
+        wall.transform.Rotate(_rotation);
+        wall.transform.parent = transform;
     }
 
     private void GenerateHeights()
