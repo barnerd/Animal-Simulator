@@ -2339,6 +2339,8 @@ MonoBehaviour:
   equipmentSlots:
   - {fileID: 11400000, guid: bba8629ed2657420da87b942d307b115, type: 2}
   - {fileID: 11400000, guid: 8bbfcb7cc9af8435cbef766e1768ba02, type: 2}
+  creaturePrefab: {fileID: 8875449320494236375, guid: 5bc1ede5316e740a08b644abffe9b7eb,
+    type: 3}
 --- !u!4 &1401569174
 Transform:
   m_ObjectHideFlags: 0

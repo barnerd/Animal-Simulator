@@ -7,19 +7,15 @@ public class CreatureCreation : MonoBehaviour
     public int numCreatures;
     public Ground ground;
 
+    public GameObject creaturePrefab;
+
+    public AttributeType speed;
+
     public PlayerController playerController;
     public AIController aiController;
 
     public GameEvent onInventoryChange;
     public GameEvent onEquipmentChange;
-
-    public AttributeType speed;
-    public AttributeType[] attributeTypes;
-    public DamageType[] damageTypes;
-    public AttributeType armor;
-    public AttributeType damage;
-    public AttributeType[] meteredAttributeTypes;
-    public EquipmentSlot[] equipmentSlots;
 
     // Start is called before the first frame update
     void Start()
@@ -38,75 +34,28 @@ public class CreatureCreation : MonoBehaviour
 
     private GameObject CreateCreature(int num)
     {
-        string name = "Creature " + (num + 1);
-        GameObject creature = new GameObject(name);
-        creature.transform.parent = this.transform;
-
-        // add body
-        GameObject body = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-        body.name = "GFX";
-        body.transform.parent = creature.transform;
-
-        // add "hat brim"
-        GameObject hat = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        hat.transform.parent = body.transform;
-        hat.transform.position = new Vector3(0f, .5f, 0.4f);
-        hat.transform.localScale = new Vector3(.4f, .2f, .7f);
-
         // set random position
         float x = Random.Range(0f, ground.size);
         float z = Random.Range(0f, ground.size);
-        creature.transform.position = new Vector3(x, ground.GetHeightAtXZ(x, z) + 1.1f, z);
+        Vector3 position = new Vector3(x, ground.GetHeightAtXZ(x, z) + 1.1f, z);
 
-        /*Rigidbody creatureRB = creature.AddComponent<Rigidbody>();
-        creatureRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        creatureRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;*/
+        GameObject creature = Instantiate(creaturePrefab, position, Quaternion.identity, transform);
+        creature.name = "Creature " + (num + 1);
 
-        Creature c = creature.AddComponent<Creature>();
-
-        CreatureAttributes ca = creature.AddComponent<CreatureAttributes>();
-        ca.attributes = new Attribute[attributeTypes.Length];
-        for (int i = 0; i < attributeTypes.Length; i++)
+        CreatureAttributes ca = creature.GetComponent<CreatureAttributes>();
+        for (int i = 0; i < ca.attributes.Length; i++)
         {
+            AttributeType currentType = ca.attributes[i].type;
             ca.attributes[i] = new Attribute(num + i + 5);
-            ca.attributes[i].type = attributeTypes[i];
+            ca.attributes[i].type = currentType;
         }
 
-        ca.armors = new ArmorAttribute[damageTypes.Length];
-        ca.damages = new DamageAttribute[damageTypes.Length];
-        for (int i = 0; i < damageTypes.Length; i++)
+        for (int i = 0; i < ca.meters.Length; i++)
         {
-            ca.armors[i] = new ArmorAttribute(0);
-            ca.armors[i].damageType = damageTypes[i];
-            ca.armors[i].type = armor;
-
-            ca.damages[i] = new DamageAttribute(0);
-            ca.damages[i].damageType = damageTypes[i];
-            ca.damages[i].type = damage;
-        }
-
-        ca.meters = new MeteredAttribute[meteredAttributeTypes.Length];
-        for (int i = 0; i < meteredAttributeTypes.Length; i++)
-        {
+            AttributeType currentType = ca.meters[i].type;
             ca.meters[i] = new MeteredAttribute(100);
-            ca.meters[i].type = meteredAttributeTypes[i];
+            ca.meters[i].type = currentType;
         }
-
-        creature.AddComponent<Interactable>();
-
-        GameObject sight = new GameObject("sight zone");
-        sight.transform.parent = creature.transform;
-        sight.transform.localPosition = Vector3.zero;
-        SphereCollider sightC = sight.AddComponent<SphereCollider>();
-        sightC.radius = 10f;
-        sightC.isTrigger = true;
-        sight.AddComponent<Sight>().creature = c;
-
-        CreatureMotor creatureMotor = creature.AddComponent<CreatureMotor>();
-        creatureMotor.speed = speed;
-        InventoryManager inv = creature.AddComponent<InventoryManager>();
-        EquipmentManager equipMan = creature.AddComponent<EquipmentManager>();
-        equipMan.slots = equipmentSlots;
 
         if (num == 0)
         {
@@ -116,11 +65,11 @@ public class CreatureCreation : MonoBehaviour
             // set controller to be based on input
             var creatureController = (PlayerController)creatureC.currentController;
             creatureController.cam = Camera.main;
-            creatureController.cam.GetComponent<CameraController>().target = creature.transform;
+            creatureController.cam.GetComponent<CameraController>().target = creatureC.transform;
 
             // add events only to the player
-            inv.onInventoryChange = onInventoryChange;
-            equipMan.onEquipmentChange = onEquipmentChange;
+            creatureC.GetComponent<InventoryManager>().onInventoryChange = onInventoryChange;
+            creatureC.GetComponent<EquipmentManager>().onEquipmentChange = onEquipmentChange;
         }
         else
         {

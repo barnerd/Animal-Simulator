@@ -23,15 +23,15 @@ public class Sight : MonoBehaviour
     {
         if (other.TryGetComponent<Creature>(out Creature c))
         {
-            //Debug.Log(creature.name + " can now see " + c + ", a creature.");
+            Debug.Log(creature.name + " can now see " + c + ", a creature.");
         }
         else if (other.TryGetComponent<ItemPickup>(out ItemPickup i))
         {
-            //Debug.Log(creature.name + " can now see " + i.item + ", an item.");
+            Debug.Log(creature.name + " can now see " + i.item + ", an item.");
         }
         else
         {
-            //Debug.Log(creature.name + " can now see " + other + ", which I don't know what it is");
+            Debug.Log(creature.name + " can now see " + other + ", which I don't know what it is");
         }
     }
 

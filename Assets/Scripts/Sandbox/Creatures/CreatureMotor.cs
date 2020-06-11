@@ -39,17 +39,7 @@ public class CreatureMotor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (controller == null)
-        {
-            if (gameObject.GetComponent<CharacterController>() == null)
-            {
-                controller = gameObject.AddComponent<CharacterController>();
-            }
-            else
-            {
-                controller = gameObject.GetComponent<CharacterController>();
-            }
-        }
+        controller = gameObject.GetComponent<CharacterController>();
 
         creature = gameObject.GetComponent<Creature>();
         creatureAttributes = creature.GetComponent<CreatureAttributes>();
@@ -70,7 +60,7 @@ public class CreatureMotor : MonoBehaviour
 
         if (moveTarget != null)
         {
-            if(Vector3.Distance(transform.position, moveTarget.position) > moveRadius)
+            if (Vector3.Distance(transform.position, moveTarget.position) > moveRadius)
             {
                 MoveToTransform(moveTarget, moveRadius);
             }
