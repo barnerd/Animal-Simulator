@@ -16,7 +16,9 @@ public class AIController : InputController
         {
             obj.GetComponent<Creature>().nextTimeForAIUpdate += updateInterval;
 
-            obj.GetComponent<CreatureMotor>().MoveDirection(new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)));
+            obj.GetComponent<CreatureMotor>().FaceDirection(new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)));
         }
+
+        obj.GetComponent<CreatureMotor>().MoveForward();
     }
 }

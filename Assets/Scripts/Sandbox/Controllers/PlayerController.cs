@@ -20,10 +20,11 @@ public class PlayerController : InputController
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        Vector3 direction = obj.transform.right * horizontal + obj.transform.forward * vertical;
-        direction.Normalize();
+        Vector3 direction = obj.transform.forward * vertical;
+        Vector3 lookDirection = obj.transform.right * horizontal;
 
         obj.GetComponent<CreatureMotor>().MoveDirection(direction);
+        obj.GetComponent<CreatureMotor>().FaceDirection(lookDirection);
 
         // jump
         if (Input.GetButtonDown("Jump"))

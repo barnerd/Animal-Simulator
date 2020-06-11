@@ -13,9 +13,6 @@ public class CreatureMotor : MonoBehaviour
     public Vector3 direction;
     public Vector3 targetPosition;
 
-    public float turnSmoothTime = 0.6f;
-    float turnSmoothVelocity;
-
     public AttributeType speed;
 
     Creature creature;
@@ -24,6 +21,9 @@ public class CreatureMotor : MonoBehaviour
     Transform lookAtTarget;
     Transform faceTarget;
     Transform followTarget;
+
+    //
+    Vector3 faceDirection;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +41,9 @@ public class CreatureMotor : MonoBehaviour
         }
 
         creature = gameObject.GetComponent<Creature>();
+
+        // initialize variables
+        faceDirection = transform.forward;
     }
 
     // Update is called once per frame
@@ -55,25 +58,31 @@ public class CreatureMotor : MonoBehaviour
         float? creatureSpeed = creature.GetAttributeCurrentValue(speed);
 
         controller.Move(velocity + direction * (creatureSpeed ?? 0) * Time.deltaTime);
+
+        // if face direction and transform.forward are too far apart
+        if (Vector3.Angle(faceDirection, transform.forward) > 5f)
+            RotateCreature();
     }
 
     void FixedUpdate()
     {
     }
 
+    private void RotateCreature()
+    {
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(faceDirection.x, 0f, faceDirection.z));
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2f * Time.deltaTime);
+    }
+
     #region Move functions
+    public void MoveForward()
+    {
+        MoveDirection(transform.forward);
+    }
+
     public void MoveDirection(Vector3 _direction)
     {
-        // if input, then move in direction
-        if (_direction.magnitude >= .1f)
-        {
-            // rotate the character as well
-            // TODO: left/right is moving AND rotating the character, causing the character to go in a circle
-            // looks like the character speed might be affecting the radius of the circle, i.e. if speed = 0, then character just spins (which is correct)
-            float angle = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg;
-            float targetAngle = Mathf.SmoothDampAngle(this.transform.eulerAngles.y, angle, ref turnSmoothVelocity, turnSmoothTime);
-            this.transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
-        }
         this.direction = _direction;
     }
 
@@ -97,7 +106,8 @@ public class CreatureMotor : MonoBehaviour
 
     public void LookAtDirection(Vector3 _direction)
     {
-        // TODO: implement look at
+        // TODO: implement look at, for now face direction
+        FaceDirection(_direction);
     }
 
     public void LookForward()
@@ -120,10 +130,12 @@ public class CreatureMotor : MonoBehaviour
 
     public void FaceDirection(Vector3 _direction)
     {
-        Vector3 lookDirection = _direction.normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(lookDirection.x, 0f, lookDirection.z));
+        faceDirection = _direction.normalized;
+    }
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2f * Time.deltaTime);
+    public void FaceForward()
+    {
+        FaceDirection(transform.forward);
     }
     #endregion
 
