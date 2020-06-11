@@ -18,6 +18,7 @@ public class CreatureMotor : MonoBehaviour
     public AttributeType speed;
 
     Creature creature;
+    CreatureAttributes creatureAttributes;
 
     // targets
     Vector3? moveToPosition;
@@ -51,6 +52,7 @@ public class CreatureMotor : MonoBehaviour
         }
 
         creature = gameObject.GetComponent<Creature>();
+        creatureAttributes = creature.GetComponent<CreatureAttributes>();
 
         // initialize variables
         moveDirection = Vector3.zero;
@@ -110,7 +112,7 @@ public class CreatureMotor : MonoBehaviour
         }
         velocity.y += .5f * gravity * Time.deltaTime * Time.deltaTime;
 
-        float? creatureSpeed = creature.GetAttributeCurrentValue(speed);
+        float? creatureSpeed = creatureAttributes.GetAttributeCurrentValue(speed);
 
         controller.Move(velocity + moveDirection * (creatureSpeed ?? 0) * Time.deltaTime);
     }
@@ -226,6 +228,21 @@ public class CreatureMotor : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity) * Time.deltaTime;
         }
+    }
+
+    public void Swing()
+    {
+        //TODO: implement swing
+    }
+
+    public void Throw()
+    {
+        //TODO: implement throw
+    }
+
+    public void Drop()
+    {
+        //TODO: implement drop
     }
 
     public void Crouch()

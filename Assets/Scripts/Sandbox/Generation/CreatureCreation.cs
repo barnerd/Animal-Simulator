@@ -63,31 +63,33 @@ public class CreatureCreation : MonoBehaviour
         creatureRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;*/
 
         Creature c = creature.AddComponent<Creature>();
-        c.attributes = new Attribute[attributeTypes.Length];
+
+        CreatureAttributes ca = creature.AddComponent<CreatureAttributes>();
+        ca.attributes = new Attribute[attributeTypes.Length];
         for (int i = 0; i < attributeTypes.Length; i++)
         {
-            c.attributes[i] = new Attribute(num + i + 5);
-            c.attributes[i].type = attributeTypes[i];
+            ca.attributes[i] = new Attribute(num + i + 5);
+            ca.attributes[i].type = attributeTypes[i];
         }
 
-        c.armors = new ArmorAttribute[damageTypes.Length];
-        c.damages = new DamageAttribute[damageTypes.Length];
+        ca.armors = new ArmorAttribute[damageTypes.Length];
+        ca.damages = new DamageAttribute[damageTypes.Length];
         for (int i = 0; i < damageTypes.Length; i++)
         {
-            c.armors[i] = new ArmorAttribute(0);
-            c.armors[i].damageType = damageTypes[i];
-            c.armors[i].type = armor;
+            ca.armors[i] = new ArmorAttribute(0);
+            ca.armors[i].damageType = damageTypes[i];
+            ca.armors[i].type = armor;
 
-            c.damages[i] = new DamageAttribute(0);
-            c.damages[i].damageType = damageTypes[i];
-            c.damages[i].type = damage;
+            ca.damages[i] = new DamageAttribute(0);
+            ca.damages[i].damageType = damageTypes[i];
+            ca.damages[i].type = damage;
         }
 
-        c.meters = new MeteredAttribute[meteredAttributeTypes.Length];
+        ca.meters = new MeteredAttribute[meteredAttributeTypes.Length];
         for (int i = 0; i < meteredAttributeTypes.Length; i++)
         {
-            c.meters[i] = new MeteredAttribute(100);
-            c.meters[i].type = meteredAttributeTypes[i];
+            ca.meters[i] = new MeteredAttribute(100);
+            ca.meters[i].type = meteredAttributeTypes[i];
         }
 
         creature.AddComponent<Interactable>();

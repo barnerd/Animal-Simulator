@@ -118,7 +118,7 @@ public class EquipmentManager : MonoBehaviour
     // I wonder if a dictionary, versus a list or array would make this better
     private void ModifyAttributes(Equipment _item, bool add = true)
     {
-        Creature c = GetComponent<Creature>();
+        CreatureAttributes c = GetComponent<CreatureAttributes>();
         for (int i = 0; i < _item.attributeModifiers.Length; i++)
         {
             for (int j = 0; j < c.attributes.Length; j++)

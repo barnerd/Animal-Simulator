@@ -63,8 +63,10 @@ public class PlayerController : InputController
                         obj.GetComponent<CreatureMotor>().MoveToTransform(interactable.transform, interactable.radius);
                     }
                 }
-
-                Debug.Log(hit.transform.position);
+                else
+                {
+                    obj.GetComponent<CreatureMotor>().MoveToPosition(hit.point);
+                }
             }
         }
     }
