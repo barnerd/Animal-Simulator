@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Creature), typeof(CreatureAttributes), typeof(CharacterController))]
 public class CreatureMotor : MonoBehaviour
 {
     public CharacterController controller;

@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c2c0d92042b549bf9a422ed3d8c1740, type: 3}
-  m_Name: Health
+  m_Script: {fileID: 11500000, guid: 15ddbe5e27f804b81b49a671592b4af0, type: 3}
+  m_Name: onMeteredAttributeChange
   m_EditorClassIdentifier: 
-  name: health
+  Description: Called when a Metered Attribute changes
+  debugSOParameter: {fileID: 0}
+  debugMBParameter: {fileID: 0}

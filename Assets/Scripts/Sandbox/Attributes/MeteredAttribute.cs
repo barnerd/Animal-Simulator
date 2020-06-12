@@ -12,7 +12,7 @@ public class MeteredAttribute : Attribute
     {
     }
 
-    public void ChangeMeter(float _delta, Creature _actor)
+    public void ChangeMeter(float _delta, CreatureAttributes _actor)
     {
         currentValue += _delta;
 

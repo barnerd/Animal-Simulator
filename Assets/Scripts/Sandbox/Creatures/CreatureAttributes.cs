@@ -39,9 +39,13 @@ public class CreatureAttributes : MonoBehaviour
 
         for (int i = 0; i < meters.Length; i++)
         {
-            AttributeType currentType = meters[i].type;
+            MeteredAttributeType currentType = meters[i].type as MeteredAttributeType;
+            GameEvent currentEvent = meters[i].onMeteredAttributeChange;
+            GameEvent currentEvent0 = meters[i].onMeteredAttribute0;
             meters[i] = new MeteredAttribute(100);
             meters[i].type = currentType;
+            meters[i].onMeteredAttributeChange = currentEvent;
+            meters[i].onMeteredAttribute0 = currentEvent0;
         }
     }
 
@@ -51,7 +55,7 @@ public class CreatureAttributes : MonoBehaviour
         // for testing
         if (Input.GetKeyUp(KeyCode.T))
         {
-            TakeDamage(damages[2].damageType, damages[2].GetDamage());
+            TakeDamage(damages[2].damageType, 5);
         }
     }
 
@@ -66,14 +70,25 @@ public class CreatureAttributes : MonoBehaviour
         return null;
     }
 
-    public void ChangeMeter(AttributeType _type, float _delta)
+    public float? GetAttributeCurrentPercent(MeteredAttributeType _type)
+    {
+        for (int i = 0; i < meters.Length; i++)
+        {
+            if (meters[i].type == _type)
+                return meters[i].CurrentPercent;
+        }
+
+        return null;
+    }
+
+    public void ChangeMeter(MeteredAttributeType _type, float _delta)
     {
         for (int i = 0; i < meters.Length; i++)
         {
             if (meters[i].type == _type)
             {
-                meters[i].ChangeMeter(_delta, GetComponent<Creature>());
-                Debug.Log(name + " takes " + _delta + " damage against " + _type + " type.");
+                meters[i].ChangeMeter(_delta, this);
+                //Debug.Log(name + " takes " + _delta + " damage against " + _type + " type.");
             }
         }
     }
@@ -94,7 +109,7 @@ public class CreatureAttributes : MonoBehaviour
             _delta = 0;
 
         // TODO: don't hardcode index 0 here
-        ChangeMeter(meters[0].type, -_delta);
-        Debug.Log(name + " takes " + _delta + " damage of type " + _type + ".");
+        ChangeMeter(meters[0].type as MeteredAttributeType, -_delta);
+        //Debug.Log(name + " takes " + _delta + " damage of type " + _type + ".");
     }
 }

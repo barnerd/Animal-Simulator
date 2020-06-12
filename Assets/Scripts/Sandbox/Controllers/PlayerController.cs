@@ -8,10 +8,6 @@ public class PlayerController : InputController
 
     public override void Initialize(GameObject obj)
     {
-        if (cam != null)
-        {
-            cam.transform.parent = obj.transform;
-        }
     }
 
     public override void ProcessInput(GameObject obj)

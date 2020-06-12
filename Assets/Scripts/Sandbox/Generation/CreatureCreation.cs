@@ -9,16 +9,13 @@ public class CreatureCreation : MonoBehaviour
     public Ground ground;
 
     public Camera playerCam;
+    public Canvas hud;
+    public InventoryUI inventoryUI;
 
     public GameObject creaturePrefab;
 
     [Header("Controllers")]
     public PlayerController playerController;
-    public AIController aiController;
-
-    [Header("Events")]
-    public GameEvent onInventoryChange;
-    public GameEvent onEquipmentChange;
 
     // Start is called before the first frame update
     void Start()
@@ -29,18 +26,7 @@ public class CreatureCreation : MonoBehaviour
         Vector3 position = new Vector3(x, ground.GetHeightAtXZ(x, z) + 1.1f, z);
 
         GameObject player = Creature.Create(creaturePrefab, position, transform);
-        player.name = "Player";
-        var creatureC = player.GetComponent<Creature>();
-        creatureC.currentController = playerController;
-
-        // set controller to be based on input
-        var creatureController = (PlayerController)creatureC.currentController;
-        creatureController.cam = playerCam;
-        creatureController.cam.GetComponent<CameraController>().target = creatureC.transform;
-
-        // add events only to the player
-        creatureC.GetComponent<InventoryManager>().onInventoryChange = onInventoryChange;
-        creatureC.GetComponent<EquipmentManager>().onEquipmentChange = onEquipmentChange;
+        SetActivePlayer(player, playerController, playerCam, hud, inventoryUI);
 
         // add other creatures
         for (int i = 1; i < numCreatures; i++)
@@ -52,5 +38,30 @@ public class CreatureCreation : MonoBehaviour
 
             Creature.Create(creaturePrefab, position, transform).name = "Creature " + i;
         }
+    }
+
+    public static void SetActivePlayer(GameObject _gameObject, InputController _controller, Camera _camera, Canvas _hud, InventoryUI _inventoryUI)
+    {
+        _gameObject.name = "Player";
+
+        // Set Controller
+        _gameObject.GetComponent<Creature>().currentController = _controller;
+
+        var creatureController = (PlayerController)_gameObject.GetComponent<Creature>().currentController;
+        creatureController.cam = _camera;
+        _camera.GetComponent<CameraController>().target = _gameObject.transform;
+
+        // Set HUD
+        MeteredAttributeUI[] meters = _hud.GetComponentsInChildren<MeteredAttributeUI>();
+
+        for (int i = 0; i < meters.Length; i++)
+        {
+            meters[i].creature = _gameObject.GetComponent<CreatureAttributes>();
+            meters[i].SetPercent(_gameObject.GetComponent<CreatureAttributes>());
+        }
+
+        _gameObject.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+
+        _inventoryUI.inventory = _gameObject.GetComponent<InventoryManager>();
     }
 }
