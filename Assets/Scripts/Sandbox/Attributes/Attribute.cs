@@ -9,12 +9,14 @@ public class Attribute
     public float BaseValue { get; }
     public float currentValue { get; protected set; }
 
-    protected List<AttributeModifier> modifiers = new List<AttributeModifier>();
+    protected List<AttributeModifier> modifiers;
 
     public Attribute(float _base)
     {
         BaseValue = _base;
         currentValue = BaseValue;
+
+        modifiers = new List<AttributeModifier>();
     }
 
     public void AddModifier(AttributeModifier _modifier)

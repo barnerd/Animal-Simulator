@@ -11,6 +11,8 @@ public class InventoryManager : MonoBehaviour
 
     public GameEvent onInventoryChange;
 
+    public GameObject itemPickupPrefab;
+
     public bool Add(Item _i)
     {
         // check bulk and weight before adding
@@ -35,10 +37,10 @@ public class InventoryManager : MonoBehaviour
 
         if (success)
         {
-            GameObject item = ItemPickup.CreateItemPickup(_i);
-
             // position item to the right
-            item.transform.position = transform.position + transform.right * .7f;
+            Vector3 position = transform.position + transform.right * .7f;
+
+            ItemPickup.Create(itemPickupPrefab, _i, position);
         }
 
         return success;

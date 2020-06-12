@@ -9,6 +9,42 @@ public class CreatureAttributes : MonoBehaviour
     public DamageAttribute[] damages;
     public MeteredAttribute[] meters;
 
+    //TODO: have a better way of setting up all attributes
+    void Awake()
+    {
+        for (int i = 0; i < attributes.Length; i++)
+        {
+            AttributeType currentType = attributes[i].type;
+            attributes[i] = new Attribute(8);
+            attributes[i].type = currentType;
+        }
+
+        for (int i = 0; i < armors.Length; i++)
+        {
+            AttributeType currentType = armors[i].type;
+            DamageType currentDamageType = armors[i].damageType;
+            armors[i] = new ArmorAttribute(0);
+            armors[i].type = currentType;
+            armors[i].damageType = currentDamageType;
+        }
+
+        for (int i = 0; i < damages.Length; i++)
+        {
+            AttributeType currentType = damages[i].type;
+            DamageType currentDamageType = damages[i].damageType;
+            damages[i] = new DamageAttribute(0);
+            damages[i].type = currentType;
+            damages[i].damageType = currentDamageType;
+        }
+
+        for (int i = 0; i < meters.Length; i++)
+        {
+            AttributeType currentType = meters[i].type;
+            meters[i] = new MeteredAttribute(100);
+            meters[i].type = currentType;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {

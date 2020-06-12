@@ -29,23 +29,16 @@ public class ItemPickup : Interactable
         return false;
     }
 
-    public static GameObject CreateItemPickup(Item _i)
+    public static GameObject Create(GameObject _itemPickupPrefab, Item _i, Vector3 _position, Transform _parent = null)
     {
-        GameObject item = new GameObject(_i.name);
+        GameObject item = Instantiate(_itemPickupPrefab, _position, Quaternion.identity, _parent);
+        item.name = _i.name;
 
-        ItemPickup itemPU = item.AddComponent<ItemPickup>();
-        itemPU.item = _i;
+        item.GetComponent<ItemPickup>().item = _i;
 
         // add mesh
-        MeshFilter itemMF = item.AddComponent<MeshFilter>();
-        itemMF.sharedMesh = itemPU.item.mesh;
-        MeshRenderer itemMR = item.AddComponent<MeshRenderer>();
-        itemMR.sharedMaterial = itemPU.item.material;
-
-        Rigidbody itemRB = item.AddComponent<Rigidbody>();
-        itemRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        MeshCollider itemMC = item.AddComponent<MeshCollider>();
-        itemMC.convex = true;
+        item.GetComponentInChildren<MeshFilter>().sharedMesh = _i.mesh;
+        item.GetComponentInChildren<MeshRenderer>().sharedMaterial = _i.material;
 
         return item;
     }

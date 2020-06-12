@@ -31,4 +31,11 @@ public class Creature : MonoBehaviour
     {
         Debug.Log(name + " dies.");
     }
+
+    public static GameObject Create(GameObject _prefab, Vector3 _position, Transform _parent = null)
+    {
+        GameObject creature = Instantiate(_prefab, _position, Quaternion.identity, _parent);
+
+        return creature;
+    }
 }

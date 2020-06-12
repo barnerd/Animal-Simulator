@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d9fbabd439149f6905dec21cc1f720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentController: {fileID: 0}
+  currentController: {fileID: 11400000, guid: 9f1dcea1303b84965958e263098515f3, type: 2}
   nextTimeForAIUpdate: 0
 --- !u!114 &1497173783355084583
 MonoBehaviour:
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d8bf6dc676c4d8bbe018e3f224cdd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
+  controller: {fileID: 8720326064299609858}
   gravity: -9.81
   jumpHeight: 0.5
   rotationSpeed: 0.5
@@ -385,6 +385,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items: []
   onInventoryChange: {fileID: 0}
+  itemPickupPrefab: {fileID: 9221740909259222772, guid: 57f1b00e56b564c2ebb178e968e276d5,
+    type: 3}
 --- !u!114 &2588414659310815121
 MonoBehaviour:
   m_ObjectHideFlags: 0

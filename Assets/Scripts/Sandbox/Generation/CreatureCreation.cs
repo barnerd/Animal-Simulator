@@ -5,77 +5,52 @@ using UnityEngine;
 public class CreatureCreation : MonoBehaviour
 {
     public int numCreatures;
+
     public Ground ground;
+
+    public Camera playerCam;
 
     public GameObject creaturePrefab;
 
-    public AttributeType speed;
-
+    [Header("Controllers")]
     public PlayerController playerController;
     public AIController aiController;
 
+    [Header("Events")]
     public GameEvent onInventoryChange;
     public GameEvent onEquipmentChange;
 
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < numCreatures; i++)
-        {
-            CreateCreature(i);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private GameObject CreateCreature(int num)
-    {
         // set random position
         float x = Random.Range(0f, ground.size);
         float z = Random.Range(0f, ground.size);
         Vector3 position = new Vector3(x, ground.GetHeightAtXZ(x, z) + 1.1f, z);
 
-        GameObject creature = Instantiate(creaturePrefab, position, Quaternion.identity, transform);
-        creature.name = "Creature " + (num + 1);
+        GameObject player = Creature.Create(creaturePrefab, position, transform);
+        player.name = "Player";
+        var creatureC = player.GetComponent<Creature>();
+        creatureC.currentController = playerController;
 
-        CreatureAttributes ca = creature.GetComponent<CreatureAttributes>();
-        for (int i = 0; i < ca.attributes.Length; i++)
+        // set controller to be based on input
+        var creatureController = (PlayerController)creatureC.currentController;
+        creatureController.cam = playerCam;
+        creatureController.cam.GetComponent<CameraController>().target = creatureC.transform;
+
+        // add events only to the player
+        creatureC.GetComponent<InventoryManager>().onInventoryChange = onInventoryChange;
+        creatureC.GetComponent<EquipmentManager>().onEquipmentChange = onEquipmentChange;
+
+        // add other creatures
+        for (int i = 1; i < numCreatures; i++)
         {
-            AttributeType currentType = ca.attributes[i].type;
-            ca.attributes[i] = new Attribute(num + i + 5);
-            ca.attributes[i].type = currentType;
+            // set random position
+            x = Random.Range(0f, ground.size);
+            z = Random.Range(0f, ground.size);
+            position = new Vector3(x, ground.GetHeightAtXZ(x, z) + 1.1f, z);
+
+            Creature.Create(creaturePrefab, position, transform).name = "Creature " + i;
         }
-
-        for (int i = 0; i < ca.meters.Length; i++)
-        {
-            AttributeType currentType = ca.meters[i].type;
-            ca.meters[i] = new MeteredAttribute(100);
-            ca.meters[i].type = currentType;
-        }
-
-        if (num == 0)
-        {
-            var creatureC = creature.GetComponent<Creature>();
-            creatureC.currentController = playerController;
-
-            // set controller to be based on input
-            var creatureController = (PlayerController)creatureC.currentController;
-            creatureController.cam = Camera.main;
-            creatureController.cam.GetComponent<CameraController>().target = creatureC.transform;
-
-            // add events only to the player
-            creatureC.GetComponent<InventoryManager>().onInventoryChange = onInventoryChange;
-            creatureC.GetComponent<EquipmentManager>().onEquipmentChange = onEquipmentChange;
-        }
-        else
-        {
-            creature.GetComponent<Creature>().currentController = aiController;
-        }
-
-        return creature;
     }
 }
