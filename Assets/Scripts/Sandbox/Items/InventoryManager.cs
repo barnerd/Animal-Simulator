@@ -13,6 +13,15 @@ public class InventoryManager : MonoBehaviour
 
     public GameObject itemPickupPrefab;
 
+    private Creature creature;
+    private CreatureMotor creatureMotor;
+
+    void Start()
+    {
+        creature = GetComponent<Creature>();
+        creatureMotor = GetComponent<CreatureMotor>();
+    }
+
     public bool Add(Item _i)
     {
         // check bulk and weight before adding
@@ -27,7 +36,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (items.Contains(_i))
         {
-            _i.Interact(GetComponent<Creature>());
+            _i.Interact(creature);
         }
     }
 
@@ -40,6 +49,7 @@ public class InventoryManager : MonoBehaviour
             // position item to the right
             Vector3 position = transform.position + transform.right * .7f;
 
+            creatureMotor.Drop();
             ItemPickup.Create(itemPickupPrefab, _i, position);
         }
 
