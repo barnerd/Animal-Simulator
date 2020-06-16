@@ -46,9 +46,9 @@ public class Creature : MonoBehaviour
         gfx.transform.localPosition = Vector3.zero;
 
         Animator gfxAnimator;
-        if (gfx.TryGetComponent(typeof(Animator), out Component animatorCompontent))
+        if (gfx.TryGetComponent(typeof(Animator), out Component animatorComponent))
         {
-            gfxAnimator = (Animator)animatorCompontent;
+            gfxAnimator = (Animator)animatorComponent;
         }
         else
         {

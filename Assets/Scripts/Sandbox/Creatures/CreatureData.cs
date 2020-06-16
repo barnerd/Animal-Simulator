@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEditor.Animations;
 
 [CreateAssetMenu(fileName = "New Creature", menuName = "Creature/Creature")]
 public class CreatureData : ScriptableObject
@@ -7,7 +6,7 @@ public class CreatureData : ScriptableObject
     new public string name = "New Creature";
     public GameObject modelData;
 
-    public AnimatorController animator;
+    public RuntimeAnimatorController animator;
 
     [Header("Camera Controller")]
     public Vector3 cameraOffset;
