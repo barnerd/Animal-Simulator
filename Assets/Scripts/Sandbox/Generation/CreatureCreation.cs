@@ -13,6 +13,7 @@ public class CreatureCreation : MonoBehaviour
     public InventoryUI inventoryUI;
 
     public GameObject creaturePrefab;
+    public CreatureData[] creatureDatas;
 
     [Header("Controllers")]
     public PlayerController playerController;
@@ -23,9 +24,9 @@ public class CreatureCreation : MonoBehaviour
         // set random position
         float x = Random.Range(0f, ground.size);
         float z = Random.Range(0f, ground.size);
-        Vector3 position = new Vector3(x, ground.GetHeightAtXZ(x, z) + 1.1f, z);
+        Vector3 position = new Vector3(x, ground.GetHeightAtXZ(x, z), z);
 
-        GameObject player = Creature.Create(creaturePrefab, position, transform);
+        GameObject player = Creature.Create(creaturePrefab, creatureDatas[Random.Range(0, creatureDatas.Length)], position, transform);
         SetActivePlayer(player, playerController, playerCam, hud, inventoryUI);
 
         // add other creatures
@@ -34,9 +35,9 @@ public class CreatureCreation : MonoBehaviour
             // set random position
             x = Random.Range(0f, ground.size);
             z = Random.Range(0f, ground.size);
-            position = new Vector3(x, ground.GetHeightAtXZ(x, z) + 1.1f, z);
+            position = new Vector3(x, ground.GetHeightAtXZ(x, z), z);
 
-            Creature.Create(creaturePrefab, position, transform).name = "Creature " + i;
+            Creature.Create(creaturePrefab, creatureDatas[Random.Range(0, creatureDatas.Length)], position, transform).name = "Creature " + i;
         }
     }
 
@@ -50,6 +51,7 @@ public class CreatureCreation : MonoBehaviour
         var creatureController = (PlayerController)_gameObject.GetComponent<Creature>().currentController;
         creatureController.cam = _camera;
         _camera.GetComponent<CameraController>().target = _gameObject.transform;
+        _camera.GetComponent<CameraController>().lookAtOffset = _gameObject.GetComponent<CharacterController>().height;
 
         // Set HUD
         MeteredAttributeUI[] meters = _hud.GetComponentsInChildren<MeteredAttributeUI>();

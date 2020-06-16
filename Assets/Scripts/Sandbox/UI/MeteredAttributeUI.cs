@@ -34,7 +34,6 @@ public class MeteredAttributeUI : MonoBehaviour
             float percent = Mathf.Clamp01((creature.GetAttributeCurrentPercent(meterType) ?? 1));
             slider.value = percent;
             fill.color = meterType.gradientUI.Evaluate(percent);
-            Debug.Log("Changing UI for " + creature + " " + meterType + " bar to " + percent * 100 + "%.");
         }
     }
 }

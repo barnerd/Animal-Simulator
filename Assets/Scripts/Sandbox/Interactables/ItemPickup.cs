@@ -2,7 +2,7 @@
 
 public class ItemPickup : Interactable
 {
-    public Item item;
+    public ItemData item;
 
     public override bool Interact(GameObject actor)
     {
@@ -29,7 +29,7 @@ public class ItemPickup : Interactable
         return false;
     }
 
-    public static GameObject Create(GameObject _itemPickupPrefab, Item _i, Vector3 _position, Transform _parent = null)
+    public static GameObject Create(GameObject _itemPickupPrefab, ItemData _i, Vector3 _position, Transform _parent = null)
     {
         GameObject item = Instantiate(_itemPickupPrefab, _position, Quaternion.identity, _parent);
         item.name = _i.name;

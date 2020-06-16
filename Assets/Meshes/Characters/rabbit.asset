@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a0823970aef4cada9f8cf5cbe4977b, type: 3}
+  m_Name: rabbit
+  m_EditorClassIdentifier: 
+  name: Rabbit
+  modelData: {fileID: 919132149155446097, guid: df6194f5c0952476fa198661b98c8d4b,
+    type: 3}
+  animator: {fileID: 9100000, guid: f5b705c06d2ea4385b37e4c7a41653e9, type: 2}
+  characterControllerCenter: {x: 0, y: 0.13, z: 0}
+  characterControllerRadius: 0.1
+  characterControllerHeight: 0.29
+  equipmentScale: 0

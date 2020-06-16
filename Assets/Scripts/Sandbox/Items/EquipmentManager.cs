@@ -7,12 +7,12 @@ public class EquipmentManager : MonoBehaviour
     public GameEvent onEquipmentChange;
 
     public EquipmentSlot[] slots;
-    Equipment[] equipment;
+    EquipmentData[] equipment;
 
     // Start is called before the first frame update
     void Start()
     {
-        equipment = new Equipment[slots.Length];
+        equipment = new EquipmentData[slots.Length];
     }
 
     // Update is called once per frame
@@ -22,7 +22,7 @@ public class EquipmentManager : MonoBehaviour
             UnequipAll();
     }
 
-    public bool Equip(Equipment _item, EquipmentSlot _slot = null)
+    public bool Equip(EquipmentData _item, EquipmentSlot _slot = null)
     {
         EquipmentSlot slot = _slot;
 
@@ -62,7 +62,7 @@ public class EquipmentManager : MonoBehaviour
         if (index == null)
             return false;
 
-        Equipment item = equipment[index ?? -1];
+        EquipmentData item = equipment[index ?? -1];
         if (item == null)
             return true;
 
@@ -116,14 +116,14 @@ public class EquipmentManager : MonoBehaviour
 
     // TODO: Figure out where this should go. Having it in the equipment manager seems weird, but it's weird all the data is.
     // I wonder if a dictionary, versus a list or array would make this better
-    private void ModifyAttributes(Equipment _item, bool add = true)
+    private void ModifyAttributes(EquipmentData _item, bool add = true)
     {
         CreatureAttributes c = GetComponent<CreatureAttributes>();
         for (int i = 0; i < _item.attributeModifiers.Length; i++)
         {
             for (int j = 0; j < c.attributes.Length; j++)
             {
-                if(c.attributes[j].type == _item.attributeModifiers[i].attributeType)
+                if (c.attributes[j].type == _item.attributeModifiers[i].attributeType)
                 {
                     if (add)
                     {

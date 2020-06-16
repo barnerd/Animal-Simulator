@@ -41,7 +41,7 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void InteractItem(Item _item)
+    public void InteractItem(ItemData _item)
     {
         if (inventory != null)
         {
@@ -49,7 +49,7 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void DropItem(Item _item)
+    public void DropItem(ItemData _item)
     {
         if (inventory != null)
         {

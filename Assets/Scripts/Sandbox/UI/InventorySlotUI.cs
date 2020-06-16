@@ -5,7 +5,7 @@ public class InventorySlotUI : MonoBehaviour
 {
     InventoryUI inventoryUI;
 
-    Item item;
+    ItemData item;
 
     public MeshFilter gfxMF;
     public MeshRenderer gfxMR;
@@ -22,7 +22,7 @@ public class InventorySlotUI : MonoBehaviour
         }
     }
 
-    public void AddItem(Item _item)
+    public void AddItem(ItemData _item)
     {
         item = _item;
         gfxMR.material = item.material;

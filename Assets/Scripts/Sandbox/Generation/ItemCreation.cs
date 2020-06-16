@@ -11,7 +11,7 @@ public class ItemCreation : MonoBehaviour
     public GameObject itemPickupPrefab;
 
     [Header("Items")]
-    public Item[] items;
+    public ItemData[] items;
 
     // Start is called before the first frame update
     void Start()

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Item/Item")]
-public class Item : ScriptableObject
+public class ItemData : ScriptableObject
 {
     new public string name = "New Item";
     public Mesh mesh;

@@ -7,11 +7,12 @@ public class CameraController : MonoBehaviour
     public Transform target;
 
     public Vector3 offset;
+    public float lookAtOffset;
 
     public float zoomSpeed = 4f;
     public float minZoom = 6f;
     public float maxZoom = 10f;
-    private float currentZoom = 9f;
+    float currentZoom = 9f;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +41,7 @@ public class CameraController : MonoBehaviour
         transform.RotateAround(target.position, Vector3.up, target.eulerAngles.y);
 
         //look at the target
-        transform.LookAt(target.position);
+        transform.LookAt(target.position + Vector3.up * lookAtOffset);
 
     }
 }

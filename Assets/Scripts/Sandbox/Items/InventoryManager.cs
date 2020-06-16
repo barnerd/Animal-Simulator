@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    public List<Item> items = new List<Item>();
+    public List<ItemData> items = new List<ItemData>();
 
     // TODO: add bulk
     // TODO: add weight
@@ -22,7 +22,7 @@ public class InventoryManager : MonoBehaviour
         creatureMotor = GetComponent<CreatureMotor>();
     }
 
-    public bool Add(Item _i)
+    public bool Add(ItemData _i)
     {
         // check bulk and weight before adding
         items.Add(_i);
@@ -32,7 +32,7 @@ public class InventoryManager : MonoBehaviour
         return true;
     }
 
-    public void Interact(Item _i)
+    public void Interact(ItemData _i)
     {
         if (items.Contains(_i))
         {
@@ -40,7 +40,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public bool Drop(Item _i)
+    public bool Drop(ItemData _i)
     {
         bool success = Remove(_i);
 
@@ -56,7 +56,7 @@ public class InventoryManager : MonoBehaviour
         return success;
     }
 
-    public bool Remove(Item _i)
+    public bool Remove(ItemData _i)
     {
         if (items.Contains(_i))
         {
