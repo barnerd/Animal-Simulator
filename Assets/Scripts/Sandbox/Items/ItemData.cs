@@ -4,8 +4,14 @@
 public class ItemData : ScriptableObject
 {
     new public string name = "New Item";
+
+    [Header("Graphics")]
     public Mesh mesh;
     public Material material;
+
+    [Header("Box Collider")]
+    public Vector3 colliderCenter;
+    public Vector3 colliderSize;
 
     [Header("Inventory Display")]
     public float inventoryScale;

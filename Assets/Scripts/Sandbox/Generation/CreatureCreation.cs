@@ -41,29 +41,34 @@ public class CreatureCreation : MonoBehaviour
         }
     }
 
-    public static void SetActivePlayer(GameObject _gameObject, InputController _controller, Camera _camera, Canvas _hud, InventoryUI _inventoryUI)
+    public static void SetActivePlayer(GameObject _activePlayer, InputController _controller, Camera _camera, Canvas _hud, InventoryUI _inventoryUI)
     {
-        _gameObject.name = "Player";
+        _activePlayer.name = "Player";
 
         // Set Controller
-        _gameObject.GetComponent<Creature>().currentController = _controller;
+        _activePlayer.GetComponent<Creature>().currentController = _controller;
 
-        var creatureController = (PlayerController)_gameObject.GetComponent<Creature>().currentController;
+        var creatureController = (PlayerController)_activePlayer.GetComponent<Creature>().currentController;
         creatureController.cam = _camera;
-        _camera.GetComponent<CameraController>().target = _gameObject.transform;
-        _camera.GetComponent<CameraController>().lookAtOffset = _gameObject.GetComponent<CharacterController>().height;
+
+        CameraController creatureCameraController = _camera.GetComponent<CameraController>();
+        creatureCameraController.target = _activePlayer.transform;
+        creatureCameraController.offset = _activePlayer.GetComponent<Creature>().creatureData.cameraOffset;
+        creatureCameraController.lookAtOffset = _activePlayer.GetComponent<CharacterController>().height;
 
         // Set HUD
         MeteredAttributeUI[] meters = _hud.GetComponentsInChildren<MeteredAttributeUI>();
 
+        CreatureAttributes creatureAttributes = _activePlayer.GetComponent<CreatureAttributes>();
         for (int i = 0; i < meters.Length; i++)
         {
-            meters[i].creature = _gameObject.GetComponent<CreatureAttributes>();
-            meters[i].SetPercent(_gameObject.GetComponent<CreatureAttributes>());
+            meters[i].creature = creatureAttributes;
+            meters[i].SetPercent(creatureAttributes);
         }
 
-        _gameObject.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+        // Turn off UI layer for player as it's been moved to the HUD.
+        _activePlayer.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
 
-        _inventoryUI.inventory = _gameObject.GetComponent<InventoryManager>();
+        _inventoryUI.inventory = _activePlayer.GetComponent<InventoryManager>();
     }
 }

@@ -126,8 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 2
-  item: {fileID: 0}
-  itemPickupPrefab: {fileID: 9221740909259222772}
+  itemData: {fileID: 11400000, guid: fa0e5351ff4284efab31300df66d1f20, type: 2}
 --- !u!54 &8213032578644893540
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -143,7 +142,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &2138109344258836547
 BoxCollider:
   m_ObjectHideFlags: 0

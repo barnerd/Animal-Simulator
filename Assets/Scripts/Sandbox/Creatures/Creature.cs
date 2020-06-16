@@ -61,7 +61,33 @@ public class Creature : MonoBehaviour
         characterController.radius = _data.characterControllerRadius;
         characterController.height = _data.characterControllerHeight;
 
+        creature.transform.Find("Meters").transform.localPosition = new Vector3(0, _data.metersHeight, 0);
+
         return creature;
+    }
+
+#if UNITY_EDITOR
+    [ContextMenu("Load from CreatureData")]
+    void LoadCreatureData()
+    {
+        CreatureData data = GetComponent<Creature>().creatureData;
+        if (data != null)
+        {
+            CharacterController characterController = GetComponent<CharacterController>();
+            characterController.center = data.characterControllerCenter;
+            characterController.radius = data.characterControllerRadius;
+            characterController.height = data.characterControllerHeight;
+
+            transform.Find("Meters").transform.localPosition = new Vector3(0, data.metersHeight, 0);
+
+            // TODO: only add a new Prefab if one doesn't already exist
+            GameObject gfx = (GameObject)PrefabUtility.InstantiatePrefab(data.modelData);
+            gfx.transform.SetParent(transform, false);
+        }
+        else
+        {
+            Debug.LogError("Please assign a CreatureData object to load this data from.");
+        }
     }
 
     [ContextMenu("Save to CreatureData")]
@@ -74,31 +100,12 @@ public class Creature : MonoBehaviour
             data.characterControllerCenter = characterController.center;
             data.characterControllerRadius = characterController.radius;
             data.characterControllerHeight = characterController.height;
+
+            data.metersHeight = transform.Find("Meters").transform.localPosition.y;
         }
         else
         {
             Debug.LogError("Please assign a CreatureData object to save this data to.");
-        }
-    }
-
-    [ContextMenu("Load from CreatureData")]
-    void LoadCreatureData()
-    {
-        CreatureData data = GetComponent<Creature>().creatureData;
-        if (data != null)
-        {
-            CharacterController characterController = GetComponent<CharacterController>();
-            characterController.center = data.characterControllerCenter;
-            characterController.radius = data.characterControllerRadius;
-            characterController.height = data.characterControllerHeight;
-
-            // TODO: only add a new Prefab if one doesn't already exist
-            GameObject gfx = (GameObject)PrefabUtility.InstantiatePrefab(data.modelData);
-            gfx.transform.SetParent(transform, false);
-        }
-        else
-        {
-            Debug.LogError("Please assign a CreatureData object to load this data from.");
         }
     }
 
@@ -107,7 +114,7 @@ public class Creature : MonoBehaviour
     {
         CreatureData data = GetComponent<Creature>().creatureData;
 
-        if(data != null)
+        if (data != null)
         {
             for (int i = transform.childCount - 1; i >= 0; i--)
             {
@@ -126,4 +133,5 @@ public class Creature : MonoBehaviour
             Debug.LogError("Please assign a CreatureData object to clear the correct data.");
         }
     }
+#endif
 }

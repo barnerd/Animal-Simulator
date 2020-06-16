@@ -16,7 +16,9 @@ MonoBehaviour:
   modelData: {fileID: 919132149155446097, guid: 7c849171510954119a612773a1cc93c9,
     type: 3}
   animator: {fileID: 9100000, guid: 9621dcb2685ad4f7192e1cdffa9658ca, type: 2}
+  cameraOffset: {x: 0, y: -0.34, z: 0.35}
   characterControllerCenter: {x: 0, y: 0.92, z: 0}
-  characterControllerRadius: 0.23
-  characterControllerHeight: 1.88
+  characterControllerRadius: 0.225
+  characterControllerHeight: 1.84
+  metersHeight: 2.041
   equipmentScale: 0

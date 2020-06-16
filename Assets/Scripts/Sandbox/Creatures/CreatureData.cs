@@ -9,10 +9,16 @@ public class CreatureData : ScriptableObject
 
     public AnimatorController animator;
 
+    [Header("Camera Controller")]
+    public Vector3 cameraOffset;
+
     [Header("Character Controller")]
     public Vector3 characterControllerCenter;
     public float characterControllerRadius;
     public float characterControllerHeight;
+
+    [Header("UI - Meters")]
+    public float metersHeight;
 
     [Header("Equipment Display")] 
     public float equipmentScale;

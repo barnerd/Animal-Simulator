@@ -2245,10 +2245,7 @@ MonoBehaviour:
   itemPickupPrefab: {fileID: 9221740909259222772, guid: 57f1b00e56b564c2ebb178e968e276d5,
     type: 3}
   items:
-  - {fileID: 11400000, guid: 587e67a409fe240109ca52083c9dad21, type: 2}
   - {fileID: 11400000, guid: fa0e5351ff4284efab31300df66d1f20, type: 2}
-  - {fileID: 11400000, guid: 8f84e0246f79d4f318ac60340c0d63c8, type: 2}
-  - {fileID: 11400000, guid: 5bda9b553118349e5b44472c34cf4417, type: 2}
 --- !u!4 &1283637811
 Transform:
   m_ObjectHideFlags: 0
