@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 915760060}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -310,7 +310,7 @@ PrefabInstance:
     - target: {fileID: 1044350352585624804, guid: 24617a81cce904a999be7e77996848ea,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -35.2
+      value: -35.200195
       objectReference: {fileID: 0}
     - target: {fileID: 1044350352585624804, guid: 24617a81cce904a999be7e77996848ea,
         type: 3}
@@ -2105,7 +2105,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -2141,7 +2141,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -2637,6 +2637,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6caa881ae9a404fb5b0d28383edf1983, type: 2}
   - {fileID: 11400000, guid: fd84b48232d9d472aaf3c77588ff7e43, type: 2}
   - {fileID: 11400000, guid: 5d4fd2bf631cb423fb59520cac7e4277, type: 2}
+  baseClothing:
+  - {fileID: 11400000, guid: 4f1309769e16e442fabccb5499d369c6, type: 2}
   playerController: {fileID: 11400000, guid: dd6b1523321d8494b9d225482b8c41ae, type: 2}
 --- !u!4 &1401569174
 Transform:

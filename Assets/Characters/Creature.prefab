@@ -411,8 +411,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8bbfcb7cc9af8435cbef766e1768ba02, type: 2}
   - {fileID: 11400000, guid: c4eaeba379bf04eebb9c7c5a7b098d48, type: 2}
   - {fileID: 11400000, guid: ca36abb0619c74990afd0c3298316141, type: 2}
-  baseClothing:
-  - {fileID: 11400000, guid: 4f1309769e16e442fabccb5499d369c6, type: 2}
+  baseClothing: []
 --- !u!143 &8720326064299609858
 CharacterController:
   m_ObjectHideFlags: 0

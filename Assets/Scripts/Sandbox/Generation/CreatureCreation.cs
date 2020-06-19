@@ -16,6 +16,8 @@ public class CreatureCreation : MonoBehaviour
     public CreatureData playerCreatureData;
     public CreatureData[] creatureDatas;
 
+    public EquipmentData[] baseClothing;
+
     [Header("Controllers")]
     public PlayerController playerController;
 
@@ -29,6 +31,7 @@ public class CreatureCreation : MonoBehaviour
 
         GameObject player = Creature.Create(creaturePrefab, playerCreatureData, position, transform);
         SetActivePlayer(player, playerController, playerCam, hud, inventoryUI);
+        player.GetComponent<EquipmentManager>().baseClothing = baseClothing;
 
         // add other creatures
         for (int i = 1; i < numCreatures; i++)
@@ -38,7 +41,12 @@ public class CreatureCreation : MonoBehaviour
             z = Random.Range(0f, ground.size);
             position = new Vector3(x, ground.GetHeightAtXZ(x, z), z);
 
-            Creature.Create(creaturePrefab, creatureDatas[Random.Range(0, creatureDatas.Length)], position, transform).name = "Creature " + i;
+            GameObject creature = Creature.Create(creaturePrefab, creatureDatas[Random.Range(0, creatureDatas.Length)], position, transform);
+            creature.name = "Creature " + i;
+            if(creature.GetComponent<Creature>().creatureData == playerCreatureData)
+            {
+                creature.GetComponent<EquipmentManager>().baseClothing = baseClothing;
+            }
         }
     }
 
