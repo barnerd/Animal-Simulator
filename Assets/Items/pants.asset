@@ -17,7 +17,9 @@ MonoBehaviour:
   material: {fileID: -5637652675625914632, guid: cb19bdf71ae4c43a3a4886606d0aca42,
     type: 3}
   icon: {fileID: 21300000, guid: 3ba0f6a03e30541a5a4f947e374dc055, type: 3}
-  localRotation: {x: 0, y: 0, z: 1, w: 0}
+  graphicsPosition: {x: 0, y: 0, z: 0}
+  graphicsRotation: {x: 0, y: 0, z: 1, w: -0.00000004371139}
+  graphicsScale: {x: 100, y: 100, z: 100}
   colliderCenter: {x: 0, y: -0.02, z: 0.02}
   colliderSize: {x: 0.41, y: 0.21, z: 0.87}
   inventoryScale: 0

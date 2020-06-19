@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 2
-  itemData: {fileID: 11400000, guid: 070a3e4ca02ed480e938621b8b97a158, type: 2}
+  itemData: {fileID: 0}
 --- !u!54 &8213032578644893540
 Rigidbody:
   m_ObjectHideFlags: 0
