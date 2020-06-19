@@ -1965,6 +1965,7 @@ GameObject:
   - component: {fileID: 1101375049}
   - component: {fileID: 1101375048}
   - component: {fileID: 1101375052}
+  - component: {fileID: 1101375053}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2086,6 +2087,67 @@ MonoBehaviour:
   zoomSpeed: 4
   minZoom: 6
   maxZoom: 10
+--- !u!108 &1101375053
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101375047}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Intensity: 10
+  m_Range: 6
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.02
+    m_NormalBias: 0.1
+    m_NearPlane: 0.1
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1001 &1260467028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2246,6 +2308,9 @@ MonoBehaviour:
     type: 3}
   items:
   - {fileID: 11400000, guid: fa0e5351ff4284efab31300df66d1f20, type: 2}
+  - {fileID: 11400000, guid: ac37abe29d07242d4a842b1b6dcac93c, type: 2}
+  - {fileID: 11400000, guid: 070a3e4ca02ed480e938621b8b97a158, type: 2}
+  - {fileID: 11400000, guid: 815c32b85c38b474390d462c97608ade, type: 2}
 --- !u!4 &1283637811
 Transform:
   m_ObjectHideFlags: 0
@@ -2329,7 +2394,7 @@ Canvas:
   m_GameObject: {fileID: 1310668496}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1101375050}
   m_PlaneDistance: 0.33
   m_PixelPerfect: 0
@@ -2567,6 +2632,7 @@ MonoBehaviour:
   inventoryUI: {fileID: 1310668502}
   creaturePrefab: {fileID: 8875449320494236375, guid: 5bc1ede5316e740a08b644abffe9b7eb,
     type: 3}
+  playerCreatureData: {fileID: 11400000, guid: fd84b48232d9d472aaf3c77588ff7e43, type: 2}
   creatureDatas:
   - {fileID: 11400000, guid: 6caa881ae9a404fb5b0d28383edf1983, type: 2}
   - {fileID: 11400000, guid: fd84b48232d9d472aaf3c77588ff7e43, type: 2}

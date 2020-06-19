@@ -13,6 +13,7 @@ public class CreatureCreation : MonoBehaviour
     public InventoryUI inventoryUI;
 
     public GameObject creaturePrefab;
+    public CreatureData playerCreatureData;
     public CreatureData[] creatureDatas;
 
     [Header("Controllers")]
@@ -26,7 +27,7 @@ public class CreatureCreation : MonoBehaviour
         float z = Random.Range(0f, ground.size);
         Vector3 position = new Vector3(x, ground.GetHeightAtXZ(x, z), z);
 
-        GameObject player = Creature.Create(creaturePrefab, creatureDatas[Random.Range(0, creatureDatas.Length)], position, transform);
+        GameObject player = Creature.Create(creaturePrefab, playerCreatureData, position, transform);
         SetActivePlayer(player, playerController, playerCam, hud, inventoryUI);
 
         // add other creatures

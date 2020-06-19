@@ -31,7 +31,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4861008759568437147}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &5129681264949634921
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 2
-  itemData: {fileID: 11400000, guid: fa0e5351ff4284efab31300df66d1f20, type: 2}
+  itemData: {fileID: 11400000, guid: 070a3e4ca02ed480e938621b8b97a158, type: 2}
 --- !u!54 &8213032578644893540
 Rigidbody:
   m_ObjectHideFlags: 0

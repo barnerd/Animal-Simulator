@@ -9,6 +9,7 @@ public class InventorySlotUI : MonoBehaviour
 
     public MeshFilter gfxMF;
     public MeshRenderer gfxMR;
+    public Image gfxIcon;
 
     public Button itemButton;
     public Button removeButton;
@@ -28,9 +29,11 @@ public class InventorySlotUI : MonoBehaviour
         gfxMR.material = item.material;
         gfxMF.sharedMesh = item.mesh;
 
-        gfxMF.gameObject.GetComponent<RectTransform>().anchoredPosition = item.inventoryPosition;
-        gfxMF.gameObject.GetComponent<RectTransform>().localRotation = item.inventoryRotation;
-        gfxMF.gameObject.GetComponent<RectTransform>().localScale = Vector3.one * item.inventoryScale;
+        //gfxMF.gameObject.GetComponent<RectTransform>().anchoredPosition = item.inventoryPosition;
+        //gfxMF.gameObject.GetComponent<RectTransform>().localRotation = item.inventoryRotation;
+        //gfxMF.gameObject.GetComponent<RectTransform>().localScale = Vector3.one * item.inventoryScale;
+        gfxIcon.sprite = item.icon;
+        gfxIcon.enabled = true;
         gfxMF.gameObject.SetActive(true);
 
         itemButton.interactable = true;
@@ -43,6 +46,9 @@ public class InventorySlotUI : MonoBehaviour
         gfxMF.gameObject.SetActive(false);
         gfxMF.sharedMesh = null;
         gfxMR.material = null;
+        gfxMR.enabled = false;
+        gfxIcon.sprite = null;
+        gfxIcon.enabled = false;
         item = null;
         removeButton.gameObject.SetActive(false);
     }

@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Creature", menuName = "Creature/Creature")]
+[CreateAssetMenu(fileName = "New Creature", menuName = "Creature/Creature Data")]
 public class CreatureData : ScriptableObject
 {
     new public string name = "New Creature";
-    public GameObject modelData;
+    public SkinnedMeshRenderer headMesh;
+    public SkinnedMeshRenderer bodyMesh;
 
     public RuntimeAnimatorController animator;
+    public Avatar avatar;
+    public GameObject boneHierarchy;
 
     [Header("Camera Controller")]
     public Vector3 cameraOffset;

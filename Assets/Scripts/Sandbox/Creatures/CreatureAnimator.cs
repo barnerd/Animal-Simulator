@@ -19,6 +19,7 @@ public class CreatureAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //TODO: find max speed
         float speedPercent = motor.velocity.magnitude / 8f;
         animator.SetFloat("speedPercent", speedPercent, locomotionSmoothTime, Time.deltaTime);
     }

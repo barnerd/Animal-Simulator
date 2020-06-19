@@ -9,10 +9,17 @@ public class EquipmentManager : MonoBehaviour
     public EquipmentSlot[] slots;
     EquipmentData[] equipment;
 
+    public EquipmentData[] baseClothing;
+
     // Start is called before the first frame update
     void Start()
     {
         equipment = new EquipmentData[slots.Length];
+
+        foreach (var item in baseClothing)
+        {
+            Equip(item);
+        }
     }
 
     // Update is called once per frame
@@ -20,6 +27,15 @@ public class EquipmentManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.U))
             UnequipAll();
+    }
+
+    void EquipDefault(EquipmentSlot _slot)
+    {
+        foreach (var item in baseClothing)
+        {
+            if (item.slot == _slot)
+                Equip(item);
+        }
     }
 
     public bool Equip(EquipmentData _item, EquipmentSlot _slot = null)
@@ -38,15 +54,17 @@ public class EquipmentManager : MonoBehaviour
         if (index == null)
             return false;
 
-        // check if item is already in slot, remove it
+        // check if an item is already in slot, remove it
         bool success = true;
         if (equipment[index ?? -1] != null)
             success = Unequip(slots[index ?? -1]);
 
-        // add it
+        // everything is good, slot is empty so add it
         if (success)
         {
             equipment[index ?? -1] = _item;
+            SetBlendShapes(equipment[index ?? -1], 1);
+            UpdateEquipmentGraphics(equipment[index ?? -1]);
             onEquipmentChange.Raise(this);
             ModifyAttributes(_item, true);
         }
@@ -58,28 +76,43 @@ public class EquipmentManager : MonoBehaviour
     {
         bool success = true;
 
+        // check if this equipmentManager has that slot type
         int? index = GetSlotIndex(_slot);
         if (index == null)
             return false;
 
         EquipmentData item = equipment[index ?? -1];
+
+        // check if slot is already empty
         if (item == null)
             return true;
 
-        // TODO:check if _item can be unequiped, i.e. not cursed, or default like claws
+        // TODO: check if _item can be unequiped, i.e. not cursed, or default like claws
         bool unequipable = true;
 
         success &= unequipable;
 
+        // everything is good, slot is ready to be removed
         if (success)
         {
-            success &= GetComponent<InventoryManager>().Add(item);
+            if (!item.baseClothing)
+                success &= GetComponent<InventoryManager>().Add(item);
 
             if (success)
             {
+                // remove old item
+                EquipmentData oldItem = equipment[index ?? -1];
                 equipment[index ?? -1] = null;
                 onEquipmentChange.Raise(this);
                 ModifyAttributes(item, false);
+
+                // clear graphics for old item
+                SetBlendShapes(oldItem, 0);
+                UpdateEquipmentGraphics(oldItem, false);
+
+                // if not remove baseClothing, add baseClothing
+                if (!oldItem.baseClothing)
+                    EquipDefault(_slot);
             }
         }
 
@@ -114,7 +147,20 @@ public class EquipmentManager : MonoBehaviour
         return index;
     }
 
-    // TODO: Figure out where this should go. Having it in the equipment manager seems weird, but it's weird all the data is.
+    void UpdateEquipmentGraphics(EquipmentData _item, bool _add = true)
+    {
+        if (_add)
+            GetComponentInChildren<CreatureGFX>().AddEquipmentGraphics(_item);
+        else
+            GetComponentInChildren<CreatureGFX>().RemoveEquipmentGraphics(_item);
+    }
+
+    void SetBlendShapes(EquipmentData _item, float _weight)
+    {
+        GetComponentInChildren<CreatureGFX>().SetBlendShapes(_item.blendShapeValues, _weight);
+    }
+
+    // TODO: Figure out where this should go. Having it in the equipment manager seems weird, but it's weird with all the data.
     // I wonder if a dictionary, versus a list or array would make this better
     private void ModifyAttributes(EquipmentData _item, bool add = true)
     {

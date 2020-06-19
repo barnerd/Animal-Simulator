@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d4a2dfccdcdf4aa8b4417d504f7c840, type: 3}
+  m_Name: shorts
+  m_EditorClassIdentifier: 
+  name: shorts
+  mesh: {fileID: -1807140829557154294, guid: cf6e237c239c64e738638bc8f44b765f, type: 3}
+  material: {fileID: -7597560444520419082, guid: cf6e237c239c64e738638bc8f44b765f,
+    type: 3}
+  icon: {fileID: 0}
+  localRotation: {x: 0, y: 0, z: 0, w: 0}
+  colliderCenter: {x: 0, y: 0, z: 0}
+  colliderSize: {x: 0, y: 0, z: 0}
+  inventoryScale: 0
+  inventoryPosition: {x: 0, y: 0, z: 0}
+  inventoryRotation: {x: 0, y: 0, z: 0, w: 0}
+  slot: {fileID: 11400000, guid: c4eaeba379bf04eebb9c7c5a7b098d48, type: 2}
+  baseClothing: 1
+  skinnedMesh: {fileID: -7311254465461002018, guid: cf6e237c239c64e738638bc8f44b765f,
+    type: 3}
+  blendShapeValues:
+  - {fileID: 11400000, guid: 854e7ee99cfaf4f47a33228161e8fc59, type: 2}
+  attributeModifiers: []
+  armorModifiers: []
+  damageModifiers: []

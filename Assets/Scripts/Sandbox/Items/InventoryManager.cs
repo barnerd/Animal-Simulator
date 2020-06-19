@@ -24,7 +24,11 @@ public class InventoryManager : MonoBehaviour
 
     public bool Add(ItemData _i)
     {
-        // check bulk and weight before adding
+        // TODO: check for casting first
+        if(((EquipmentData)_i).baseClothing)
+                return true;
+
+        // TODO: check bulk and weight before adding
         items.Add(_i);
         if (onInventoryChange != null)
             onInventoryChange.Raise(this);

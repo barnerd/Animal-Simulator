@@ -9,7 +9,7 @@ public class CreatureAttributes : MonoBehaviour
     public DamageAttribute[] damages;
     public MeteredAttribute[] meters;
 
-    //TODO: have a better way of setting up all attributes
+    // TODO: have a better way of setting up all attributes
     void Awake()
     {
         for (int i = 0; i < attributes.Length; i++)

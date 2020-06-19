@@ -37,8 +37,12 @@ public class ItemPickup : Interactable
         item.GetComponent<ItemPickup>().itemData = _i;
 
         // add mesh
-        item.GetComponentInChildren<MeshFilter>().sharedMesh = _i.mesh;
-        item.GetComponentInChildren<MeshRenderer>().sharedMaterial = _i.material;
+        GameObject gfx = item.GetComponentInChildren<MeshFilter>().gameObject;
+        gfx.GetComponent<MeshFilter>().sharedMesh = _i.mesh;
+        gfx.GetComponent<MeshRenderer>().sharedMaterial = _i.material;
+        gfx.transform.localPosition = _i.graphicsPosition;
+        gfx.transform.localRotation = _i.graphicsRotation;
+        gfx.transform.localScale = _i.graphicsScale;
 
         // set Collider size
         BoxCollider collider = item.GetComponent<BoxCollider>();
@@ -58,6 +62,9 @@ public class ItemPickup : Interactable
             GameObject gfx = GetComponentInChildren<MeshFilter>().gameObject;
             gfx.GetComponent<MeshFilter>().sharedMesh = data.mesh;
             gfx.GetComponent<MeshRenderer>().sharedMaterial = data.material;
+            gfx.transform.localPosition = data.graphicsPosition;
+            gfx.transform.localRotation = data.graphicsRotation;
+            gfx.transform.localScale = data.graphicsScale;
 
             BoxCollider collider = GetComponent<BoxCollider>();
             collider.center = data.colliderCenter;
@@ -78,6 +85,11 @@ public class ItemPickup : Interactable
             BoxCollider collider = GetComponent<BoxCollider>();
             data.colliderCenter = collider.center;
             data.colliderSize = collider.size;
+
+            GameObject gfx = GetComponentInChildren<MeshFilter>().gameObject;
+            data.graphicsPosition = gfx.transform.localPosition;
+            data.graphicsRotation = gfx.transform.localRotation;
+            data.graphicsScale = gfx.transform.localScale;
         }
         else
         {
@@ -95,6 +107,9 @@ public class ItemPickup : Interactable
             GameObject gfx = GetComponentInChildren<MeshFilter>().gameObject;
             gfx.GetComponent<MeshFilter>().sharedMesh = null;
             gfx.GetComponent<MeshRenderer>().sharedMaterial = null;
+            gfx.transform.localPosition = Vector3.zero;
+            gfx.transform.localRotation = Quaternion.identity;
+            gfx.transform.localScale = Vector3.one;
 
             BoxCollider collider = GetComponent<BoxCollider>();
             collider.center = Vector3.zero;

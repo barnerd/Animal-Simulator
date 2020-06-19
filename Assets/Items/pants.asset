@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d4a2dfccdcdf4aa8b4417d504f7c840, type: 3}
+  m_Name: pants
+  m_EditorClassIdentifier: 
+  name: pants
+  mesh: {fileID: 7666266049737368757, guid: cb19bdf71ae4c43a3a4886606d0aca42, type: 3}
+  material: {fileID: -5637652675625914632, guid: cb19bdf71ae4c43a3a4886606d0aca42,
+    type: 3}
+  icon: {fileID: 21300000, guid: 3ba0f6a03e30541a5a4f947e374dc055, type: 3}
+  localRotation: {x: 0, y: 0, z: 1, w: 0}
+  colliderCenter: {x: 0, y: -0.02, z: 0.02}
+  colliderSize: {x: 0.41, y: 0.21, z: 0.87}
+  inventoryScale: 0
+  inventoryPosition: {x: 0, y: 0, z: 0}
+  inventoryRotation: {x: 0, y: 0, z: 0, w: 0}
+  slot: {fileID: 11400000, guid: c4eaeba379bf04eebb9c7c5a7b098d48, type: 2}
+  baseClothing: 0
+  skinnedMesh: {fileID: 6761708314861323176, guid: cb19bdf71ae4c43a3a4886606d0aca42,
+    type: 3}
+  blendShapeValues:
+  - {fileID: 11400000, guid: f4d1e303286ef414491e7d9865781136, type: 2}
+  attributeModifiers: []
+  armorModifiers: []
+  damageModifiers: []

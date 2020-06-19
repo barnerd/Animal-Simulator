@@ -6,6 +6,7 @@ using UnityEditor;
 public class Creature : MonoBehaviour
 {
     public CreatureData creatureData;
+    public GameObject gfxObject;
 
     public InputController currentController;
 
@@ -32,7 +33,7 @@ public class Creature : MonoBehaviour
 
     public virtual void Die()
     {
-        Debug.Log(name + " dies.");
+        Debug.Log(name + " dies. Sad.");
     }
 
     public static GameObject Create(GameObject _prefab, CreatureData _data, Vector3 _position, Transform _parent = null)
@@ -41,20 +42,35 @@ public class Creature : MonoBehaviour
 
         creature.GetComponent<Creature>().creatureData = _data;
 
-        GameObject gfx = Instantiate(_data.modelData, Vector3.zero, Quaternion.identity, creature.transform);
-        gfx.name = "GFX";
-        gfx.transform.localPosition = Vector3.zero;
+        GameObject gfx = creature.GetComponent<Creature>().gfxObject;
 
-        Animator gfxAnimator;
-        if (gfx.TryGetComponent(typeof(Animator), out Component animatorComponent))
+        // create skinned meshes for body, and for head if it's there
+        // get skeleton
+        GameObject skeleton = Instantiate<GameObject>(_data.boneHierarchy, gfx.transform);
+        skeleton.name = "Humanoid";
+        Transform[] bones = skeleton.GetComponentsInChildren<Transform>();
+
+        Dictionary<string, Transform> boneMap = new Dictionary<string, Transform>();
+        foreach (Transform bone in bones)
+            boneMap[bone.name] = bone;
+
+        SkinnedMeshRenderer body = Instantiate<SkinnedMeshRenderer>(_data.bodyMesh, gfx.transform);
+        body.name = "body";
+        CreatureGFX.RetargetBones(body, boneMap);
+
+        if (_data.headMesh != null)
         {
-            gfxAnimator = (Animator)animatorComponent;
+            SkinnedMeshRenderer head = Instantiate<SkinnedMeshRenderer>(_data.headMesh, gfx.transform);
+            head.name = "head";
+            CreatureGFX.RetargetBones(head, boneMap);
         }
-        else
-        {
-            gfxAnimator = gfx.AddComponent<Animator>();
-        }
+
+        Animator gfxAnimator = gfx.GetComponent<Animator>();
         gfxAnimator.runtimeAnimatorController = _data.animator;
+        gfxAnimator.avatar = _data.avatar;
+
+        CreatureGFX creatureGFX = gfx.GetComponent<CreatureGFX>();
+        creatureGFX.bodyMesh = body;
 
         CharacterController characterController = creature.GetComponent<CharacterController>();
         characterController.center = _data.characterControllerCenter;
@@ -70,19 +86,18 @@ public class Creature : MonoBehaviour
     [ContextMenu("Load from CreatureData")]
     void LoadCreatureData()
     {
-        CreatureData data = GetComponent<Creature>().creatureData;
-        if (data != null)
+        if (creatureData != null)
         {
             CharacterController characterController = GetComponent<CharacterController>();
-            characterController.center = data.characterControllerCenter;
-            characterController.radius = data.characterControllerRadius;
-            characterController.height = data.characterControllerHeight;
+            characterController.center = creatureData.characterControllerCenter;
+            characterController.radius = creatureData.characterControllerRadius;
+            characterController.height = creatureData.characterControllerHeight;
 
-            transform.Find("Meters").transform.localPosition = new Vector3(0, data.metersHeight, 0);
+            transform.Find("Meters").transform.localPosition = new Vector3(0, creatureData.metersHeight, 0);
 
-            // TODO: only add a new Prefab if one doesn't already exist
-            GameObject gfx = (GameObject)PrefabUtility.InstantiatePrefab(data.modelData);
-            gfx.transform.SetParent(transform, false);
+            Instantiate<SkinnedMeshRenderer>(creatureData.bodyMesh, gfxObject.transform);
+            if (creatureData.headMesh != null)
+                Instantiate<SkinnedMeshRenderer>(creatureData.headMesh, gfxObject.transform);
         }
         else
         {
@@ -93,15 +108,14 @@ public class Creature : MonoBehaviour
     [ContextMenu("Save to CreatureData")]
     void SaveCreatureData()
     {
-        CreatureData data = GetComponent<Creature>().creatureData;
-        if (data != null)
+        if (creatureData != null)
         {
             CharacterController characterController = GetComponent<CharacterController>();
-            data.characterControllerCenter = characterController.center;
-            data.characterControllerRadius = characterController.radius;
-            data.characterControllerHeight = characterController.height;
+            creatureData.characterControllerCenter = characterController.center;
+            creatureData.characterControllerRadius = characterController.radius;
+            creatureData.characterControllerHeight = characterController.height;
 
-            data.metersHeight = transform.Find("Meters").transform.localPosition.y;
+            creatureData.metersHeight = transform.Find("Meters").transform.localPosition.y;
         }
         else
         {
@@ -116,14 +130,10 @@ public class Creature : MonoBehaviour
 
         if (data != null)
         {
-            for (int i = transform.childCount - 1; i >= 0; i--)
+            for (int i = gfxObject.transform.childCount - 1; i >= 0; i--)
             {
-                Transform child = transform.GetChild(i);
-
-                if (data.modelData == PrefabUtility.GetCorrespondingObjectFromSource(child.gameObject))
-                {
-                    DestroyImmediate(child.gameObject);
-                }
+                Transform child = gfxObject.transform.GetChild(i);
+                DestroyImmediate(child.gameObject);
             }
 
             GetComponent<Creature>().creatureData = null;
