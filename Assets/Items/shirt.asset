@@ -18,7 +18,7 @@ MonoBehaviour:
     type: 3}
   icon: {fileID: 21300000, guid: 7972a9c7ebfc14814920373e3747ab17, type: 3}
   graphicsPosition: {x: 0, y: 0, z: 0}
-  graphicsRotation: {x: 0, y: 0, z: 0, w: 0}
+  graphicsRotation: {x: -0.043619387, y: 0, z: 0, w: 0.99904823}
   graphicsScale: {x: 100, y: 100, z: 100}
   colliderCenter: {x: 0, y: 0, z: 0.21}
   colliderSize: {x: 0.51, y: 0.27, z: 0.63}
