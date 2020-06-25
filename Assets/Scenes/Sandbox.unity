@@ -3145,7 +3145,7 @@ MonoBehaviour:
   orbitalPeriod: 0
   axisOfRevolution: {x: 0, y: 0, z: -1}
   angleOfTilt: 18.5
-  angleRotation: 0
+  angleRotation: 3.1415927
   rotationSpeed: 0.000072722054
   angleOrbit: 0
   orbitSpeed: 0.0000001991076

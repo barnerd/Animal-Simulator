@@ -64,7 +64,7 @@ public class GameTimeOfDay
 
         // add minutes
         timeToString += ":";
-        minuteIncrement = Mathf.Clamp(minuteIncrement, 1, MinutesPerHour);
+        minuteIncrement = Mathf.Clamp(minuteIncrement, 1, MinutesPerHour / 2);
         timeToString += (Mathf.RoundToInt(minutes / minuteIncrement) * minuteIncrement).ToString("D2");
 
         if (displaySeconds)
