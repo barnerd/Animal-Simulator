@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 75517422}
   - component: {fileID: 75517421}
   - component: {fileID: 75517423}
+  - component: {fileID: 75517424}
   m_Layer: 5
   m_Name: Slots
   m_TagString: Untagged
@@ -287,6 +288,23 @@ MonoBehaviour:
   m_Spacing: {x: 12, y: 12}
   m_Constraint: 0
   m_ConstraintCount: 5
+--- !u!114 &75517424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75517419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64110e067f9d74205a31e8873e25423a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIPanelBackground: {fileID: 75517421}
+  UIBackgroundTransparencyValue:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: e5d0437f77fea4b4db3fa9c5b23fd306, type: 2}
 --- !u!1 &92263164
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,13 +394,15 @@ GameObject:
   - component: {fileID: 132400945}
   - component: {fileID: 132400944}
   - component: {fileID: 132400943}
+  - component: {fileID: 132400947}
+  - component: {fileID: 132400946}
   m_Layer: 5
   m_Name: SettingsUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &132400943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,6 +464,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -20}
   m_SizeDelta: {x: 400, y: 320}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &132400946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132400942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35c6ca41e5f3403da17d0f61b050198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 1735bb283bb9b41d6a1b7a93fe95c256, type: 2}
+  SOResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 132400947}
+        m_MethodName: UpdateBackgroundTransparency
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  MBResponse:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &132400947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132400942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64110e067f9d74205a31e8873e25423a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIPanelBackground: {fileID: 132400943}
+  UIBackgroundTransparencyValue:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: e5d0437f77fea4b4db3fa9c5b23fd306, type: 2}
 --- !u!1 &148005028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,8 +1084,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -168.27, y: 117.78}
-  m_SizeDelta: {x: 52.646324, y: 19.996067}
+  m_AnchoredPosition: {x: -169.32, y: 117.78}
+  m_SizeDelta: {x: 50.551964, y: 19.996067}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &209633133
 MonoBehaviour:
@@ -1066,10 +1133,21 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 630999964}
+        m_MethodName: OnUIBackgroundTransparencyChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &240181721
 GameObject:
   m_ObjectHideFlags: 0
@@ -2266,6 +2344,7 @@ GameObject:
   - component: {fileID: 545324075}
   - component: {fileID: 545324077}
   - component: {fileID: 545324076}
+  - component: {fileID: 545324078}
   m_Layer: 5
   m_Name: TransparencyValue
   m_TagString: Untagged
@@ -2324,7 +2403,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100%
+  m_Text: 50%
 --- !u!222 &545324077
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2333,6 +2412,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 545324074}
   m_CullTransparentMesh: 0
+--- !u!114 &545324078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545324074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35c6ca41e5f3403da17d0f61b050198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 1735bb283bb9b41d6a1b7a93fe95c256, type: 2}
+  SOResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 630999964}
+        m_MethodName: UpdateTransparencyText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  MBResponse:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &565053035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2512,7 +2621,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingsPanel: {fileID: 36233369}
   creditsPanel: {fileID: 707817077}
-  UIBackgroundTransparencyText: {fileID: 0}
+  UIBackgroundTransparencyValue:
+    UseConstant: 0
+    ConstantValue: 1
+    Variable: {fileID: 11400000, guid: e5d0437f77fea4b4db3fa9c5b23fd306, type: 2}
+  UIBackgroundTransparencyText: {fileID: 545324076}
+  UIBackgroundTransparencySlider: {fileID: 209633133}
+  onUIBackgroundTransparencyChange: {fileID: 11400000, guid: 1735bb283bb9b41d6a1b7a93fe95c256,
+    type: 2}
 --- !u!114 &630999966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4026,8 +4142,8 @@ RectTransform:
   m_Father: {fileID: 1114042599}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4167,7 +4283,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5833,6 +5949,7 @@ GameObject:
   - component: {fileID: 1310668497}
   - component: {fileID: 1310668502}
   - component: {fileID: 1310668501}
+  - component: {fileID: 1310668503}
   m_Layer: 5
   m_Name: InventoryUICanvas
   m_TagString: Untagged
@@ -5964,6 +6081,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventorySlotsParentUI: {fileID: 75517419}
   inventory: {fileID: 0}
+--- !u!114 &1310668503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310668496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35c6ca41e5f3403da17d0f61b050198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 1735bb283bb9b41d6a1b7a93fe95c256, type: 2}
+  SOResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 75517424}
+        m_MethodName: UpdateBackgroundTransparency
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  MBResponse:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1378301795
 PrefabInstance:
   m_ObjectHideFlags: 0
