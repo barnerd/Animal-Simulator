@@ -2,7 +2,6 @@
 
 public class InventoryUI : MonoBehaviour
 {
-    public GameObject inventoryUI;
     public GameObject inventorySlotsParentUI;
     InventorySlotUI[] slots;
 
@@ -17,10 +16,6 @@ public class InventoryUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Inventory"))
-        {
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
-        }
     }
 
     public void UpdateUI(MonoBehaviour _inventory)

@@ -52,8 +52,9 @@ public class Attribute
  *  
  * health - max, current, current%, effect at 0, i.e. has event(s) to call - TODO - metered
  * hunger - extended attribute
+ * thirst
  * stamina
- * tireness
+ * energy
  * 
  * fishing - skill - TODO
  * blacksmith - skill

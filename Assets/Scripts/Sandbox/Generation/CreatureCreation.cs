@@ -76,6 +76,7 @@ public class CreatureCreation : MonoBehaviour
         }
 
         _hud.GetComponentInChildren<CompassUI>().target = _activePlayer.transform;
+        _hud.GetComponentInChildren<ElevationUI>().player = _activePlayer.transform;
 
         // Turn off UI layer for player as it's been moved to the HUD.
         _activePlayer.GetComponentInChildren<Canvas>().gameObject.SetActive(false);

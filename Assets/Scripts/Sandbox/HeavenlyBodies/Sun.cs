@@ -27,5 +27,14 @@ public class Sun : HeavenlyBody
         transform.localPosition += new Vector3(0, 0, Mathf.Tan(Mathf.Cos(orbitCenter.angleOrbit) * orbitCenter.angleOfTilt * Mathf.Deg2Rad) * originalDirection.magnitude);
         transform.localRotation = rot;
     }
+
+    public float GetIntensityAtPoint(Vector3 _pos)
+    {
+        // TODO: Determine Intensity
+        // based on time of day and time of year
+        // intensity is 1f at noon on the day the planet is closest to the sun
+        // intensity is 0f at night
+        return 1f;
+    }
 }
 

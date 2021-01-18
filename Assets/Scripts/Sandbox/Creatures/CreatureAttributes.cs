@@ -49,6 +49,11 @@ public class CreatureAttributes : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        InvokeRepeating("IncreaseHunger", 0, 5);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -56,6 +61,10 @@ public class CreatureAttributes : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.T))
         {
             TakeDamage(damages[2].damageType, 5);
+        }
+        if (Input.GetKeyUp(KeyCode.H))
+        {
+            ChangeMeter(meters[1].type as MeteredAttributeType, 10);
         }
     }
 
@@ -81,6 +90,12 @@ public class CreatureAttributes : MonoBehaviour
         return null;
     }
 
+    public void IncreaseHunger()
+    {
+        // TODO: don't hardcode index 1 here
+        ChangeMeter(meters[1].type as MeteredAttributeType, -1);
+    }
+
     public void ChangeMeter(MeteredAttributeType _type, float _delta)
     {
         for (int i = 0; i < meters.Length; i++)
@@ -88,7 +103,7 @@ public class CreatureAttributes : MonoBehaviour
             if (meters[i].type == _type)
             {
                 meters[i].ChangeMeter(_delta, this);
-                //Debug.Log(name + " takes " + _delta + " damage against " + _type + " type.");
+                Debug.Log(name + " takes " + _delta + " damage against " + _type + " type.");
             }
         }
     }
