@@ -42,3 +42,4 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
+  icon: {fileID: 21300000, guid: c44ca37ecafe54f1aa3122fea271de4a, type: 3}

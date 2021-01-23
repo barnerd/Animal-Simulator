@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Slider))]
 public class MeteredAttributeUI : MonoBehaviour
 {
-    public Slider slider;
-    public Image fill;
+    public Image mask;
+    public Image meter;
+    public Image icon;
 
     public MeteredAttributeType meterType;
 
@@ -18,6 +18,15 @@ public class MeteredAttributeUI : MonoBehaviour
     {
         if(creature != null)
             SetPercent(creature);
+
+        if(meterType.icon == null)
+        {
+            icon.gameObject.SetActive(false);
+        }
+        else
+        {
+            icon.sprite = meterType.icon;
+        }
     }
 
     // Update is called once per frame
@@ -31,9 +40,9 @@ public class MeteredAttributeUI : MonoBehaviour
         if ((CreatureAttributes)_actor == creature)
         {
             // TODO: Check for outside of 0 and 1;
-            float percent = Mathf.Clamp01((creature.GetAttributeCurrentPercent(meterType) ?? 1));
-            slider.value = percent;
-            fill.color = meterType.gradientUI.Evaluate(percent);
+            float percent = Mathf.Clamp01(creature.GetAttributeCurrentPercent(meterType) ?? 1);
+            mask.fillAmount = percent;
+            meter.color = meterType.gradientUI.Evaluate(percent);
         }
     }
 }

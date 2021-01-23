@@ -51,7 +51,8 @@ public class CreatureAttributes : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("IncreaseHunger", 0, 5);
+        Invoke("IncreaseHunger", 7); // 3 weeks is 72 mins * 7 * 3 or 7 * 3 * 72 * 60 = 90720
+        Invoke("IncreaseThirst", 1); // 3 days is 72 mins * 3 or 3 * 72 * 60 = 12960
     }
 
     // Update is called once per frame
@@ -94,6 +95,20 @@ public class CreatureAttributes : MonoBehaviour
     {
         // TODO: don't hardcode index 1 here
         ChangeMeter(meters[1].type as MeteredAttributeType, -1);
+
+        // TODO: check thresholds for conditions/death
+
+        Invoke("IncreaseHunger", 90.72f); // 100 units in 3 weeks is 72 mins * 7 * 3 or 7 * 3 * 72 * 60 = 90720 / 100 = 907.2f
+    }
+
+    public void IncreaseThirst()
+    {
+        // TODO: don't hardcode index 2 here
+        ChangeMeter(meters[2].type as MeteredAttributeType, -1);
+
+        // TODO: check thresholds for conditions/death
+
+        Invoke("IncreaseThirst", 12.96f); // 100 units in 3 days is 72 mins * 3 or 3 * 72 * 60 = 12960 / 100 = 129.6f
     }
 
     public void ChangeMeter(MeteredAttributeType _type, float _delta)
@@ -103,7 +118,7 @@ public class CreatureAttributes : MonoBehaviour
             if (meters[i].type == _type)
             {
                 meters[i].ChangeMeter(_delta, this);
-                Debug.Log(name + " takes " + _delta + " damage against " + _type + " type.");
+                //Debug.Log(name + " takes " + _delta + " damage against " + _type + " type.");
             }
         }
     }
