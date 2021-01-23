@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TabGroup : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class TabGroup : MonoBehaviour
             // hide old tab
             if (activeTab != null)
             {
+                activeTab.GetComponent<Button>().interactable = true;
                 index = activeTab.transform.GetSiblingIndex();
                 tabPanels[index].SetActive(false);
             }
@@ -35,6 +37,7 @@ public class TabGroup : MonoBehaviour
             activeTab = _button;
 
             // show new tab
+            activeTab.GetComponent<Button>().interactable = false;
             index = _button.transform.GetSiblingIndex();
             tabPanels[index].SetActive(true);
         }
