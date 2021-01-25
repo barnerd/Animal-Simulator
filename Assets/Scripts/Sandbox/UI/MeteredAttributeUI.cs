@@ -9,8 +9,6 @@ public class MeteredAttributeUI : MonoBehaviour
     public Image meter;
     public Image icon;
 
-    public ToolTipTrigger toolTip;
-
     public MeteredAttributeType meterType;
 
     public CreatureAttributes creature;
@@ -45,9 +43,6 @@ public class MeteredAttributeUI : MonoBehaviour
             float percent = Mathf.Clamp01(creature.GetAttributeCurrentPercent(meterType) ?? 1);
             mask.fillAmount = percent;
             meter.color = meterType.gradientUI.Evaluate(percent);
-
-            // TODO: Bug fix: tooltip content does update if tooltip is active when the text updates
-            toolTip.content = meterType.name + ": " + (percent * 100) + "%";
         }
     }
 }

@@ -102,7 +102,6 @@ GameObject:
   - component: {fileID: 6835735524451100118}
   - component: {fileID: 8499352948894951568}
   - component: {fileID: 3419434357669605725}
-  - component: {fileID: 1352682445564252497}
   m_Layer: 5
   m_Name: MeteredAttributeUI
   m_TagString: Untagged
@@ -175,9 +174,9 @@ MonoBehaviour:
   mask: {fileID: 2000053151980652287}
   meter: {fileID: 4814936121752749101}
   icon: {fileID: 5690966439346691041}
-  toolTip: {fileID: 1352682445564252497}
   meterType: {fileID: 0}
   creature: {fileID: 0}
+  attributePercent: 0
 --- !u!114 &8499352948894951568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,21 +215,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1184376055348130475}
   m_CullTransparentMesh: 0
---- !u!114 &1352682445564252497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1184376055348130475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4450f6c80b2b437885ed9276b26d117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toolTip: {fileID: 0}
-  header: 
-  content: MeteredAttribute
 --- !u!1 &1448807360388715384
 GameObject:
   m_ObjectHideFlags: 0

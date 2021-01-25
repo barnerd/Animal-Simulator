@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: UI Text Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: UI Text
+  m_TableCollectionNameGuidString: 526949e0c4543440ea17c461ebd3b1d8
+  m_Entries:
+  - m_Id: 817955332096
+    m_Key: Settings_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1265319796736
+    m_Key: Settings_TabTitle_Gameplay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1331577217024
+    m_Key: Settings_TabTitle_Graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1386275135488
+    m_Key: Settings_TabTitle_Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1547726479360
+    m_Key: Settings_TabTitle_Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1603158401024
+    m_Key: Settings_TabTitle_HUD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7779635945472
+    m_Key: Settings_TabTitle_Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19118181834752
+    m_Key: Settings_Language_DropdownLabel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19228194234368
+    m_Key: Settings_HUD_TransparencyLabel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19646009827328
+    m_Key: Settings_HUD_ToolTipDisplayDelayLabel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22362505338880
+    m_Key: Settings_Credits_Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24104420761600
+    m_Key: Inventory_Title
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
+        asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1611514288803

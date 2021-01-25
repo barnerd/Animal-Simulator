@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI Text_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 526949e0c4543440ea17c461ebd3b1d8, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 817955332096
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1265319796736
+    m_Localized: Gameplay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1331577217024
+    m_Localized: Graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1386275135488
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1547726479360
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1603158401024
+    m_Localized: HUD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7779635945472
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19118181834752
+    m_Localized: 'Language:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19228194234368
+    m_Localized: 'Transparency:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19646009827328
+    m_Localized: 'Tooltip Display Delay (in seconds):'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22362505338880
+    m_Localized: 'Icons:
+
+
+      Menu, Vitruvian Man Icon made by Freepik from www.flaticon.com
+
+      Settings
+      Icon made by Pixel Perfect from www.flaticon.com
+
+      Triangle Icon made
+      by Dave Gandy from www.flaticon.com'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24104420761600
+    m_Localized: Inventory
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 1

@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: ToolTip Text_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 365696b7801014d36a46052802c524ed, type: 2}
+  m_Metadata:
+    m_Items:
+    - id: 0
+  m_TableData:
+  - m_Id: 333433528320
+    m_Localized: Expand/Collapse the Menu System.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8857244917760
+    m_Localized: Inventory/Equipment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9035062435840
+    m_Localized: "Settings\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49661753679872
+    m_Localized: '{attributeType}: {attributePercent}%'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00e02fc72a2d0000
