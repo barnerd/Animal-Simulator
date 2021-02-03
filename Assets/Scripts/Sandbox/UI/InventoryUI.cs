@@ -10,12 +10,7 @@ public class InventoryUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        slots = inventorySlotsParentUI.GetComponentsInChildren<InventorySlotUI>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        slots = inventorySlotsParentUI.GetComponentsInChildren<InventorySlotUI>(true);
     }
 
     public void UpdateUI(MonoBehaviour _inventory)

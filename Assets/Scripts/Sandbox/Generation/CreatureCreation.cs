@@ -11,6 +11,7 @@ public class CreatureCreation : MonoBehaviour
     public Camera playerCam;
     public Canvas hud;
     public InventoryUI inventoryUI;
+    public EquipmentUI equipmentUI;
 
     public GameObject creaturePrefab;
     public CreatureData playerCreatureData;
@@ -30,7 +31,7 @@ public class CreatureCreation : MonoBehaviour
         Vector3 position = new Vector3(x, ground.GetHeightAtXZ(x, z), z);
 
         GameObject player = Creature.Create(creaturePrefab, playerCreatureData, position, transform);
-        SetActivePlayer(player, playerController, playerCam, hud, inventoryUI);
+        SetActivePlayer(player, playerController, playerCam, hud, inventoryUI, equipmentUI);
         player.GetComponent<EquipmentManager>().baseClothing = baseClothing;
 
         // add other creatures
@@ -50,7 +51,7 @@ public class CreatureCreation : MonoBehaviour
         }
     }
 
-    public static void SetActivePlayer(GameObject _activePlayer, InputController _controller, Camera _camera, Canvas _hud, InventoryUI _inventoryUI)
+    public static void SetActivePlayer(GameObject _activePlayer, InputController _controller, Camera _camera, Canvas _hud, InventoryUI _inventoryUI, EquipmentUI _equipmentUI)
     {
         _activePlayer.name = "Player";
 
@@ -82,5 +83,6 @@ public class CreatureCreation : MonoBehaviour
         _activePlayer.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
 
         _inventoryUI.inventory = _activePlayer.GetComponent<InventoryManager>();
+        _equipmentUI.equipment = _activePlayer.GetComponent<EquipmentManager>();
     }
 }

@@ -18,6 +18,7 @@ public class DamageAttribute : Attribute
         if (_modifier.damageType == this.damageType)
         {
             AddModifier(_modifier);
+
         }
     }
 
@@ -42,5 +43,46 @@ public class DamageAttribute : Attribute
         }
 
         return currentValue;
+    }
+
+    /// <summary>
+    /// Gets the minimum potential damage, including all types
+    /// </summary>
+    /// <returns>minimum potential damage</returns>
+    public float GetMinDamage()
+    {
+        float damage = BaseValue;
+        damage += dice;
+
+        // add modifiers
+        foreach (var modifer in modifiers)
+        {
+            DamageModifier dm = (DamageModifier)modifer;
+            damage += dm.modifier;
+            damage += dm.dice;
+        }
+
+        return damage;
+    }
+
+    /// <summary>
+    /// Gets the maximum potential damage, including all types
+    /// </summary>
+    /// <returns>maximum potential damage</returns>
+    public float GetMaxDamage()
+    {
+        float damage = BaseValue;
+        damage += dice * sides;
+
+        // add modifiers
+        foreach (var modifer in modifiers)
+        {
+            //TODO: check that casting is possible
+            DamageModifier dm = (DamageModifier)modifer;
+            damage += dm.modifier;
+            damage += dm.dice * dm.sides;
+        }
+
+        return damage;
     }
 }

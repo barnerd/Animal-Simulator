@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Torso
   m_EditorClassIdentifier: 
   name: Torso
+  sprite: {fileID: 21300000, guid: 881891949558545c587a54d6f23ac4d9, type: 3}

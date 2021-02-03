@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Feet
   m_EditorClassIdentifier: 
   name: Feet
+  sprite: {fileID: 21300000, guid: 9e328b966a43d447d9308db5f7e45ea4, type: 3}

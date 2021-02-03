@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Neck
   m_EditorClassIdentifier: 
   name: Neck
+  sprite: {fileID: 21300000, guid: db6cb0f09bfc8455ebc3ea9b4fc457a1, type: 3}

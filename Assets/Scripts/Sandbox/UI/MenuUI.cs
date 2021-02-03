@@ -10,6 +10,7 @@ public class MenuUI : MonoBehaviour
     public GameObject inventoryButton;
     public GameObject settingsButton;
 
+    public GameObject equipmentUI;
     public GameObject inventoryUI;
     public GameObject settingsUI;
 
@@ -23,12 +24,14 @@ public class MenuUI : MonoBehaviour
 
     public void ToggleInventory()
     {
-        settingsUI.SetActive(false);
+        equipmentUI.SetActive(!equipmentUI.activeSelf);
         inventoryUI.SetActive(!inventoryUI.activeSelf);
+        settingsUI.SetActive(false);
     }
 
     public void ToggleSettings()
     {
+        equipmentUI.SetActive(false);
         inventoryUI.SetActive(false);
         settingsUI.SetActive(!settingsUI.activeSelf);
     }

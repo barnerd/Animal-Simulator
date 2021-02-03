@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Waist
   m_EditorClassIdentifier: 
   name: Waist
+  sprite: {fileID: 21300000, guid: 6a7d06b4df82a417883389d2925f5343, type: 3}

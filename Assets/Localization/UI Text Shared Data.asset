@@ -44,15 +44,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 19118181834752
-    m_Key: Settings_Language_DropdownLabel
+    m_Key: Settings_Language_Dropdown_Label
     m_Metadata:
       m_Items: []
   - m_Id: 19228194234368
-    m_Key: Settings_HUD_TransparencyLabel
+    m_Key: Settings_HUD_Transparency_Label
     m_Metadata:
       m_Items: []
   - m_Id: 19646009827328
-    m_Key: Settings_HUD_ToolTipDisplayDelayLabel
+    m_Key: Settings_HUD_ToolTipDisplayDelay_Label
     m_Metadata:
       m_Items: []
   - m_Id: 22362505338880
@@ -61,6 +61,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 24104420761600
     m_Key: Inventory_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2249508867006464
+    m_Key: Equipment_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2994578717138944
+    m_Key: Settings_HUD_EquipmentLayout_Label
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3342304319365120
+    m_Key: Settings_HUD_ShowDisableSlots_Label
     m_Metadata:
       m_Items: []
   m_Metadata:

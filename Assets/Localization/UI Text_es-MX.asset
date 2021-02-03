@@ -75,5 +75,13 @@ MonoBehaviour:
     m_Localized: Inventario
     m_Metadata:
       m_Items: []
+  - m_Id: 2249508867006464
+    m_Localized: Equipo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2994578717138944
+    m_Localized: "Dise\xF1o del Equipo"
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

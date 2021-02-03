@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class InventorySlotUI : MonoBehaviour
 {
-    InventoryUI inventoryUI;
+    public InventoryUI inventoryUI;
 
     ItemData item;
 
@@ -17,10 +17,6 @@ public class InventorySlotUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(inventoryUI == null)
-        {
-            inventoryUI = transform.parent.parent.parent.GetComponent<InventoryUI>();
-        }
     }
 
     public void AddItem(ItemData _item)

@@ -111,6 +111,11 @@ public class CreatureAttributes : MonoBehaviour
         Invoke("IncreaseThirst", 12.96f); // 100 units in 3 days is 72 mins * 3 or 3 * 72 * 60 = 12960 / 100 = 129.6f
     }
 
+    /// <summary>
+    /// Chnage a metered attribute's value.
+    /// </summary>
+    /// <param name="_type">which attribute type on this creature to change</param>
+    /// <param name="_delta">how much to change the attribute by. can be positive or negative</param>
     public void ChangeMeter(MeteredAttributeType _type, float _delta)
     {
         for (int i = 0; i < meters.Length; i++)
@@ -141,5 +146,54 @@ public class CreatureAttributes : MonoBehaviour
         // TODO: don't hardcode index 0 here
         ChangeMeter(meters[0].type as MeteredAttributeType, -_delta);
         //Debug.Log(name + " takes " + _delta + " damage of type " + _type + ".");
+    }
+
+    // TODO: add other attributes into this, like strength and agility
+    /// <summary>
+    /// Sums up all damage types.
+    /// </summary>
+    /// <returns>The smallest total damage possible</returns>
+    public float GetMinTotalDamage()
+    {
+        float damage = 0;
+
+        for (int i = 0; i < damages.Length; i++)
+        {
+            damage += damages[i].GetMinDamage();
+        }
+
+        return damage;
+    }
+
+    /// <summary>
+    /// Sums up all damage types.
+    /// </summary>
+    /// <returns>The highest total damage possible</returns>
+    public float GetMaxTotalDamage()
+    {
+        float damage = 0;
+
+        for (int i = 0; i < damages.Length; i++)
+        {
+            damage += damages[i].GetMaxDamage();
+        }
+
+        return damage;
+    }
+
+    /// <summary>
+    /// Sums up all armor types.
+    /// </summary>
+    /// <returns>The total armor</returns>
+    public float GetTotalArmor()
+    {
+        float armor = 0;
+
+        for (int i = 0; i < armors.Length; i++)
+        {
+            armor += armors[i].currentValue;
+        }
+
+        return armor;
     }
 }

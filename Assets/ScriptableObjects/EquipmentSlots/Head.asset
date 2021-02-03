@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Head
   m_EditorClassIdentifier: 
   name: Head
+  sprite: {fileID: 21300000, guid: daefcde251b9f404f975c384db1ce4dd, type: 3}

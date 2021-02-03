@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Eyes
   m_EditorClassIdentifier: 
   name: Eyes
+  sprite: {fileID: 21300000, guid: 186f86ab945374d59a78600b8c5b9d28, type: 3}

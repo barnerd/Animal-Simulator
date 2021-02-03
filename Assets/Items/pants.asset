@@ -32,5 +32,8 @@ MonoBehaviour:
   blendShapeValues:
   - {fileID: 11400000, guid: f4d1e303286ef414491e7d9865781136, type: 2}
   attributeModifiers: []
-  armorModifiers: []
+  armorModifiers:
+  - attributeType: {fileID: 11400000, guid: 285f8233a6e704b23b1ed18ed7cba3d4, type: 2}
+    modifier: 5
+    damageType: {fileID: 11400000, guid: 820549fb8b0ed406b89df935de03946d, type: 2}
   damageModifiers: []

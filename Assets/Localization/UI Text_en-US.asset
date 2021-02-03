@@ -75,5 +75,17 @@ MonoBehaviour:
     m_Localized: Inventory
     m_Metadata:
       m_Items: []
+  - m_Id: 2249508867006464
+    m_Localized: Equipment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2994578717138944
+    m_Localized: 'Equipment Layout:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3342304319365120
+    m_Localized: 'Show Disabled Equipment Slots:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

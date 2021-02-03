@@ -22,11 +22,18 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public EquipmentData GetItemData(EquipmentSlot _slot)
     {
-        if (Input.GetKeyUp(KeyCode.U))
-            UnequipAll();
+        int? i = GetSlotIndex(_slot);
+
+        return (i == null) ? null : equipment[i ?? -1];
+    }
+
+    public bool IsValidSlot(EquipmentSlot _slot)
+    {
+        int? i = GetSlotIndex(_slot);
+
+        return i != null;
     }
 
     void EquipDefault(EquipmentSlot _slot)
@@ -65,8 +72,8 @@ public class EquipmentManager : MonoBehaviour
             equipment[index ?? -1] = _item;
             SetBlendShapes(equipment[index ?? -1], 1);
             UpdateEquipmentGraphics(equipment[index ?? -1]);
-            onEquipmentChange.Raise(this);
             ModifyAttributes(_item, true);
+            onEquipmentChange.Raise(this);
         }
 
         return success;
@@ -103,8 +110,8 @@ public class EquipmentManager : MonoBehaviour
                 // remove old item
                 EquipmentData oldItem = equipment[index ?? -1];
                 equipment[index ?? -1] = null;
-                onEquipmentChange.Raise(this);
                 ModifyAttributes(item, false);
+                onEquipmentChange.Raise(this);
 
                 // clear graphics for old item
                 SetBlendShapes(oldItem, 0);
@@ -134,14 +141,19 @@ public class EquipmentManager : MonoBehaviour
     private int? GetSlotIndex(EquipmentSlot _slot)
     {
         int? index = null;
+        bool found = false;
+
         for (int i = 0; i < slots.Length; i++)
         {
             index = i;
             if (slots[i] == _slot)
+            {
+                found = true;
                 break;
+            }
         }
 
-        if (index == slots.Length)
+        if (!found)
             index = null;
 
         return index;

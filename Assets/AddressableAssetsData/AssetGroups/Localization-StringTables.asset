@@ -45,6 +45,34 @@ MonoBehaviour:
     - Locale-es-MX
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 23c0bbed24a6f4feabc2d7ed65752631
+    m_Address: EquipmentSlots_en-US
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en-US
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 1d179889ad4f14e03a4cea3e91490eb4
+    m_Address: EquipmentSlots_es-MX
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es-MX
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: d15584f10c84a4dea8b8a76d2ff98ba4
+    m_Address: SkillsAttributesStats_en-US
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en-US
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: d4fb579d5066140b1a44447923f8ddf9
+    m_Address: SkillsAttributesStats_es-MX
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es-MX
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 750a581de5de74aed9888711ec725fc7, type: 2}
   m_SchemaSet:

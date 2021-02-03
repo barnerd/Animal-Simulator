@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Shin
   m_EditorClassIdentifier: 
   name: Shin
+  sprite: {fileID: 21300000, guid: 2e70399c791b84bd3a837d3abb20f32d, type: 3}

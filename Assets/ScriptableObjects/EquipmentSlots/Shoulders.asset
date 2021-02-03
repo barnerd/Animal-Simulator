@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Shoulders
   m_EditorClassIdentifier: 
   name: Shoulders
+  sprite: {fileID: 21300000, guid: 7a39ca0a3d1694352aea2a1768b56522, type: 3}

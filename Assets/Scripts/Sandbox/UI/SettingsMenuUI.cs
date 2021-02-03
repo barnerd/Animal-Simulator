@@ -9,8 +9,16 @@ public class SettingsMenuUI : MonoBehaviour
     public Slider UIBackgroundTransparencySlider;
     public GameEvent onUIBackgroundTransparencyChange;
 
-    [Header("UI Background Transparency")]
+    [Header("ToolTip Display Delay")]
     public FloatReference toolTipDisplayDelay;
+
+    [Header("Equipment Layout")]
+    public GameObject columnLayout;
+    public GameObject bodyLayout;
+
+    [Header("Show Disabled Equipment Slots")]
+    public BoolReference showDisabledEquipmentSlots;
+    public EquipmentUI equipmentUI;
 
     public void OnUIBackgroundTransparencyChange()
     {
@@ -26,9 +34,30 @@ public class SettingsMenuUI : MonoBehaviour
     public void OnToolTipDisplayDelayValueChange(string _value)
     {
         float stringValue;
-        if(float.TryParse(_value, out stringValue))
+        if (float.TryParse(_value, out stringValue))
         {
             toolTipDisplayDelay.Value = stringValue;
         }
+    }
+
+    public void OnEquipmentLayoutDropdownChange(int _value)
+    {
+        switch (_value)
+        {
+            case 0:
+                columnLayout.SetActive(true);
+                bodyLayout.SetActive(false);
+                break;
+            case 1:
+                columnLayout.SetActive(false);
+                bodyLayout.SetActive(true);
+                break;
+        }
+    }
+
+    public void ShowDisabledSlots(bool _value)
+    {
+        showDisabledEquipmentSlots.Value = _value;
+        equipmentUI.UpdateUI(equipmentUI.equipment);
     }
 }
