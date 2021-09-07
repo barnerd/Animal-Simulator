@@ -142,7 +142,7 @@ public class Tree : MonoBehaviour
         GameObject tree = Instantiate(_prefab, _position, Quaternion.identity, _parent);
         tree.name = _treeData.name;
 
-        tree.GetComponent<Tree>().treeData = _treeData;
+        //tree.GetComponent<Tree>().treeData = _treeData;
 
         return tree;
     }
