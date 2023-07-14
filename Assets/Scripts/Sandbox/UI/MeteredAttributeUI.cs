@@ -9,24 +9,14 @@ public class MeteredAttributeUI : MonoBehaviour
     public Image meter;
     public Image icon;
 
-    public MeteredAttributeType meterType;
+    private MeteredAttribute meteredAttribute;
+    private MeteredAttributeType attributeType;
 
     public CreatureAttributes creature;
 
     // Start is called before the first frame update
     void Start()
     {
-        if(creature != null)
-            SetPercent(creature);
-
-        if(meterType.icon == null)
-        {
-            icon.gameObject.SetActive(false);
-        }
-        else
-        {
-            icon.sprite = meterType.icon;
-        }
     }
 
     // Update is called once per frame
@@ -35,14 +25,34 @@ public class MeteredAttributeUI : MonoBehaviour
 
     }
 
+    public void SetMeteredAttribute(MeteredAttribute _attribute)
+    {
+        meteredAttribute = _attribute;
+        attributeType = meteredAttribute.type as MeteredAttributeType;
+        Sprite _icon = attributeType.icon;
+
+        if (creature != null)
+            SetPercent(creature);
+
+        if (_icon == null)
+        {
+            icon.gameObject.SetActive(false);
+        }
+        else
+        {
+            icon.sprite = _icon;
+        }
+    }
+
     public void SetPercent(MonoBehaviour _actor)
     {
         if ((CreatureAttributes)_actor == creature)
         {
             // TODO: Check for outside of 0 and 1;
-            float percent = Mathf.Clamp01(creature.GetAttributeCurrentPercent(meterType) ?? 1);
+            float percent = meteredAttribute.CurrentPercent;
+
             mask.fillAmount = percent;
-            meter.color = meterType.gradientUI.Evaluate(percent);
+            meter.color = attributeType.gradientUI.Evaluate(percent);
         }
     }
 }

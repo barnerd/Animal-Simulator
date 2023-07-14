@@ -17,6 +17,7 @@ public class ItemData : ScriptableObject
     [Header("Box Collider")]
     public Vector3 colliderCenter;
     public Vector3 colliderSize;
+    public float interactRadius;
 
     [Header("3D Inventory Display")]
     public float inventoryScale;

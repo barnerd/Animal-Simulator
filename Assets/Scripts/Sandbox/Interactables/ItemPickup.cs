@@ -1,8 +1,49 @@
 ﻿using UnityEngine;
+using TMPro;
 
 public class ItemPickup : Interactable
 {
     public ItemData itemData;
+    [SerializeField]
+    private SphereCollider interactTrigger;
+
+    [SerializeField]
+    private TextMeshProUGUI label;
+
+    void Start()
+    {
+        interactTrigger.radius = itemData.interactRadius;
+        if (label != null)
+        {
+            label.text = itemData.name;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<Creature>(out Creature c))
+        {
+            Debug.Log(c.name + " can now interact with " + itemData.name + ", an ItemPickup.");
+            c.AddInteractable(this);
+        }
+        else
+        {
+            //Debug.Log(creature.name + " can now see " + other + ", which I don't know what it is");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent<Creature>(out Creature c))
+        {
+            Debug.Log(c.name + " can no longer interact with " + itemData.name + ", an ItemPickup.");
+            c.RemoveInteractable(this);
+        }
+        else
+        {
+            //Debug.Log(creature.name + " can no longer see " + other + ", which I don't know what it is");
+        }
+    }
 
     public override bool Interact(GameObject actor)
     {
@@ -20,6 +61,8 @@ public class ItemPickup : Interactable
             bool success = ((InventoryManager)inventory).Add(itemData);
             if (success)
             {
+                actor.GetComponent<Creature>().RemoveInteractable(this);
+
                 Destroy(gameObject);
 
                 return true;

@@ -64,7 +64,7 @@ public class CreatureGFX : MonoBehaviour
             Transform bone = _skinnedMesh.bones[i];
             if (!_boneMap.TryGetValue(bone.name, out newBones[i]))
             {
-                Debug.Log("Unable to map bone \"" + bone.name + "\" to target skeleton.");
+                Debug.Log("Unable to map bone \"" + bone.name + "\" to target " + _skinnedMesh.name + " skeleton.");
                 break;
             }
         }
@@ -73,7 +73,7 @@ public class CreatureGFX : MonoBehaviour
         Transform newRootBone;
         if (!_boneMap.TryGetValue(_skinnedMesh.rootBone.name, out newRootBone))
         {
-            Debug.Log("Unable to map bone \"" + _skinnedMesh.rootBone.name + "\" to target skeleton.");
+            Debug.Log("Unable to map root bone \"" + _skinnedMesh.rootBone.name + "\" to target " + _skinnedMesh.name + " skeleton.");
         }
         _skinnedMesh.rootBone = newRootBone;
     }

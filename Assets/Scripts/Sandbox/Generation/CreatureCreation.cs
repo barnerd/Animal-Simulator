@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CreatureCreation : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class CreatureCreation : MonoBehaviour
 
     public Ground ground;
 
-    public Camera playerCam;
+    public CinemachineFreeLook cinemachineCam;
     public Canvas hud;
     public InventoryUI inventoryUI;
     public EquipmentUI equipmentUI;
@@ -30,8 +31,10 @@ public class CreatureCreation : MonoBehaviour
         float z = Random.Range(0f, ground.size);
         Vector3 position = new Vector3(x, ground.GetHeightAtXZ(x, z), z);
 
-        GameObject player = Creature.Create(creaturePrefab, playerCreatureData, position, transform);
-        SetActivePlayer(player, playerController, playerCam, hud, inventoryUI, equipmentUI);
+        Creature.Sex randomSex = (Creature.Sex)Random.Range(0, System.Enum.GetNames(typeof(Creature.Sex)).Length);
+
+        GameObject player = Creature.Create(creaturePrefab, playerCreatureData, position, randomSex, transform);
+        SetActivePlayer(player, playerController, cinemachineCam, hud, inventoryUI, equipmentUI);
         player.GetComponent<EquipmentManager>().baseClothing = baseClothing;
 
         // add other creatures
@@ -42,29 +45,30 @@ public class CreatureCreation : MonoBehaviour
             z = Random.Range(0f, ground.size);
             position = new Vector3(x, ground.GetHeightAtXZ(x, z), z);
 
-            GameObject creature = Creature.Create(creaturePrefab, creatureDatas[Random.Range(0, creatureDatas.Length)], position, transform);
+            randomSex = (Creature.Sex)Random.Range(0, System.Enum.GetNames(typeof(Creature.Sex)).Length);
+
+            GameObject creature = Creature.Create(creaturePrefab, creatureDatas[Random.Range(0, creatureDatas.Length)], position, randomSex, transform);
             creature.name = "Creature " + i;
-            if(creature.GetComponent<Creature>().creatureData == playerCreatureData)
+            if (creature.GetComponent<Creature>().creatureData == playerCreatureData)
             {
                 creature.GetComponent<EquipmentManager>().baseClothing = baseClothing;
             }
         }
     }
 
-    public static void SetActivePlayer(GameObject _activePlayer, InputController _controller, Camera _camera, Canvas _hud, InventoryUI _inventoryUI, EquipmentUI _equipmentUI)
+    public static void SetActivePlayer(GameObject _activePlayer, InputController _controller, CinemachineFreeLook _cinemachineCam, Canvas _hud, InventoryUI _inventoryUI, EquipmentUI _equipmentUI)
     {
         _activePlayer.name = "Player";
 
         // Set Controller
         _activePlayer.GetComponent<Creature>().currentController = _controller;
 
-        var creatureController = (PlayerController)_activePlayer.GetComponent<Creature>().currentController;
-        creatureController.cam = _camera;
-
-        CameraController creatureCameraController = _camera.GetComponent<CameraController>();
-        creatureCameraController.target = _activePlayer.transform;
-        creatureCameraController.offset = _activePlayer.GetComponent<Creature>().creatureData.cameraOffset;
-        creatureCameraController.lookAtOffset = _activePlayer.GetComponent<CharacterController>().height;
+        _cinemachineCam.Follow = _activePlayer.transform;
+        _cinemachineCam.LookAt = _activePlayer.transform;
+        // change this to the height of the creature
+        _cinemachineCam.GetRig(0).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.y = 1.68f;
+        _cinemachineCam.GetRig(1).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.y = 1.68f;
+        _cinemachineCam.GetRig(2).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.y = 1.68f;
 
         // Set HUD
         MeteredAttributeUI[] meters = _hud.GetComponentsInChildren<MeteredAttributeUI>();
@@ -73,7 +77,10 @@ public class CreatureCreation : MonoBehaviour
         for (int i = 0; i < meters.Length; i++)
         {
             meters[i].creature = creatureAttributes;
-            meters[i].SetPercent(creatureAttributes);
+            if (i == 0) creatureAttributes.healthBarUI = meters[i];
+            if (i == 1) creatureAttributes.hungerBarUI = meters[i];
+            if (i == 2) creatureAttributes.thirstBarUI = meters[i];
+            //meters[i].SetPercent(creatureAttributes);
         }
 
         _hud.GetComponentInChildren<CompassUI>().target = _activePlayer.transform;

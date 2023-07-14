@@ -13,17 +13,22 @@ MonoBehaviour:
   m_Name: humanoid
   m_EditorClassIdentifier: 
   name: Humanoid
-  headMesh: {fileID: -4396642182433536433, guid: 7c849171510954119a612773a1cc93c9,
-    type: 3}
-  bodyMesh: {fileID: 1630794972795428178, guid: 7c849171510954119a612773a1cc93c9,
-    type: 3}
-  animator: {fileID: 9100000, guid: 9621dcb2685ad4f7192e1cdffa9658ca, type: 2}
-  avatar: {fileID: 9000000, guid: 7c849171510954119a612773a1cc93c9, type: 3}
-  boneHierarchy: {fileID: -8283535546214742128, guid: 7c849171510954119a612773a1cc93c9,
-    type: 3}
-  cameraOffset: {x: 0, y: -0.34, z: 0.35}
-  characterControllerCenter: {x: 0, y: 0.92, z: 0}
-  characterControllerRadius: 0.225
-  characterControllerHeight: 1.84
-  metersHeight: 2.041
-  equipmentScale: 0
+  maleGraphcisData: {fileID: 11400000, guid: 2e83da632a0734676aa5b8a0321d86c9, type: 2}
+  femaleGraphcisData: {fileID: 11400000, guid: 2e83da632a0734676aa5b8a0321d86c9, type: 2}
+  sightRadius: 20
+  consumingRange: 0
+  eatRate: 0
+  drinkRate: 0
+  metabolismRate: 0
+  food: []
+  healthBase: 200
+  hungerBase: 25
+  thirstBase: 25
+  speedBase: 0
+  strengthBase: 0
+  slashArmorBase: 0
+  pierceArmorBase: 0
+  bludgeoningArmorBase: 0
+  slashDamageBase: 0
+  pierceDamageBase: 0
+  bludgeoningDamageBase: 0

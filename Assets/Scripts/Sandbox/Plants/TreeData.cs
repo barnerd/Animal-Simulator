@@ -2,27 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Tree", menuName = "Plants/Tree Data")]
-public class TreeData : ScriptableObject
+namespace BarNerdGames.Plants
 {
-    new public string name = "New Tree";
+    [CreateAssetMenu(fileName = "New Tree", menuName = "Plants/Tree Data")]
+    public class TreeData : ScriptableObject
+    {
+        new public string name = "New Tree";
 
-    [Header("Tree")]
-    public float branchingAngle;
-    public float branchLengthRatio; // ratio of length of branches to child branches
-    [Range(2, 3)]
-    public float branchThicknessRatio; // ratio of thickness of branches to child branches, expressed as r^n = r1^n + r2^n
+        public GameObject[] meshes;
+        public GameObject[] deadMeshes; // just doesn't have leaves. index must match with meshes
 
-    public Vector3 minDimensions;
-    public Vector3 maxDimensions;
+        public Material[] barkMaterials;
+        public Material[] barkDeadMaterials;
 
-    public int minNumAttractionPoints;
-    public int maxNumAttractionPoints;
-
-    // TODO: constrain RadiusOfConsumption < RadiusOfInfluence
-    public float minRadiusOfInfluence;
-    public float maxRadiusOfInfluence;
-
-    public float minRadiusOfConsumption;
-    public float maxRadiusOfConsumption;
+        public Material[] springLeaves;
+        public Material[] summerLeaves;
+        public Material[] fallLeaves;
+        public Material[] winterLeaves;
+        public Material[] deadLeaves;
+    }
 }

@@ -1,41 +1,79 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using BarNerdGames;
 
 [CreateAssetMenu(fileName = "InputController", menuName = "Input Controller/Player Controller")]
 public class PlayerController : InputController
 {
-    public Camera cam;
+    private InputControls inputControls;
 
     public override void Initialize(GameObject obj)
     {
+        inputControls = new InputControls();
+        inputControls.Enable();
     }
 
     public override void ProcessInput(GameObject obj)
     {
-        // get input
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        CreatureMotor motor = obj.GetComponent<CreatureMotor>();
+        Creature creature = obj.GetComponent<Creature>();
 
-        Vector3 direction = obj.transform.forward * vertical;
-        Vector3 lookDirection = obj.transform.right * horizontal;
+        // get move input
+        Vector2 moveInput = inputControls.Land.Move.ReadValue<Vector2>();
+        Vector3 moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
 
-        if(direction.magnitude > .1f || lookDirection.magnitude > .1f)
+        if (moveDirection.magnitude != 0f)
         {
-            obj.GetComponent<CreatureMotor>().ClearTargets();
+            float targetAngle = Mathf.Atan2(moveInput.x, moveInput.y) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
+            moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         }
 
-        obj.GetComponent<CreatureMotor>().MoveDirection(direction);
+        motor.MoveDirection(moveDirection);
 
-        // if strafe, then move sideways instead of look sideways
-        obj.GetComponent<CreatureMotor>().FaceDirection(lookDirection);
+        //motor.FaceDirection(lookDirection);
 
         // jump
-        if (Input.GetButtonDown("Jump"))
+        if (inputControls.Land.Jump.triggered)
         {
-            obj.GetComponent<CreatureMotor>().Jump();
+            motor.Jump();
         }
 
+        // sprint
+        if (inputControls.Land.Sprint.triggered)
+        {
+            motor.Sprint();
+        }
+
+        if (inputControls.Land.Attack1.triggered)
+        {
+            Debug.Log("Attack1 triggered");
+        }
+
+        if (inputControls.Land.Attack2.triggered)
+        {
+            Debug.Log("Attack2 triggered");
+        }
+
+        if (inputControls.Land.Attack3.triggered)
+        {
+            Debug.Log("Attack3 triggered");
+        }
+
+        if (inputControls.Land.Crouch.triggered)
+        {
+            Debug.Log("Crouch triggered");
+        }
+
+        if (inputControls.Land.Interact.triggered)
+        {
+            Debug.Log("Interact triggered");
+            creature.Interact();
+        }
+
+        // get interact working and remove this raycasting on mouse click
         // use left mouse button to interact
+        /*
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -59,11 +97,7 @@ public class PlayerController : InputController
                         obj.GetComponent<CreatureMotor>().MoveToTransform(interactable.transform, interactable.radius);
                     }
                 }
-                else
-                {
-                    obj.GetComponent<CreatureMotor>().MoveToPosition(hit.point);
-                }
             }
-        }
+        }*/
     }
 }

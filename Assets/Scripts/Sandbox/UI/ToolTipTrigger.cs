@@ -24,7 +24,7 @@ public class ToolTipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         toolTip.Hide();
     }
 
-    IEnumerator ShowToolTip()
+    public void ShowToolTip()
     {
         string header = "", content = "";
 
@@ -37,18 +37,26 @@ public class ToolTipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             // load string
             var localizedHeaderHandler = localizedHeader.GetLocalizedString();
 
+            /* this is no longer async; consider using Async version
             // wait for it to load
             yield return localizedHeaderHandler;
 
             // ready! retrieve it.
             header = localizedHeaderHandler.Result;
+            */
+
+            header = localizedHeaderHandler;
         }
 
+        /* this is no longer async; consider using Async version
         // wait for it to load
         yield return localizedContentHandler;
 
         // ready! retrieve it.
         content = localizedContentHandler.Result;
+        */
+
+        content = localizedContentHandler;
 
         // load the strings and show the tooltip
         delayTween = LeanTween.delayedCall(toolTip.displayDelay.Value, () =>

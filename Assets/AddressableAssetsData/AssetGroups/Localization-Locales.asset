@@ -18,19 +18,17 @@ MonoBehaviour:
   m_GUID: d0d4b14326ee6450b86a075a1243169a
   m_SerializeEntries:
   - m_GUID: df937503880b647c1838794eac11723a
-    m_Address: English (United States) (en-US)
+    m_Address: English (United States)
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9fc244e6451ed4afc85faea61ee2d03d
-    m_Address: Spanish (Mexico) (es-MX)
+    m_Address: Spanish (Mexico)
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 750a581de5de74aed9888711ec725fc7, type: 2}
   m_SchemaSet:

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: horseFemaleOverrideController
+  m_Controller: {fileID: 9100000, guid: b670b79b73bf24fa5b8c9e6a0151f4de, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 5845618705403835542, guid: 2ed9a08935dff4315ba18bf17f618d51,
+      type: 3}
+    m_OverrideClip: {fileID: 5845618705403835542, guid: cf8852ef62e38494ebcb9fd2ff8b9092,
+      type: 3}
+  - m_OriginalClip: {fileID: -7666980397028532464, guid: 2ed9a08935dff4315ba18bf17f618d51,
+      type: 3}
+    m_OverrideClip: {fileID: -7666980397028532464, guid: cf8852ef62e38494ebcb9fd2ff8b9092,
+      type: 3}
+  - m_OriginalClip: {fileID: -5105944257485555118, guid: 2ed9a08935dff4315ba18bf17f618d51,
+      type: 3}
+    m_OverrideClip: {fileID: -5105944257485555118, guid: cf8852ef62e38494ebcb9fd2ff8b9092,
+      type: 3}
+  - m_OriginalClip: {fileID: -4864718358596981803, guid: 2ed9a08935dff4315ba18bf17f618d51,
+      type: 3}
+    m_OverrideClip: {fileID: -4864718358596981803, guid: cf8852ef62e38494ebcb9fd2ff8b9092,
+      type: 3}

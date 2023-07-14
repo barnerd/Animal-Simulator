@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a0823970aef4cada9f8cf5cbe4977b, type: 3}
+  m_Name: cow
+  m_EditorClassIdentifier: 
+  name: cow
+  maleGraphcisData: {fileID: 11400000, guid: 6186cd25ffd1541fd81e4a10e13251f4, type: 2}
+  femaleGraphcisData: {fileID: 11400000, guid: 1442f1a5f714849e887bfb33416e9b62, type: 2}
+  sightRadius: 20
+  consumingRange: 0.4
+  eatRate: 2
+  drinkRate: 3
+  metabolismRate: 1
+  food:
+  - {fileID: 11400000, guid: 50e1bcab9c01242969a85b1a6e9c1ce0, type: 2}
+  healthBase: 100
+  hungerBase: 50
+  thirstBase: 75
+  speedBase: 0
+  strengthBase: 0
+  slashArmorBase: 0
+  pierceArmorBase: 0
+  bludgeoningArmorBase: 0
+  slashDamageBase: 0
+  pierceDamageBase: 0
+  bludgeoningDamageBase: 0

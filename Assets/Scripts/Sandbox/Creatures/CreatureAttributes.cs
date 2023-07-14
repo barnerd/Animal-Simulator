@@ -4,53 +4,72 @@ using UnityEngine;
 
 public class CreatureAttributes : MonoBehaviour
 {
-    public Attribute[] attributes;
-    public ArmorAttribute[] armors;
-    public DamageAttribute[] damages;
-    public MeteredAttribute[] meters;
+    [SerializeField]
+    private Creature creature;
 
-    // TODO: have a better way of setting up all attributes
+    [field: Header("Attributes")]
+    [field: SerializeField] public AttributeType SpeedType { get; private set; }
+    [field: SerializeField] public AttributeType StrengthType { get; private set; }
+
+    private Dictionary<AttributeType, Attribute> attributes;
+
+    [field: Header("Armors/Damages")]
+    [field: SerializeField] public AttributeType ArmorType { get; private set; }
+    [field: SerializeField] public AttributeType DamageType { get; private set; }
+
+    [field: Space(10)]
+    [field: SerializeField] public DamageType SlashDamageType { get; private set; }
+    [field: SerializeField] public DamageType PierceDamageType { get; private set; }
+    [field: SerializeField] public DamageType BludgeoningDamageType { get; private set; }
+
+    private Dictionary<DamageType, ArmorAttribute> armors;
+    private Dictionary<DamageType, DamageAttribute> damages;
+
+    [field: Header("Meters")]
+    [field: SerializeField] public MeteredAttributeType HealthType { get; private set; }
+    [field: SerializeField] public MeteredAttributeType HungerType { get; private set; }
+    [field: SerializeField] public MeteredAttributeType ThirstType { get; private set; }
+
+    private Dictionary<MeteredAttributeType, MeteredAttribute> meters;
+
+    [field: Space(10)]
+    public GameEvent onAttributeChangeEvent;
+    public GameEvent onAttribute0Event;
+
+    [field: Space(10)]
+    public MeteredAttributeUI healthBarUI;
+    public MeteredAttributeUI hungerBarUI;
+    public MeteredAttributeUI thirstBarUI;
+
     void Awake()
     {
-        for (int i = 0; i < attributes.Length; i++)
-        {
-            AttributeType currentType = attributes[i].type;
-            attributes[i] = new Attribute(8);
-            attributes[i].type = currentType;
-        }
-
-        for (int i = 0; i < armors.Length; i++)
-        {
-            AttributeType currentType = armors[i].type;
-            DamageType currentDamageType = armors[i].damageType;
-            armors[i] = new ArmorAttribute(0);
-            armors[i].type = currentType;
-            armors[i].damageType = currentDamageType;
-        }
-
-        for (int i = 0; i < damages.Length; i++)
-        {
-            AttributeType currentType = damages[i].type;
-            DamageType currentDamageType = damages[i].damageType;
-            damages[i] = new DamageAttribute(0);
-            damages[i].type = currentType;
-            damages[i].damageType = currentDamageType;
-        }
-
-        for (int i = 0; i < meters.Length; i++)
-        {
-            MeteredAttributeType currentType = meters[i].type as MeteredAttributeType;
-            GameEvent currentEvent = meters[i].onMeteredAttributeChange;
-            GameEvent currentEvent0 = meters[i].onMeteredAttribute0;
-            meters[i] = new MeteredAttribute(100);
-            meters[i].type = currentType;
-            meters[i].onMeteredAttributeChange = currentEvent;
-            meters[i].onMeteredAttribute0 = currentEvent0;
-        }
+        attributes = new Dictionary<AttributeType, Attribute>();
+        armors = new Dictionary<DamageType, ArmorAttribute>();
+        damages = new Dictionary<DamageType, DamageAttribute>();
+        meters = new Dictionary<MeteredAttributeType, MeteredAttribute>();
     }
 
     void Start()
     {
+        InitNewAttribute(SpeedType, creature.creatureData.speedBase);
+        InitNewAttribute(StrengthType, creature.creatureData.strengthBase);
+
+        InitNewArmorAttribute(SlashDamageType, creature.creatureData.slashArmorBase);
+        InitNewArmorAttribute(PierceDamageType, creature.creatureData.pierceArmorBase);
+        InitNewArmorAttribute(BludgeoningDamageType, creature.creatureData.bludgeoningArmorBase);
+
+        InitNewDamageAttribute(SlashDamageType, creature.creatureData.slashDamageBase);
+        InitNewDamageAttribute(PierceDamageType, creature.creatureData.pierceDamageBase);
+        InitNewDamageAttribute(BludgeoningDamageType, creature.creatureData.bludgeoningDamageBase);
+
+        InitNewMeteredAttribute(HealthType, creature.creatureData.healthBase);
+        InitNewMeteredAttribute(HungerType, creature.creatureData.hungerBase);
+        InitNewMeteredAttribute(ThirstType, creature.creatureData.thirstBase);
+
+        healthBarUI.SetMeteredAttribute(meters[HealthType]);
+        hungerBarUI.SetMeteredAttribute(meters[HungerType]);
+        thirstBarUI.SetMeteredAttribute(meters[ThirstType]);
+
         Invoke("IncreaseHunger", 7); // 3 weeks is 72 mins * 7 * 3 or 7 * 3 * 72 * 60 = 90720
         Invoke("IncreaseThirst", 1); // 3 days is 72 mins * 3 or 3 * 72 * 60 = 12960
     }
@@ -61,90 +80,103 @@ public class CreatureAttributes : MonoBehaviour
         // for testing
         if (Input.GetKeyUp(KeyCode.T))
         {
-            TakeDamage(damages[2].damageType, 5);
-        }
-        if (Input.GetKeyUp(KeyCode.H))
-        {
-            ChangeMeter(meters[1].type as MeteredAttributeType, 10);
+            TakeDamage(SlashDamageType, 5);
         }
     }
 
-    public float? GetAttributeCurrentValue(AttributeType _type)
+    private Attribute InitNewAttribute(AttributeType _type, float _base)
     {
-        for (int i = 0; i < attributes.Length; i++)
-        {
-            if (attributes[i].type == _type)
-                return attributes[i].currentValue;
-        }
+        Attribute _meter = new Attribute(_base);
+        _meter.type = _type;
 
-        return null;
+        return _meter;
     }
 
-    public float? GetAttributeCurrentPercent(MeteredAttributeType _type)
+    private void InitNewArmorAttribute(DamageType _type, float _base)
     {
-        for (int i = 0; i < meters.Length; i++)
-        {
-            if (meters[i].type == _type)
-                return meters[i].CurrentPercent;
-        }
+        ArmorAttribute _attribute = new ArmorAttribute(_base);
+        _attribute.type = ArmorType;
+        _attribute.damageType = _type;
 
-        return null;
+        armors.Add(_type, _attribute);
+    }
+
+    private void InitNewDamageAttribute(DamageType _type, float _base)
+    {
+        DamageAttribute _attribute = new DamageAttribute(_base);
+        _attribute.type = DamageType;
+        _attribute.damageType = _type;
+
+        damages.Add(_type, _attribute);
+    }
+
+    private void InitNewMeteredAttribute(MeteredAttributeType _type, float _base)
+    {
+        MeteredAttribute _meter = new MeteredAttribute(_base);
+        _meter.type = _type;
+        _meter.onMeteredAttributeChange = onAttributeChangeEvent;
+        _meter.onMeteredAttribute0 = onAttribute0Event;
+
+        meters.Add(_type, _meter);
+    }
+
+    public float GetHungerPercent()
+    {
+        return meters[HungerType].CurrentPercent;
+    }
+
+    public float GetHungerCurrentValue()
+    {
+        return meters[HungerType].currentValue;
+    }
+
+    public void ChangeHunger(float _delta)
+    {
+        meters[HungerType].ChangeMeter(_delta, this);
+    }
+
+    public float GetThirstPercent()
+    {
+        return meters[ThirstType].CurrentPercent;
+    }
+
+    public float GetThirstCurrentValue()
+    {
+        return meters[ThirstType].currentValue;
     }
 
     public void IncreaseHunger()
     {
-        // TODO: don't hardcode index 1 here
-        ChangeMeter(meters[1].type as MeteredAttributeType, -1);
+        meters[HungerType].ChangeMeter(-1, this);
 
         // TODO: check thresholds for conditions/death
 
-        Invoke("IncreaseHunger", 90.72f); // 100 units in 3 weeks is 72 mins * 7 * 3 or 7 * 3 * 72 * 60 = 90720 / 100 = 907.2f
+        Invoke("IncreaseHunger", 90.72f / 100f); // 100 units in 3 weeks is 72 mins * 7 * 3 or 7 * 3 * 72 * 60 = 90720 / 100 = 907.2f
     }
 
     public void IncreaseThirst()
     {
-        // TODO: don't hardcode index 2 here
-        ChangeMeter(meters[2].type as MeteredAttributeType, -1);
+        meters[ThirstType].ChangeMeter(-1, this);
 
         // TODO: check thresholds for conditions/death
 
         Invoke("IncreaseThirst", 12.96f); // 100 units in 3 days is 72 mins * 3 or 3 * 72 * 60 = 12960 / 100 = 129.6f
     }
 
-    /// <summary>
-    /// Chnage a metered attribute's value.
-    /// </summary>
-    /// <param name="_type">which attribute type on this creature to change</param>
-    /// <param name="_delta">how much to change the attribute by. can be positive or negative</param>
-    public void ChangeMeter(MeteredAttributeType _type, float _delta)
-    {
-        for (int i = 0; i < meters.Length; i++)
-        {
-            if (meters[i].type == _type)
-            {
-                meters[i].ChangeMeter(_delta, this);
-                //Debug.Log(name + " takes " + _delta + " damage against " + _type + " type.");
-            }
-        }
-    }
-
     public void TakeDamage(DamageType _type, float _damage)
     {
         float _delta = _damage;
 
-        for (int i = 0; i < armors.Length; i++)
+        if (armors.ContainsKey(_type))
         {
-            if (armors[i].damageType == _type)
-            {
-                _delta -= armors[i].currentValue;
-            }
+            _delta -= armors[_type].currentValue;
         }
 
         if (_delta < 0)
             _delta = 0;
 
-        // TODO: don't hardcode index 0 here
-        ChangeMeter(meters[0].type as MeteredAttributeType, -_delta);
+        meters[HealthType].ChangeMeter(-_delta, this);
+
         //Debug.Log(name + " takes " + _delta + " damage of type " + _type + ".");
     }
 
@@ -157,9 +189,9 @@ public class CreatureAttributes : MonoBehaviour
     {
         float damage = 0;
 
-        for (int i = 0; i < damages.Length; i++)
+        foreach (var damageType in damages)
         {
-            damage += damages[i].GetMinDamage();
+            damage += damages[damageType.Key].GetMinDamage();
         }
 
         return damage;
@@ -173,9 +205,9 @@ public class CreatureAttributes : MonoBehaviour
     {
         float damage = 0;
 
-        for (int i = 0; i < damages.Length; i++)
+        foreach (var damageType in damages)
         {
-            damage += damages[i].GetMaxDamage();
+            damage += damages[damageType.Key].GetMaxDamage();
         }
 
         return damage;
@@ -189,11 +221,56 @@ public class CreatureAttributes : MonoBehaviour
     {
         float armor = 0;
 
-        for (int i = 0; i < armors.Length; i++)
+        foreach (var damageType in armors)
         {
-            armor += armors[i].currentValue;
+            armor += armors[damageType.Key].currentValue;
         }
 
         return armor;
+    }
+
+    public void AddAttributeModifier(AttributeModifier _modifier, AttributeType _type, bool _add = true)
+    {
+        if (attributes.ContainsKey(_type) && _modifier != null)
+        {
+            if (_add)
+            {
+                attributes[_type].AddModifier(_modifier);
+            }
+            else
+            {
+                attributes[_type].RemoveModifier(_modifier);
+            }
+        }
+    }
+
+    public void AddArmorModifier(ArmorModifier _modifier, DamageType _type, bool _add = true)
+    {
+        if (armors.ContainsKey(_type) && _modifier != null)
+        {
+            if (_add)
+            {
+                armors[_type].AddModifier(_modifier);
+            }
+            else
+            {
+                armors[_type].RemoveModifier(_modifier);
+            }
+        }
+    }
+
+    public void AddDamageModifier(DamageModifier _modifier, DamageType _type, bool _add = true)
+    {
+        if (damages.ContainsKey(_type) && _modifier != null)
+        {
+            if (_add)
+            {
+                damages[_type].AddModifier(_modifier);
+            }
+            else
+            {
+                damages[_type].RemoveModifier(_modifier);
+            }
+        }
     }
 }

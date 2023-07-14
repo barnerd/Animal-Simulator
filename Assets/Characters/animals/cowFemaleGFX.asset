@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3e2011b2ac1d41a1beecbac6492f7af, type: 3}
+  m_Name: cowFemaleGFX
+  m_EditorClassIdentifier: 
+  name: heifer
+  headMesh: {fileID: 0}
+  bodyMesh: {fileID: 862250419370276350, guid: 1a5b0f0fa11834c5888e2af658cbb86e, type: 3}
+  meshScale: 0.39
+  animatorController: {fileID: 22100000, guid: 2ec3be282b12b4ca9bd326f1af67c340, type: 2}
+  avatar: {fileID: 9000000, guid: 1a5b0f0fa11834c5888e2af658cbb86e, type: 3}
+  boneHierarchy: {fileID: 919132149155446097, guid: 1a5b0f0fa11834c5888e2af658cbb86e,
+    type: 3}
+  cameraOffset: {x: 0, y: 0, z: 0}
+  characterControllerCenter: {x: 0, y: 0, z: 0}
+  characterControllerRadius: 0.3
+  characterControllerHeight: 2
+  metersHeight: 0.36
+  equipmentScale: 0

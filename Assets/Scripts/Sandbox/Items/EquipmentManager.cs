@@ -172,63 +172,23 @@ public class EquipmentManager : MonoBehaviour
         GetComponentInChildren<CreatureGFX>().SetBlendShapes(_item.blendShapeValues, _weight);
     }
 
-    // TODO: Figure out where this should go. Having it in the equipment manager seems weird, but it's weird with all the data.
-    // I wonder if a dictionary, versus a list or array would make this better
     private void ModifyAttributes(EquipmentData _item, bool add = true)
     {
-        CreatureAttributes c = GetComponent<CreatureAttributes>();
-        for (int i = 0; i < _item.attributeModifiers.Length; i++)
+        CreatureAttributes _creatureAttributes = GetComponent<CreatureAttributes>();
+
+        foreach (var attributeModifier in _item.attributeModifiers)
         {
-            for (int j = 0; j < c.attributes.Length; j++)
-            {
-                if (c.attributes[j].type == _item.attributeModifiers[i].attributeType)
-                {
-                    if (add)
-                    {
-                        c.attributes[j].AddModifier(_item.attributeModifiers[i]);
-                    }
-                    else
-                    {
-                        c.attributes[j].RemoveModifier(_item.attributeModifiers[i]);
-                    }
-                }
-            }
+            _creatureAttributes.AddAttributeModifier(attributeModifier, attributeModifier.attributeType, add);
         }
 
-        for (int i = 0; i < _item.armorModifiers.Length; i++)
+        foreach (var armorModifier in _item.armorModifiers)
         {
-            for (int j = 0; j < c.armors.Length; j++)
-            {
-                if (c.armors[j].damageType == _item.armorModifiers[i].damageType)
-                {
-                    if (add)
-                    {
-                        c.armors[j].AddModifier(_item.armorModifiers[i]);
-                    }
-                    else
-                    {
-                        c.armors[j].RemoveModifier(_item.armorModifiers[i]);
-                    }
-                }
-            }
+            _creatureAttributes.AddArmorModifier(armorModifier, armorModifier.damageType, add);
         }
 
-        for (int i = 0; i < _item.damageModifiers.Length; i++)
+        foreach (var damageModifier in _item.damageModifiers)
         {
-            for (int j = 0; j < c.damages.Length; j++)
-            {
-                if (c.damages[j].damageType == _item.damageModifiers[i].damageType)
-                {
-                    if (add)
-                    {
-                        c.damages[j].AddModifier(_item.damageModifiers[i]);
-                    }
-                    else
-                    {
-                        c.damages[j].RemoveModifier(_item.damageModifiers[i]);
-                    }
-                }
-            }
+            _creatureAttributes.AddDamageModifier(damageModifier, damageModifier.damageType, add);
         }
     }
 }

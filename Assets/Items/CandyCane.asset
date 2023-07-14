@@ -16,8 +16,12 @@ MonoBehaviour:
   mesh: {fileID: 1263985395754564642, guid: 6e565b48d14f34478b6c93677cb9bbfc, type: 3}
   material: {fileID: 2100000, guid: fa4713d13091246b4bc7eafd86c1fcae, type: 2}
   icon: {fileID: 0}
+  graphicsPosition: {x: 0, y: 0, z: 0}
+  graphicsRotation: {x: 0, y: 0, z: 0, w: 0}
+  graphicsScale: {x: 0, y: 0, z: 0}
   colliderCenter: {x: 0, y: 0, z: 0}
   colliderSize: {x: 0, y: 0, z: 0}
+  interactRadius: 2
   inventoryScale: 100
   inventoryPosition: {x: -5, y: -15.1, z: -6.6}
   inventoryRotation: {x: -0.116706304, y: -0.6974093, z: -0.6974093, w: 0.116706304}

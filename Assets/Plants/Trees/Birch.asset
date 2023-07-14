@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6857367d932554594a7a957ccf0bc6bd, type: 3}
+  m_Name: Birch
+  m_EditorClassIdentifier: 
+  name: birch
+  meshes:
+  - {fileID: 919132149155446097, guid: b36b53ddfdcf44555854274282c16892, type: 3}
+  - {fileID: 919132149155446097, guid: 62fad2185abac4af0b1a5ed8ff69060b, type: 3}
+  - {fileID: 919132149155446097, guid: 873ffd90d457243939e0a2dc7a555b5f, type: 3}
+  - {fileID: 919132149155446097, guid: 6e620059c39d34f36ae19004e7413226, type: 3}
+  - {fileID: 919132149155446097, guid: d641ae8a19200457aafc0d59ff4a9379, type: 3}
+  - {fileID: 919132149155446097, guid: 8cb01985e33974499a7299a72d59c145, type: 3}
+  - {fileID: 919132149155446097, guid: 1f45fbfdfbdb44c448a13bd347439f17, type: 3}
+  - {fileID: 919132149155446097, guid: 3f9428d7a71344cf2aec085d83e2cf89, type: 3}
+  - {fileID: 919132149155446097, guid: aa4d79b38dd6b4a13a88cd83f7c5062e, type: 3}
+  - {fileID: 919132149155446097, guid: a3d1153497db2495394d786fcb8e6e5f, type: 3}
+  deadMeshes:
+  - {fileID: 919132149155446097, guid: f46670feb639b48b98fa2d2b28224b57, type: 3}
+  - {fileID: 919132149155446097, guid: 2fec2c7eac8d344cc8bf63c1ac8729c3, type: 3}
+  - {fileID: 919132149155446097, guid: ed5d5300940264b5c8ad3f85f8d4fdb1, type: 3}
+  - {fileID: 919132149155446097, guid: cbfc56551ad5345da8be777c4cbe4ca1, type: 3}
+  - {fileID: 919132149155446097, guid: c8020fc6e849940d696a99f2142eba83, type: 3}
+  - {fileID: 919132149155446097, guid: b3cb8dc50551b42d1a3fd38e8529624e, type: 3}
+  - {fileID: 919132149155446097, guid: 7e6a7d03a4bbb4a7696b36891c750991, type: 3}
+  - {fileID: 919132149155446097, guid: d8dee3930ca2c4735be0146f61aa02c6, type: 3}
+  - {fileID: 919132149155446097, guid: 1e1e57552109943a08bbf22ee6bc51d6, type: 3}
+  - {fileID: 919132149155446097, guid: e2161a52c6370429191e36279dfa1dea, type: 3}
+  barkMaterials:
+  - {fileID: 2100000, guid: fa5c0bcceec0f44b6b426fa32f33035d, type: 2}
+  barkDeadMaterials:
+  - {fileID: 2100000, guid: 26cd6126942e644bb9d0d8af9a187642, type: 2}
+  springLeaves:
+  - {fileID: 2100000, guid: 61df36e099f5b452ead7649c87d0d5cb, type: 2}
+  summerLeaves:
+  - {fileID: 2100000, guid: a4a8183130bdd40ed973e937f7a12c61, type: 2}
+  fallLeaves:
+  - {fileID: 2100000, guid: ee7d1b098ea904f7e8700442ce3ef530, type: 2}
+  - {fileID: 2100000, guid: ab78871dc809c43459dcbf7b5455f0eb, type: 2}
+  winterLeaves: []
+  deadLeaves: []

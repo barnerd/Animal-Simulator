@@ -22,6 +22,7 @@ MonoBehaviour:
   graphicsScale: {x: 1, y: 1, z: 1}
   colliderCenter: {x: 0, y: 0, z: 0}
   colliderSize: {x: 0, y: 0, z: 0}
+  interactRadius: 2
   inventoryScale: 0
   inventoryPosition: {x: 0, y: 0, z: 0}
   inventoryRotation: {x: 0, y: 0, z: 0, w: 0}

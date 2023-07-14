@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6857367d932554594a7a957ccf0bc6bd, type: 3}
+  m_Name: Pine
+  m_EditorClassIdentifier: 
+  name: Pine
+  meshes:
+  - {fileID: 919132149155446097, guid: e56ceaf2fec4e46e9b983f5b15652729, type: 3}
+  - {fileID: 919132149155446097, guid: f218df266d84648559db96b76978048a, type: 3}
+  - {fileID: 919132149155446097, guid: e77568c10e1834b98bb806d0824a4f88, type: 3}
+  - {fileID: 919132149155446097, guid: 0a275cd7ca5e045349ba094f2e636cc1, type: 3}
+  - {fileID: 919132149155446097, guid: aa96275370a434847bd5010b9cc1f18c, type: 3}
+  deadMeshes: []
+  barkMaterials:
+  - {fileID: 2100000, guid: ab6998007074545de8f21ea07f1e19f4, type: 2}
+  barkDeadMaterials:
+  - {fileID: 2100000, guid: 7a3192af3e2ec4a13ab1ea27a8b22a08, type: 2}
+  springLeaves:
+  - {fileID: 2100000, guid: 17d3b623a8aa14b8fac4036dcb38a71c, type: 2}
+  summerLeaves:
+  - {fileID: 2100000, guid: 17d3b623a8aa14b8fac4036dcb38a71c, type: 2}
+  fallLeaves:
+  - {fileID: 2100000, guid: 17d3b623a8aa14b8fac4036dcb38a71c, type: 2}
+  winterLeaves:
+  - {fileID: 2100000, guid: 17d3b623a8aa14b8fac4036dcb38a71c, type: 2}
+  deadLeaves:
+  - {fileID: 2100000, guid: 65b96e4ce16f94077b3b6f3438772009, type: 2}

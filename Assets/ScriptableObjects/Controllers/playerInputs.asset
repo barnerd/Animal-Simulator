@@ -13,6 +13,52 @@ MonoBehaviour:
   m_Name: playerInputs
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  motor: {fileID: 0}
-  speed: 6
-  turnSmoothTime: 0.6
+  playerActions:
+    m_Name: Player Actions
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 06bb6a04-f5f7-41fd-b446-5c3fd3f896a2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 2D Vector
+      m_Id: ad184f5b-4398-435e-94aa-125046c95897
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Actions
+      m_Flags: 4
+    - m_Name: up
+      m_Id: e7c8640f-c97e-4be2-bf13-0d6af372e62c
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Actions
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 095445e2-c38c-447a-8b47-7f91a3f88360
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Actions
+      m_Flags: 8
+    - m_Name: left
+      m_Id: ffa82e8f-0376-42d2-b074-5048d9fcb6af
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Actions
+      m_Flags: 8
+    - m_Name: right
+      m_Id: f7f69ce6-1078-4371-a544-3b4e1adf12e6
+      m_Path: <Keyboard>/d
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Actions
+      m_Flags: 8
+    m_Flags: 0

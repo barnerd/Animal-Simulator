@@ -26,3 +26,4 @@ MonoBehaviour:
   characterControllerHeight: 0.23
   metersHeight: 0.396
   equipmentScale: 0
+  sightRadius: 15

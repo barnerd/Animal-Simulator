@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20aacba29454243dfa8a89af8c9cc12b, type: 3}
   m_Name: randomAI
   m_EditorClassIdentifier: 
-  updateInterval: 2
+  updateInterval: 7
+  hungerSearchThreshold: 0.7
+  thirstSearchThreshold: 0.7
+  hungerCriticalThreshold: 0.3
+  thirstCriticalThresold: 0.3
+  remainingFoodPercent: 0.25

@@ -2,9 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using BarNerdGames.Combat;
 
-public class Creature : MonoBehaviour
+public class Creature : MonoBehaviour, ICombatant
 {
+    public enum Sex
+    {
+        male,
+        female
+    }
+
+    public Sex sex;
+
+    public Combat combat;
+
+    public CreatureLogicSM logicSM;
     public CreatureData creatureData;
     public GameObject gfxObject;
 
@@ -12,11 +24,31 @@ public class Creature : MonoBehaviour
 
     public float nextTimeForAIUpdate;
 
+    private List<Interactable> nearbyInteractables;
+    private Interactable closestInteractable;
+
     //public Interactable focus;
+
+    public IFood consumptionTarget;
+    public State<Creature> nextStateAfterMoving;
+    public Vector3 positionTarget;
+    private List<IFood> nearbyFood;
+
+    public int Side;
+
+    void Awake()
+    {
+        nearbyInteractables = new List<Interactable>();
+        nearbyFood = new List<IFood>();
+
+        combat = null;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        logicSM = new CreatureLogicSM();
+
         currentController.Initialize(this.gameObject);
     }
 
@@ -26,9 +58,112 @@ public class Creature : MonoBehaviour
         currentController.ProcessInput(this.gameObject);
     }
 
+    public void AddNearbyFood(IFood _food)
+    {
+        if (_food != null && !nearbyFood.Contains(_food))
+        {
+            nearbyFood.Add(_food);
+        }
+    }
+
+    public IFood FindClosestFood(float _minFood)
+    {
+        IFood newClosestFood = null;
+        float distance, closestDistance = 99999f;
+
+        foreach (var food in nearbyFood)
+        {
+            if (food != null)
+            {
+                if (food.RemainingFood > _minFood)
+                {
+                    distance = Vector3.Distance(transform.position, food.Position);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        newClosestFood = food;
+                    }
+                }
+            }
+        }
+
+        return newClosestFood;
+    }
+
+    public void Blink()
+    {
+        GetComponentInChildren<Sight>().GetComponent<SphereCollider>().enabled = false;
+        Debug.Log("Blink: " + name + " is blinking");
+        GetComponentInChildren<Sight>().GetComponent<SphereCollider>().enabled = true;
+    }
+
+    public void Eat(IFood _food)
+    {
+        CreatureAttributes _creatureAttributes = GetComponent<CreatureAttributes>();
+        if (_food != null && _creatureAttributes.GetHungerPercent() < 1.0f)
+        {
+
+            float eatAmount = Mathf.Min(100 * _creatureAttributes.GetHungerPercent(), Time.deltaTime * creatureData.eatRate);
+            eatAmount = _food.Consume(eatAmount);
+
+            _creatureAttributes.ChangeHunger(eatAmount);
+        }
+    }
+
+    public void Drink(WaterBody _water)
+    {
+
+    }
+
+    public void AddInteractable(Interactable _focus)
+    {
+        nearbyInteractables.Add(_focus);
+        FindClosestInteractable();
+    }
+
+    public void RemoveInteractable(Interactable _focus)
+    {
+        nearbyInteractables.Remove(_focus);
+        FindClosestInteractable();
+    }
+
+    public void FindClosestInteractable()
+    {
+        Interactable newClosestInteractable = null;
+        float distance, closestDistance = 99999f;
+
+        foreach (var interactable in nearbyInteractables)
+        {
+            distance = Vector3.Distance(transform.position, interactable.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                newClosestInteractable = interactable;
+            }
+        }
+
+        if (closestInteractable != newClosestInteractable)
+        {
+            // remove closest's label
+            if (closestInteractable != null)
+                closestInteractable.HideLabel();
+
+            closestInteractable = newClosestInteractable;
+
+            // show closest's label
+            if (closestInteractable != null)
+                closestInteractable.ShowLabel();
+        }
+    }
+
+    public bool Interact()
+    {
+        return Interact(closestInteractable);
+    }
+
     public bool Interact(Interactable _focus)
     {
-        return _focus.Interact(this.gameObject);
+        return (_focus != null) ? _focus.Interact(this.gameObject) : false;
     }
 
     public virtual void Die()
@@ -36,17 +171,20 @@ public class Creature : MonoBehaviour
         Debug.Log(name + " dies. Sad.");
     }
 
-    public static GameObject Create(GameObject _prefab, CreatureData _data, Vector3 _position, Transform _parent = null)
+    public static GameObject Create(GameObject _prefab, CreatureData _data, Vector3 _position, Sex _sex = Sex.female, Transform _parent = null)
     {
         GameObject creature = Instantiate(_prefab, _position, Quaternion.identity, _parent);
 
         creature.GetComponent<Creature>().creatureData = _data;
 
+        creature.GetComponent<Creature>().sex = _sex;
+
         GameObject gfx = creature.GetComponent<Creature>().gfxObject;
+        CreatureGraphicsData graphicsData = (_sex == Sex.female) ? _data.femaleGraphcisData : _data.maleGraphcisData;
 
         // create skinned meshes for body, and for head if it's there
         // get skeleton
-        GameObject skeleton = Instantiate<GameObject>(_data.boneHierarchy, gfx.transform);
+        GameObject skeleton = Instantiate<GameObject>(graphicsData.boneHierarchy, gfx.transform);
         skeleton.name = "Humanoid";
         Transform[] bones = skeleton.GetComponentsInChildren<Transform>();
 
@@ -54,94 +192,96 @@ public class Creature : MonoBehaviour
         foreach (Transform bone in bones)
             boneMap[bone.name] = bone;
 
-        SkinnedMeshRenderer body = Instantiate<SkinnedMeshRenderer>(_data.bodyMesh, gfx.transform);
+        SkinnedMeshRenderer body = Instantiate<SkinnedMeshRenderer>(graphicsData.bodyMesh, gfx.transform);
         body.name = "body";
         CreatureGFX.RetargetBones(body, boneMap);
 
-        if (_data.headMesh != null)
+        if (graphicsData.headMesh != null)
         {
-            SkinnedMeshRenderer head = Instantiate<SkinnedMeshRenderer>(_data.headMesh, gfx.transform);
+            SkinnedMeshRenderer head = Instantiate<SkinnedMeshRenderer>(graphicsData.headMesh, gfx.transform);
             head.name = "head";
             CreatureGFX.RetargetBones(head, boneMap);
         }
 
         Animator gfxAnimator = gfx.GetComponent<Animator>();
-        gfxAnimator.runtimeAnimatorController = _data.animator;
-        gfxAnimator.avatar = _data.avatar;
+        gfxAnimator.runtimeAnimatorController = Instantiate(graphicsData.animatorController);
+        gfxAnimator.avatar = graphicsData.avatar;
 
         CreatureGFX creatureGFX = gfx.GetComponent<CreatureGFX>();
         creatureGFX.bodyMesh = body;
+        creatureGFX.transform.localScale = graphicsData.meshScale * Vector3.one;
 
-        CharacterController characterController = creature.GetComponent<CharacterController>();
+        // TODO: move these values over to the new capsule collider
+        /* CharacterController characterController = creature.GetComponent<CharacterController>();
         characterController.center = _data.characterControllerCenter;
         characterController.radius = _data.characterControllerRadius;
-        characterController.height = _data.characterControllerHeight;
+        characterController.height = _data.characterControllerHeight;*/
 
-        creature.transform.Find("Meters").transform.localPosition = new Vector3(0, _data.metersHeight, 0);
+        creature.transform.Find("Meters").transform.localPosition = new Vector3(0, graphicsData.metersHeight, 0);
 
         return creature;
     }
 
-#if UNITY_EDITOR
-    [ContextMenu("Load from CreatureData")]
-    void LoadCreatureData()
-    {
-        if (creatureData != null)
+    /*#if UNITY_EDITOR
+        [ContextMenu("Load from CreatureData")]
+        void LoadCreatureData()
         {
-            CharacterController characterController = GetComponent<CharacterController>();
-            characterController.center = creatureData.characterControllerCenter;
-            characterController.radius = creatureData.characterControllerRadius;
-            characterController.height = creatureData.characterControllerHeight;
-
-            transform.Find("Meters").transform.localPosition = new Vector3(0, creatureData.metersHeight, 0);
-
-            Instantiate<SkinnedMeshRenderer>(creatureData.bodyMesh, gfxObject.transform);
-            if (creatureData.headMesh != null)
-                Instantiate<SkinnedMeshRenderer>(creatureData.headMesh, gfxObject.transform);
-        }
-        else
-        {
-            Debug.LogError("Please assign a CreatureData object to load this data from.");
-        }
-    }
-
-    [ContextMenu("Save to CreatureData")]
-    void SaveCreatureData()
-    {
-        if (creatureData != null)
-        {
-            CharacterController characterController = GetComponent<CharacterController>();
-            creatureData.characterControllerCenter = characterController.center;
-            creatureData.characterControllerRadius = characterController.radius;
-            creatureData.characterControllerHeight = characterController.height;
-
-            creatureData.metersHeight = transform.Find("Meters").transform.localPosition.y;
-        }
-        else
-        {
-            Debug.LogError("Please assign a CreatureData object to save this data to.");
-        }
-    }
-
-    [ContextMenu("Clear CreatureData")]
-    void ClearCreatureData()
-    {
-        CreatureData data = GetComponent<Creature>().creatureData;
-
-        if (data != null)
-        {
-            for (int i = gfxObject.transform.childCount - 1; i >= 0; i--)
+            if (creatureData != null)
             {
-                Transform child = gfxObject.transform.GetChild(i);
-                DestroyImmediate(child.gameObject);
-            }
+                CharacterController characterController = GetComponent<CharacterController>();
+                characterController.center = creatureData.characterControllerCenter;
+                characterController.radius = creatureData.characterControllerRadius;
+                characterController.height = creatureData.characterControllerHeight;
 
-            GetComponent<Creature>().creatureData = null;
+                transform.Find("Meters").transform.localPosition = new Vector3(0, creatureData.metersHeight, 0);
+
+                Instantiate<SkinnedMeshRenderer>(creatureData.bodyMesh, gfxObject.transform);
+                if (creatureData.headMesh != null)
+                    Instantiate<SkinnedMeshRenderer>(creatureData.headMesh, gfxObject.transform);
+            }
+            else
+            {
+                Debug.LogError("Please assign a CreatureData object to load this data from.");
+            }
         }
-        else
+
+        [ContextMenu("Save to CreatureData")]
+        void SaveCreatureData()
         {
-            Debug.LogError("Please assign a CreatureData object to clear the correct data.");
+            if (creatureData != null)
+            {
+                CharacterController characterController = GetComponent<CharacterController>();
+                creatureData.characterControllerCenter = characterController.center;
+                creatureData.characterControllerRadius = characterController.radius;
+                creatureData.characterControllerHeight = characterController.height;
+
+                creatureData.metersHeight = transform.Find("Meters").transform.localPosition.y;
+            }
+            else
+            {
+                Debug.LogError("Please assign a CreatureData object to save this data to.");
+            }
         }
-    }
-#endif
+
+        [ContextMenu("Clear CreatureData")]
+        void ClearCreatureData()
+        {
+            CreatureData data = GetComponent<Creature>().creatureData;
+
+            if (data != null)
+            {
+                for (int i = gfxObject.transform.childCount - 1; i >= 0; i--)
+                {
+                    Transform child = gfxObject.transform.GetChild(i);
+                    DestroyImmediate(child.gameObject);
+                }
+
+                GetComponent<Creature>().creatureData = null;
+            }
+            else
+            {
+                Debug.LogError("Please assign a CreatureData object to clear the correct data.");
+            }
+        }
+    #endif*/
 }
