@@ -34,10 +34,9 @@ namespace BarNerdGames.Creatures.States
                 {
                     //Debug.Log("Check: next food target is: " + target);
                     _owner.consumptionTarget = target;
-                    _owner.nextStateAfterMoving = CreatureLogicSM.consumingState;
 
-                    _owner.positionTarget = target.Position;
-                    return CreatureLogicSM.moveToPositionState;
+                    _owner.PrepareMoveToTransform(target.Transform, _owner.creatureData.consumingRange, CreatureLogicSM.consumingState);
+                    return CreatureLogicSM.moveToTransformState;
                 }
                 else
                 {
@@ -50,10 +49,10 @@ namespace BarNerdGames.Creatures.States
                 //Debug.Log(_owner.name + " is now thirsty: " + currentThirst);
 
                 //_owner.consumptionTarget = target;
-                _owner.nextStateAfterMoving = CreatureLogicSM.consumingState;
+                _owner.moveToTransformNextState = CreatureLogicSM.consumingState;
 
                 //_owner.positionTarget = target.Position;
-                return CreatureLogicSM.moveToPositionState;
+                return CreatureLogicSM.moveToTransformState;
             }
 
             // if nothing else, wander around a bit (add wander state)
@@ -63,10 +62,11 @@ namespace BarNerdGames.Creatures.States
                 _owner.nextTimeForAIUpdate = Time.time + ((AIController)_owner.currentController).updateInterval;
 
                 // wander for food
+                // TODO: move to Wander state and change to move in direction
                 float x = Random.Range(-_owner.creatureData.sightRadius, _owner.creatureData.sightRadius);
                 float z = Random.Range(-_owner.creatureData.sightRadius, _owner.creatureData.sightRadius);
-                _owner.positionTarget = _owner.transform.position + new Vector3(x, 0, z);
-                return CreatureLogicSM.moveToPositionState;
+                //_owner.moveToTransformTarget = _owner.transform.position + new Vector3(x, 0, z);
+                //return CreatureLogicSM.moveToTransformState;
             }
 
             // return next state

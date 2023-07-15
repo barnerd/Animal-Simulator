@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using BarNerdGames.Combat;
 
-public class Creature : MonoBehaviour, ICombatant
+public class Creature : MonoBehaviour
 {
     public enum Sex
     {
@@ -13,8 +12,6 @@ public class Creature : MonoBehaviour, ICombatant
     }
 
     public Sex sex;
-
-    public Combat combat;
 
     public CreatureLogicSM logicSM;
     public CreatureData creatureData;
@@ -30,18 +27,15 @@ public class Creature : MonoBehaviour, ICombatant
     //public Interactable focus;
 
     public IFood consumptionTarget;
-    public State<Creature> nextStateAfterMoving;
-    public Vector3 positionTarget;
+    public float moveToTransformClosingDistance;
+    public State<Creature> moveToTransformNextState;
+    public Transform moveToTransformTarget;
     private List<IFood> nearbyFood;
-
-    public int Side;
 
     void Awake()
     {
         nearbyInteractables = new List<Interactable>();
         nearbyFood = new List<IFood>();
-
-        combat = null;
     }
 
     // Start is called before the first frame update
@@ -56,6 +50,13 @@ public class Creature : MonoBehaviour, ICombatant
     void Update()
     {
         currentController.ProcessInput(this.gameObject);
+    }
+
+    public void PrepareMoveToTransform(Transform _target, float _closingDistance, State<Creature> _nextState)
+    {
+        moveToTransformTarget = _target;
+        moveToTransformClosingDistance = _closingDistance;
+        moveToTransformNextState = _nextState;
     }
 
     public void AddNearbyFood(IFood _food)
@@ -77,7 +78,7 @@ public class Creature : MonoBehaviour, ICombatant
             {
                 if (food.RemainingFood > _minFood)
                 {
-                    distance = Vector3.Distance(transform.position, food.Position);
+                    distance = Vector3.Distance(transform.position, food.Transform.position);
                     if (distance < closestDistance)
                     {
                         closestDistance = distance;

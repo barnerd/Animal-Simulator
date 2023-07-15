@@ -7,7 +7,7 @@ public class CreatureLogicSM : StateMachine<Creature>
 {
     public static IdleState idleState;
     public static ConsumingState consumingState;
-    public static MoveToPositionState moveToPositionState;
+    public static MoveToTransformState moveToTransformState;
     public static FleeingState fleeingState;
     public static MatingState matingState;
     public static BirthingState birthingState;
@@ -17,7 +17,7 @@ public class CreatureLogicSM : StateMachine<Creature>
     {
         if (idleState == null) idleState = new IdleState(this);
         if (consumingState == null) consumingState = new ConsumingState(this);
-        if (moveToPositionState == null) moveToPositionState = new MoveToPositionState(this);
+        if (moveToTransformState == null) moveToTransformState = new MoveToTransformState(this);
         if (fleeingState == null) fleeingState = new FleeingState(this);
         if (matingState == null) matingState = new MatingState(this);
         if (birthingState == null) birthingState = new BirthingState(this);

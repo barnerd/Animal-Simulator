@@ -9,7 +9,7 @@ public class Plant : MonoBehaviour, IFood
 
     protected float remainingFood;
     public float RemainingFood { get { return remainingFood; } }
-    public Vector3 Position { get { return transform.position; } }
+    public Transform Transform { get { return transform; } }
 
     protected float nextTimeForReproduction;
 

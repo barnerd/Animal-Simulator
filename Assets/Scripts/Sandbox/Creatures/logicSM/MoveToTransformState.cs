@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace BarNerdGames.Creatures.States
 {
-    public class MoveToPositionState : State<Creature>
+    public class MoveToTransformState : State<Creature>
     {
-        public MoveToPositionState(CreatureLogicSM _sm) : base("Move to Position", _sm) { }
+        public MoveToTransformState(CreatureLogicSM _sm) : base("Move to Position", _sm) { }
 
         public override void Enter(Creature _owner)
         {
@@ -17,19 +17,21 @@ namespace BarNerdGames.Creatures.States
 
         public override State<Creature> Execute(Creature _owner)
         {
-            // TODO: Check for positionTarget == Vector3.zero
+            if(_owner.moveToTransformTarget == null)
+            {
+                return (_owner.moveToTransformNextState != null) ? _owner.moveToTransformNextState : CreatureLogicSM.idleState;
+            }
 
             Vector2 creaturePosition2D = new Vector2(_owner.transform.position.x, _owner.transform.position.z);
-            Vector2 targetPosition2D = new Vector2(_owner.positionTarget.x, _owner.positionTarget.z);
+            Vector2 targetPosition2D = new Vector2(_owner.moveToTransformTarget.position.x, _owner.moveToTransformTarget.position.z);
 
             float distance = Vector3.Distance(creaturePosition2D, targetPosition2D);
 
-            // if consumptionTarget.transform is within consumingRange, go to ConsumingState
-            if (distance <= _owner.creatureData.consumingRange)
+            if (distance <= _owner.moveToTransformClosingDistance)
             {
                 //Debug.Log("State: MoveToPosition: " + _owner.name + " is moving onto the next state: " + _owner.nextStateAfterMoving);
 
-                return (_owner.nextStateAfterMoving != null) ? _owner.nextStateAfterMoving : CreatureLogicSM.idleState;
+                return (_owner.moveToTransformNextState != null) ? _owner.moveToTransformNextState : CreatureLogicSM.idleState;
             }
 
             // else, move to target
@@ -41,15 +43,15 @@ namespace BarNerdGames.Creatures.States
             _owner.GetComponent<CreatureMotor>().MoveDirection(moveDirection.normalized);
 
             // return next state
-            return CreatureLogicSM.moveToPositionState;
+            return CreatureLogicSM.moveToTransformState;
         }
 
         public override void Exit(Creature _owner)
         {
             // call _owner.function() when leaving this state
             _owner.GetComponent<CreatureMotor>().MoveDirection(Vector3.zero);
-            _owner.positionTarget = Vector3.zero;
-            _owner.nextStateAfterMoving = null;
+            _owner.moveToTransformTarget = null;
+            _owner.moveToTransformNextState = null;
         }
     }
 }
