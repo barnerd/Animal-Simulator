@@ -15,6 +15,9 @@ MonoBehaviour:
   name: donkey
   maleGraphcisData: {fileID: 11400000, guid: f61dd1c0e314748ebab0a49aad0e47c4, type: 2}
   femaleGraphcisData: {fileID: 11400000, guid: f61dd1c0e314748ebab0a49aad0e47c4, type: 2}
+  size: 1
+  type: 0
+  diet: 0
   sightRadius: 20
   consumingRange: 0.4
   eatRate: 2

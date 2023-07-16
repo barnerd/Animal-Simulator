@@ -17,7 +17,8 @@ namespace BarNerdGames.Creatures.States
 
         public override State<Creature> Execute(Creature _owner)
         {
-            if(_owner.moveToTransformTarget == null)
+            //Debug.Log("is my target null? " + _owner.moveToTransformTarget);
+            if (_owner.moveToTransformTarget == null)
             {
                 return (_owner.moveToTransformNextState != null) ? _owner.moveToTransformNextState : CreatureLogicSM.idleState;
             }
@@ -25,7 +26,7 @@ namespace BarNerdGames.Creatures.States
             Vector2 creaturePosition2D = new Vector2(_owner.transform.position.x, _owner.transform.position.z);
             Vector2 targetPosition2D = new Vector2(_owner.moveToTransformTarget.position.x, _owner.moveToTransformTarget.position.z);
 
-            float distance = Vector3.Distance(creaturePosition2D, targetPosition2D);
+            float distance = Vector2.Distance(creaturePosition2D, targetPosition2D);
 
             if (distance <= _owner.moveToTransformClosingDistance)
             {
@@ -35,7 +36,7 @@ namespace BarNerdGames.Creatures.States
             }
 
             // else, move to target
-            //Debug.Log(_owner.name + " is not close enough (" + distance + ") and moving towards: " + _owner.consumptionTarget.name);
+            Debug.Log("State: MoveToPosition: " + _owner.name + " (" + _owner.creatureData.name + ") is not close enough (" + distance + " of " + _owner.moveToTransformClosingDistance + ") and moving towards: " + _owner.moveToTransformTarget.name + " (" + _owner.moveToTransformTarget.GetComponent<Creature>().creatureData.name + ")");
 
             Vector2 moveDirection2D = targetPosition2D - creaturePosition2D;
             Vector3 moveDirection = new Vector3(moveDirection2D.x, 0, moveDirection2D.y);

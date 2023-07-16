@@ -15,6 +15,9 @@ MonoBehaviour:
   name: wolf
   maleGraphcisData: {fileID: 11400000, guid: f39ee15dd5aa3400bad3df96513ada70, type: 2}
   femaleGraphcisData: {fileID: 11400000, guid: f39ee15dd5aa3400bad3df96513ada70, type: 2}
+  size: 1
+  type: 0
+  diet: 2
   sightRadius: 20
   consumingRange: 0.4
   eatRate: 2
@@ -22,14 +25,21 @@ MonoBehaviour:
   metabolismRate: 1
   food:
   - {fileID: 11400000, guid: ae755eb107d394c4398899dcce9152b1, type: 2}
+  startingAbilities:
+  - {fileID: 11400000, guid: 481e6b22ae5c145508e4caa09ec97027, type: 2}
   healthBase: 100
   hungerBase: 50
   thirstBase: 75
   speedBase: 0
-  strengthBase: 0
+  strengthBase: 12
+  dexterityBase: 15
+  constitutionBase: 12
   slashArmorBase: 0
   pierceArmorBase: 0
   bludgeoningArmorBase: 0
   slashDamageBase: 0
   pierceDamageBase: 0
   bludgeoningDamageBase: 0
+  chanceToAttack: 1
+  chanceToDefend: 0
+  chanceToSupport: 0

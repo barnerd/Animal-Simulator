@@ -34,6 +34,8 @@ public class Creature : MonoBehaviour
 
     void Awake()
     {
+        logicSM = new CreatureLogicSM();
+
         nearbyInteractables = new List<Interactable>();
         nearbyFood = new List<IFood>();
     }
@@ -41,8 +43,6 @@ public class Creature : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        logicSM = new CreatureLogicSM();
-
         currentController.Initialize(this.gameObject);
     }
 

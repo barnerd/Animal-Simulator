@@ -4,19 +4,24 @@ using UnityEngine;
 
 namespace BarNerdGames.Skills
 {
-    [CreateAssetMenu(fileName = "New Ability", menuName = "Skill/Ability")]
     public class AbilityData : ScriptableObject
     {
         public new string name;
 
-        public KnowledgeData[] prerequisiteKnowledge;
+        [Header("Prerequisites")]
+        public KnowledgeData[] knowledgeRequirements;
 
-        public Dictionary<TechniqueData, TechniqueData.Proficiency> techniqueRequirements;
+        public TechniqueDataProficiencyDictionary techniqueRequirements;
 
-        public Dictionary<SkillType, (int min, int max)> skillRequirements;
+        public SkillTypeIntIntDictionary skillRequirements;
+        //public Dictionary<SkillType, (int min, int max)> skillRequirements;
 
-        public Dictionary<AttributeType, int> attributeRequirements;
+        public AttributeTypeIntDictionary attributeRequirements;
 
+        [Space(20)]
+        public float cooldown;
+
+        public bool usableInCombat;
         // add rewards for higher technique
         // for example, when cooking, add +5 hunger per technique level above requirement
     }

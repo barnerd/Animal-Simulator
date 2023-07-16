@@ -15,6 +15,9 @@ MonoBehaviour:
   name: deer
   maleGraphcisData: {fileID: 11400000, guid: f0fa5a161fb874016958a79c92aa17af, type: 2}
   femaleGraphcisData: {fileID: 11400000, guid: e4b62c0eb162b4fda83553fe187d4e9f, type: 2}
+  size: 1
+  type: 0
+  diet: 0
   sightRadius: 20
   consumingRange: 0.4
   eatRate: 2
@@ -26,10 +29,15 @@ MonoBehaviour:
   hungerBase: 50
   thirstBase: 75
   speedBase: 0
-  strengthBase: 0
+  strengthBase: 11
+  dexterityBase: 16
+  constitutionBase: 11
   slashArmorBase: 0
   pierceArmorBase: 0
   bludgeoningArmorBase: 0
   slashDamageBase: 0
   pierceDamageBase: 0
   bludgeoningDamageBase: 0
+  chanceToAttack: 0.5
+  chanceToDefend: 0
+  chanceToSupport: 0

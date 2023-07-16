@@ -15,6 +15,9 @@ MonoBehaviour:
   name: fox
   maleGraphcisData: {fileID: 11400000, guid: f195e0052f4944dcd9075738a56951f0, type: 2}
   femaleGraphcisData: {fileID: 11400000, guid: f195e0052f4944dcd9075738a56951f0, type: 2}
+  size: 0
+  type: 0
+  diet: 1
   sightRadius: 20
   consumingRange: 0.4
   eatRate: 2

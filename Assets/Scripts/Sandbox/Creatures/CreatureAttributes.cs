@@ -10,6 +10,8 @@ public class CreatureAttributes : MonoBehaviour
     [field: Header("Attributes")]
     [field: SerializeField] public AttributeType SpeedType { get; private set; }
     [field: SerializeField] public AttributeType StrengthType { get; private set; }
+    [field: SerializeField] public AttributeType DexterityType { get; private set; }
+    [field: SerializeField] public AttributeType ConstitutionType { get; private set; }
 
     private Dictionary<AttributeType, Attribute> attributes;
 
@@ -53,6 +55,8 @@ public class CreatureAttributes : MonoBehaviour
     {
         InitNewAttribute(SpeedType, creature.creatureData.speedBase);
         InitNewAttribute(StrengthType, creature.creatureData.strengthBase);
+        InitNewAttribute(DexterityType, creature.creatureData.dexterityBase);
+        InitNewAttribute(ConstitutionType, creature.creatureData.constitutionBase);
 
         InitNewArmorAttribute(SlashDamageType, creature.creatureData.slashArmorBase);
         InitNewArmorAttribute(PierceDamageType, creature.creatureData.pierceArmorBase);
@@ -77,19 +81,14 @@ public class CreatureAttributes : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // for testing
-        if (Input.GetKeyUp(KeyCode.T))
-        {
-            TakeDamage(SlashDamageType, 5);
-        }
     }
 
-    private Attribute InitNewAttribute(AttributeType _type, float _base)
+    private void InitNewAttribute(AttributeType _type, float _base)
     {
-        Attribute _meter = new Attribute(_base);
-        _meter.type = _type;
+        Attribute _attribute = new Attribute(_base);
+        _attribute.type = _type;
 
-        return _meter;
+        attributes.Add(_type, _attribute);
     }
 
     private void InitNewArmorAttribute(DamageType _type, float _base)
@@ -163,21 +162,26 @@ public class CreatureAttributes : MonoBehaviour
         Invoke("IncreaseThirst", 12.96f); // 100 units in 3 days is 72 mins * 3 or 3 * 72 * 60 = 12960 / 100 = 129.6f
     }
 
-    public void TakeDamage(DamageType _type, float _damage)
+    public float GetHealthValue()
     {
-        float _delta = _damage;
+        return meters[HealthType].currentValue;
+    }
 
-        if (armors.ContainsKey(_type))
-        {
-            _delta -= armors[_type].currentValue;
-        }
+    public float GetAttribute(AttributeType _type)
+    {
+        return attributes[_type].currentValue;
+    }
 
-        if (_delta < 0)
-            _delta = 0;
+    public float GetArmor(DamageType _type)
+    {
+        return armors[_type].currentValue;
+    }
 
-        meters[HealthType].ChangeMeter(-_delta, this);
+    public void TakeDamage(float _damage)
+    {
+        meters[HealthType].ChangeMeter(-_damage, this);
 
-        //Debug.Log(name + " takes " + _delta + " damage of type " + _type + ".");
+        //Debug.Log(name + " takes " + _damage + " damage of type " + _type + ".");
     }
 
     // TODO: add other attributes into this, like strength and agility

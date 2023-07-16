@@ -10,6 +10,7 @@ public class CreatureSkills : MonoBehaviour
     public Dictionary<SkillType, int> SkillLevels { get; private set; }
     public Dictionary<TechniqueData, int> TechniqueLevels { get; private set; }
     public List<AbilityData> Abilities { get; private set; }
+    public List<AttackAbilityData> AttackAbilities { get; private set; }
     public List<KnowledgeData> KnownKnowledge { get; private set; }
 
     void Awake()
@@ -18,12 +19,17 @@ public class CreatureSkills : MonoBehaviour
         TechniqueLevels = new Dictionary<TechniqueData, int>();
 
         Abilities = new List<AbilityData>();
+        AttackAbilities = new List<AttackAbilityData>();
         KnownKnowledge = new List<KnowledgeData>();
     }
+
     // Start is called before the first frame update
     void Start()
     {
-
+        foreach (var ability in GetComponent<Creature>().creatureData.startingAbilities)
+        {
+            LearnAbility(ability);
+        }
     }
 
     // Update is called once per frame
@@ -45,11 +51,16 @@ public class CreatureSkills : MonoBehaviour
 
     public void LearnAbility(AbilityData _ability)
     {
-        if (KnowAllReqs(_ability.prerequisiteKnowledge))
+        if (KnowAllReqs(_ability.knowledgeRequirements))
         {
             if (!Abilities.Contains(_ability))
             {
                 Abilities.Add(_ability);
+
+                if (typeof(AttackAbilityData).IsInstanceOfType(_ability))
+                {
+                    AttackAbilities.Add(_ability as AttackAbilityData);
+                }
             }
         }
     }
@@ -83,7 +94,7 @@ public class CreatureSkills : MonoBehaviour
         // level skills
         foreach (var skill in _ability.skillRequirements.Keys)
         {
-            if (_ability.skillRequirements[skill].max > GetSkillLevel(skill))
+            if (_ability.skillRequirements[skill].y > GetSkillLevel(skill))
             {
                 LevelSkill(skill);
             }

@@ -15,6 +15,9 @@ MonoBehaviour:
   name: cow
   maleGraphcisData: {fileID: 11400000, guid: 6186cd25ffd1541fd81e4a10e13251f4, type: 2}
   femaleGraphcisData: {fileID: 11400000, guid: 1442f1a5f714849e887bfb33416e9b62, type: 2}
+  size: 2
+  type: 0
+  diet: 0
   sightRadius: 20
   consumingRange: 0.4
   eatRate: 2

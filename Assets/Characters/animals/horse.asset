@@ -15,6 +15,9 @@ MonoBehaviour:
   name: horse
   maleGraphcisData: {fileID: 11400000, guid: 9bb8cdc576fd84b9596c444b97361496, type: 2}
   femaleGraphcisData: {fileID: 11400000, guid: ee077ffc5299d499c9ddfb6e0af2ada2, type: 2}
+  size: 2
+  type: 0
+  diet: 0
   sightRadius: 20
   consumingRange: 0.4
   eatRate: 2

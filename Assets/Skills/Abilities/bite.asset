@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1fc628648ae4a7d98b340ad353d552, type: 3}
+  m_Name: bite
+  m_EditorClassIdentifier: 
+  name: bite
+  knowledgeRequirements: []
+  techniqueRequirements:
+    m_keys: []
+    m_values: 
+  skillRequirements:
+    m_keys: []
+    m_values: []
+  attributeRequirements:
+    m_keys: []
+    m_values: 
+  cooldown: 1
+  usableInCombat: 1
+  distance: 1.33
+  targetMode: 0
+  damageType: {fileID: 11400000, guid: 820549fb8b0ed406b89df935de03946d, type: 2}
+  toHit: 4
+  damage: 7
+  aoeRadius: 0

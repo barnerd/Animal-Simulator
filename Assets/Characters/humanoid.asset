@@ -15,6 +15,9 @@ MonoBehaviour:
   name: Humanoid
   maleGraphcisData: {fileID: 11400000, guid: 2e83da632a0734676aa5b8a0321d86c9, type: 2}
   femaleGraphcisData: {fileID: 11400000, guid: 2e83da632a0734676aa5b8a0321d86c9, type: 2}
+  size: 1
+  type: 5
+  diet: 1
   sightRadius: 20
   consumingRange: 0
   eatRate: 0

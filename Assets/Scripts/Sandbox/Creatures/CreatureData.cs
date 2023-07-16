@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BarNerdGames.Skills;
 
 [CreateAssetMenu(fileName = "New Creature", menuName = "Creature/Creature Data")]
 public class CreatureData : ScriptableObject
@@ -58,18 +59,33 @@ public class CreatureData : ScriptableObject
 
     public List<ScriptableObject> food;
 
+    public List<AbilityData> startingAbilities;
+
     public float healthBase;
     public float hungerBase;
     public float thirstBase;
 
+    [Header("Attributes")]
     public float speedBase;
     public float strengthBase;
+    public float dexterityBase;
+    public float constitutionBase;
 
+    [Header("Armors")]
     public float slashArmorBase;
     public float pierceArmorBase;
     public float bludgeoningArmorBase;
 
+    [Header("Damages")]
     public float slashDamageBase;
     public float pierceDamageBase;
     public float bludgeoningDamageBase;
+
+    [Header("Combat AI Chances")]
+    [Range(0, 1)]
+    public float chanceToAttack;
+    [Range(0, 1)]
+    public float chanceToDefend;
+    [Range(0, 1)]
+    public float chanceToSupport;
 }

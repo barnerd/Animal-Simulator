@@ -12,6 +12,7 @@ public class Sight : MonoBehaviour
 
     void Start()
     {
+        // TODO: consider delaying the start of Sight from working. let everything initialize first
         sightTrigger.radius = creature.creatureData.sightRadius;
     }
 
@@ -19,10 +20,11 @@ public class Sight : MonoBehaviour
     {
         if (other.TryGetComponent<Creature>(out Creature c))
         {
-            Debug.Log("Sight: " + creature.name + " (" + creature.creatureData.name + ", " + creature.creatureData.size + ", " + creature.creatureData.diet + ")" + " can now see " + c + " (" + c.creatureData.name + ", " + c.creatureData.size + ", " + c.creatureData.diet + ")" + ", a creature.");
+            //Debug.Log("Sight: " + creature.name + " (" + creature.creatureData.name + ", " + creature.creatureData.size + ", " + creature.creatureData.diet + ")" + " can now see " + c + " (" + c.creatureData.name + ", " + c.creatureData.size + ", " + c.creatureData.diet + ")" + ", a creature.");
 
             if (creature.creatureData.type == CreatureData.CreatureType.beasts)
             {
+                //Debug.Log("Creature: " + creature + " , logicSM: " + creature.logicSM + " , fleeingState: " + CreatureLogicSM.fleeingState.stateName + " , combatState: " + CreatureLogicSM.combatState.stateName);
                 switch (creature.creatureData.diet)
                 {
                     case CreatureData.CreatureDiet.herbivore:
@@ -46,13 +48,7 @@ public class Sight : MonoBehaviour
                             if (creature.creatureData.size > c.creatureData.size)
                             {
                                 // attack
-                                creature.logicSM.ChangeState(creature, CreatureLogicSM.combatState);
-                                Combat combat = new Combat();
-                                combat.aggressor = creature;
-                                combat.AddCombatant(creature, 0);
-                                combat.AddCombatant(c, 1);
-                                creature.combat = combat;
-                                c.combat = combat;
+                                InitializeCombat(c);
                             }
                             if (creature.creatureData.size < c.creatureData.size)
                             {
@@ -67,12 +63,12 @@ public class Sight : MonoBehaviour
                             if (c.creatureData.diet == CreatureData.CreatureDiet.omnivore && creature.creatureData.size > c.creatureData.size)
                             {
                                 // attack
-                                creature.logicSM.ChangeState(creature, CreatureLogicSM.combatState);
+                                InitializeCombat(c);
                             }
                             if (c.creatureData.diet == CreatureData.CreatureDiet.herbivore && creature.creatureData.size >= c.creatureData.size)
                             {
                                 // attack
-                                creature.logicSM.ChangeState(creature, CreatureLogicSM.combatState);
+                                InitializeCombat(c);
                             }
                         }
                         break;
@@ -105,6 +101,14 @@ public class Sight : MonoBehaviour
         {
             //Debug.Log("Sight: " + creature.name + " can now see " + other + ", which I don't know what it is");
         }
+    }
+
+    private void InitializeCombat(Creature _defender)
+    {
+        Combat combat = new Combat(creature.GetComponent<CreatureCombat>(), _defender.GetComponent<CreatureCombat>());
+        creature.GetComponent<CreatureCombat>().Target = _defender.GetComponent<CreatureCombat>();
+
+        creature.logicSM.ChangeState(creature, CreatureLogicSM.combatState);
     }
 
     private void OnTriggerExit(Collider other)

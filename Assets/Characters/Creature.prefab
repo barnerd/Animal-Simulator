@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 2588414659310815121}
   - component: {fileID: 3947193458494348642}
   - component: {fileID: 1399836644176619997}
+  - component: {fileID: 8167792031295297676}
   m_Layer: 0
   m_Name: Creature
   m_TagString: Untagged
@@ -372,7 +373,8 @@ MonoBehaviour:
   gfxObject: {fileID: 7446046586336503253}
   currentController: {fileID: 11400000, guid: 9f1dcea1303b84965958e263098515f3, type: 2}
   nextTimeForAIUpdate: 0
-  positionTarget: {x: 0, y: 0, z: 0}
+  moveToTransformClosingDistance: 0
+  moveToTransformTarget: {fileID: 0}
 --- !u!114 &1497173783355084583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,6 +391,10 @@ MonoBehaviour:
   <SpeedType>k__BackingField: {fileID: 11400000, guid: 2866676b39674402a963d22a5426f6ed,
     type: 2}
   <StrengthType>k__BackingField: {fileID: 11400000, guid: 5a7e602f0ffe344c28d47583af9274b2,
+    type: 2}
+  <DexterityType>k__BackingField: {fileID: 11400000, guid: 7f35cf17fd68044059f9692116f10f0d,
+    type: 2}
+  <ConstitutionType>k__BackingField: {fileID: 11400000, guid: 9c3a5656e138448cc84b857e63ce9361,
     type: 2}
   <ArmorType>k__BackingField: {fileID: 11400000, guid: 285f8233a6e704b23b1ed18ed7cba3d4,
     type: 2}
@@ -562,6 +568,18 @@ CapsuleCollider:
   m_Height: 2.48
   m_Direction: 1
   m_Center: {x: 0, y: 1.09, z: 0}
+--- !u!114 &8167792031295297676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8875449320494236375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c4ea291f7b7f43caad43ecdf95af19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &939484580320138615
 PrefabInstance:
   m_ObjectHideFlags: 0
