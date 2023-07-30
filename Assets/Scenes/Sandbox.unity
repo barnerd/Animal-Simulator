@@ -18975,12 +18975,8 @@ MonoBehaviour:
     type: 3}
   playerCreatureData: {fileID: 11400000, guid: fd84b48232d9d472aaf3c77588ff7e43, type: 2}
   creatureDatas:
-  - {fileID: 11400000, guid: 51e2b4f88ca134a188d15dd1cdb012da, type: 2}
   - {fileID: 11400000, guid: ae755eb107d394c4398899dcce9152b1, type: 2}
-  - {fileID: 11400000, guid: 04cbda4ab00ef4842a54b495b4c4eafd, type: 2}
-  - {fileID: 11400000, guid: 05957eee40bf04c96b2bb38213b4b263, type: 2}
   - {fileID: 11400000, guid: 36471883a0e044db296b49eeee9aa59b, type: 2}
-  - {fileID: 11400000, guid: 94a23bf0a36cb4416ace30300d2e5c7c, type: 2}
   baseClothing:
   - {fileID: 11400000, guid: 4f1309769e16e442fabccb5499d369c6, type: 2}
   playerController: {fileID: 11400000, guid: dd6b1523321d8494b9d225482b8c41ae, type: 2}

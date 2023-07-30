@@ -25,7 +25,7 @@ MonoBehaviour:
     m_values: 
   cooldown: 1
   usableInCombat: 1
-  distance: 1.33
+  distance: 1.54
   targetMode: 0
   damageType: {fileID: 11400000, guid: 820549fb8b0ed406b89df935de03946d, type: 2}
   toHit: 4
